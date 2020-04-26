@@ -1,7 +1,6 @@
 ---
 title: Vue文档
 date: 2019-12-12 10:00:46
-category: Vue
 ---
 1. Vue.component
 缺点：强制要求每个component中的命名不得重复；字符串模板；不支持CSS；限制只能使用html和es5，不能使用预处理器

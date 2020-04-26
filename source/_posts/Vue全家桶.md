@@ -1,7 +1,6 @@
 ---
 title: 连夜学的Vue
 date: 2019-10-11 10:27:39
-category: Vue
 ---
 ### 1. 组件
 - slot

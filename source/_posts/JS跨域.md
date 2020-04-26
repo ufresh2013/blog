@@ -1,9 +1,8 @@
 ---
-title: JS跨域
+title: 跨域请求
 date: 2018-11-06 17:57:46
-tags: JS
 category:
-- JS
+- Browser
 ---
 ### 1. 同源策略
 为什么会出现跨域？因为存在同源策略。
@@ -33,24 +32,46 @@ category:
 #### 2.1 CORS
 CORS 跨域资源共享，它允许浏览器向跨域服务器，发出XMLHttpRequest请求，从而克服ajax只能同源使用的限制。
 
-整个CORS通信过程，由浏览器自动完成，对开发者来说，CORS通信与ajax没有差别。浏览器一旦发现ajax请求跨源，会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。*浏览器将CORS请求分成两类：简单请求和非简单请求*
+整个CORS通信过程，由浏览器自动完成，对开发者来说，CORS通信与ajax没有差别。浏览器一旦发现ajax请求跨源，会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。浏览器将CORS请求分成两类：简单请求和非简单请求。
 
 <br/>
-##### 2.1.1 CORS简单请求
-简单请求需满足两个条件
-```
-1、请求方法是以下三种之一
-HEAD
-GET
-POST
+##### 2.1.1 触发预请求
+当请求满足下述任一条件时，即会触发预检请求：
+- 使用了下面任一HTTP方法：
+    - PUT
+    - DELETE
+    - CONNECT
+    - OPTIONS
+    - TRACE
+    - PATCH
 
-2、HTTP的头部信息不超过以下几种
-Accept
-Accept-Language
-Content-Language
-Last-Event-ID
-Content-Type：限三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
-```
+- 人为设置了下面字段以外的其他首部字段：
+    - Accept
+    - Accept-Language
+    - Content-Language
+    - Content-Type
+    - DPR
+    - Downlink
+    - Save-Data
+    - Viewport-Width
+    - Width
+
+- `Content-Type`的值不属于下列之一
+    - application/x-www-form-urlencoded
+    - multipart/form-data
+    - text/plain
+    
+- 请求中的`XMLHttpRequestUpload`对象注册了任一多个事件监听器
+- 请求中使用`ReadableStream`对象
+
+<br/>
+*Q: 有一个需求复杂的老项目，每个请求都会触发预请求。怎样消除预请求，减少请求数？*
+
+
+
+<br/>
+
+##### 2.2.2 简单请求
 对于简单请求，浏览器直接发出CORS请求，并在头信息中，增加`Origin`字段
 ```
 GET /cors HTTP/1.1
@@ -68,16 +89,7 @@ Access-Control-Expose-Headers: FooBar            // 可选
 
 
 <br/>
-##### 2.1.2 CORS非简单请求
-对服务器有特殊要求的请求，如请求方法是`PUT`或`DELETE`,或`Content-Type`字段类型是`application/json`。
-```
-var url = 'http://api.alice.com/cors';
-var xhr = new XMLHttpRequest();
-xhr.open('PUT', url, true);
-xhr.setRequestHeader('X-Custom-Header', 'value');
-xhr.send();
-```
-
+##### 2.2.3 非简单请求
 非简单请求，会在正式通信之前，增加一次HTTP查询请求，称为“预检”（preflight）。
 *预检请求*用的请求方法是`OPTIONS`，表示这个请求是用来询问的。
 ```
@@ -106,7 +118,7 @@ Access-Control-Max-Age: 1728000
 
 
 <br/>
-##### 2.1.3 withCredentials
+##### 2.2.4 withCredentials
 CORS请求默认不发送Cookie和HTTP认证信息。如果要把cookie发到服务器，服务器需要指定`Access-Control-Allow-Credentials`字段。
 ```
 Access-Control-Allow-Credentials: true

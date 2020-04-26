@@ -1,7 +1,6 @@
 ---
 title: Linux基本命令
 date: 2019-09-01 08:59:48
-category: 其他
 ---
 <img src="1.png">
 ### 1. 归档操作

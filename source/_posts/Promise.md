@@ -393,3 +393,6 @@ Promise.all()接受一个由promise任务组成
 - https://wangdoc.com/javascript/async/index.html
 - https://www.jianshu.com/p/8d5c3a9e6181
 - [前端基础进阶（十三）：透彻掌握Promise的使用，读这篇就够了](https://www.jianshu.com/p/fe5f173276bd)
+
+https://juejin.im/post/5c9a43175188252d876e5903
+https://juejin.im/post/5e3b9ae26fb9a07ca714a5cc

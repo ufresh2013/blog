@@ -1,7 +1,6 @@
 ---
 title: shell命令
 date: 2019-12-13 17:37:21
-category: 其他
 ---
 1. find
 find [路径] [选项] [操作]

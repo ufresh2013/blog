@@ -1,7 +1,7 @@
 ---
-title: getDerivedStateFromProps的一个bug
+title: React 你可能不需要派生的state
 date: 2019-07-24 10:45:11
-category: React
+category: Bug
 ---
 ### 1. 实现需求
 - 子组件是个弹框
