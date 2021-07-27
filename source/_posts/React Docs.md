@@ -1,5 +1,5 @@
 ---
-title: React文档
+title: React
 date: 2018-10-25 10:54:32
 category: React
 ---

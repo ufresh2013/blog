@@ -33,5 +33,12 @@ su - root   | 切换到root用户
 进入vim编辑文件
 
 
+
+
+趣谈linux命令
+
+/bin/bash 是用来配置登录后的默认交互命令行
+
+
 ### 参考资料
 - [写代码怎能不会这些 Linux 命令？](https://juejin.im/entry/599b9e07f265da246d6af09f)

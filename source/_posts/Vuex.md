@@ -1,25 +1,69 @@
 ---
 title: Vuex
 date: 2019-10-25 11:48:17
-tags:
+category: Vue
 ---
 > 当多个视图依赖同一状态，来自不同视图的行为需要变更同一状态。我们可以把组件的共享状态抽取出来，以一个全局单例模式管理，任何组件都能获取状态或者触发行为。
 
+Q: 什么时候用Vuex？
+A: 多个组件依赖于同一状态时，如用户信息，菜单权限
+
+Q: 获取Vuex中的state
+```js
+// 获取state状态
+
+// 批量获取state状态
+import { mapState } from 'vuex'
+export default {
+	computed: {
+		...mapState(['price', 'number']),
+		total () {
+			return this.$store.state.total
+		}
+	}
+}
+
+// getters: 从state中派生一些状态
+
+```
+
+Q: 从state中派生一些状态：`getters`和`mapGetters`
+```js
+const store = new Vuex.store({
+	state: {
+		price: 10,
+		number: 10
+	},
+	getters: {
+		total: state => {
+			return state.price * state.number
+		}
+	}
+}) 
+```
 
 ### 1. 基本用法
 ```js
 const store = new Vue.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment (state) {
-            state.count++;
-        }
-    }
+	state: {
+		count: 0
+	},
+	mutations: {
+		increment (state) {
+			state.count++;
+		}
+	}
 })
+
+// 通过store.commit mutations触发状态变更
 store.commit('increment')
+
+
+
+
+
 ```
+
 
 #### 1.1 state 
 - Vuex通过store选项，提供了一种机制将状态从根组件注入到每一个子组件中。
@@ -27,31 +71,26 @@ store.commit('increment')
 也可以用`mapState`辅助函数帮助我们生成计算属性。
 ```js
 import { mapState } from 'vuex';
-const app = new Vue({
-    el: '#app',
-    store,
-    components: { Counter }
-})
 
 const Counte = {
-    template: '<div>{{ count }}</div>',
-    computed: {
-        // count() {
-        //     return this.$store.state.count
-        // },
-        ...mapState({
-            count: state => state.count,
-            // 为了能够使用 this 获取局部状态，必须使用常规函数
-            countPlusLocalState (state) {
-                return state.count + this.localCount
-            }
-        })
-    },
-    methods: {
-        addCount() {
-            this.$store.commit('increment')
-        }
-    }
+	template: '<div>{{ count }}</div>',
+	computed: {
+		// count() {
+		//     return this.$store.state.count
+		// },
+		...mapState({
+				count: state => state.count,
+				// 为了能够使用 this 获取局部状态，必须使用常规函数
+				countPlusLocalState (state) {
+						return state.count + this.localCount
+				}
+		})
+	},
+	methods: {
+			addCount() {
+					this.$store.commit('increment')
+			}
+	}
 }
 ```
 
@@ -215,3 +254,7 @@ computed: {
 ```
 
 - 将状态和状态变更事件分布到各个子模块中
+
+
+
+- [Vuex面试题汇总](https://juejin.cn/post/6844903993374670855)

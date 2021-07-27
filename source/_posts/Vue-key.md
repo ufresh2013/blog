@@ -1,5 +1,5 @@
 ---
-title: DOM Diff - v-for为什么要加key
+title: Vue中v-for为什么要加key
 date: 2019-12-16 08:52:44
 category: Vue
 ---
@@ -9,15 +9,18 @@ VirtualDOM的主要思想就是模拟DOM的树状结构，在内存中创建保�
 
 
 <br/>
+
 ### 1. Diff算法
 #### *1.1 按tree层级diff*
 UI中很少出现DOM的层级结构因为交互而产生更新。因此VirtualDOM的diff策略是在新旧节点树之间按层级进行diff得到差异，而非传统的按深度遍历搜索。
 <img src="1.png">
 
 <br/>
+
 #### *1.2 按类型diff*
 VirtualDOM中的节点数据对应的是一个原生DOM节点，或者vue/react中的一个组件。不同类型的节点往往相差很大，当节点类型发生改变时，则不进行子树的比较，直接创建新类型的VirtualDOM，替换旧节点。
 <img src="2.png">
+
 ```js
 // snabbdom.js
 function sameVnode(vnode1, vnode2) {
@@ -45,6 +48,7 @@ function patch(oldVnode, vnode) {
 ```
 
 <br/>
+
 #### *1.3 列表diff*
 当被diff的节点处于同一层级时，可以执行 插入、移动和删除三种操作。同时提供用户设置key属性的方式调整排序。
 <img src="3.png">
@@ -53,6 +57,7 @@ function patch(oldVnode, vnode) {
 
 <br/>
 <br/>
+
 ### 2. Key
 *v-for为什么要加Key?*
 当递归DOM节点的子元素时，Vue会同时遍历两个子元素的列表，当产生差异时，生成一个DOM操作。
@@ -95,6 +100,7 @@ function patch(oldVnode, vnode) {
 
 
 <br/>
+
 ### 3. 优化列表更新性能
 下面看看snabbdom怎么处理这个*`key`*值。
 (snabbdom仅有300行代码，被vue2.0收入来实现DOM比较和更新)
@@ -105,6 +111,7 @@ function patch(oldVnode, vnode) {
 
 
 <br/>
+
 #### 3.2 列表重新排序
 如果oldCh中有这个key值，就对旧节点进行更新，再将其插入到当前的oldStartVnode的前面。
 ```js
@@ -165,11 +172,13 @@ function updateChild(parentElm, oldVnode, vnode) {
 ```
 
 <br/>
+
 ### 4. 注意
 - 开发者可以通过key prop来暗示哪些子元素在不同的渲染下能保持稳定。Key应该具有稳定，可预测，以及列表内唯一的特质。不稳定的key(通过`Math.random()`生成的)会导致许多组件实例和DOM节点被不必要地重新创建，可能会导致性能下降和子组件中的状态丢失。
 - 【真实情景】上传多张发票，上传后自动识别发票数据，用户可以修改数据。点击图片，切换发票数据的修改。这时需要给`<form>`添加`key`值，否则在切换时，Vue会认为这是同一个组件。会把一些校验提示带到下一个发票表单。
 
 <br/>
+
 ### 参考资料
 - [探索Virtual DOM的前世今生](https://juejin.im/post/5b0638a9f265da0db53bbb6d)
 - [React Diff算法](https://zh-hans.reactjs.org/docs/reconciliation.html)

@@ -24,6 +24,7 @@ category: Bug
 这次的图片是通过XHR请求，获取图片的base64内容。我们一般会给XHR设置一个超时时间，而平时用的`<img src>`没有人为的超时限制，只有服务器明确返回请求失败，才算失败。
 
 <br/>
+
 ### 3. 解决
 这时我们需要实现一个并发控制函数，保证每次最多只有6个请求，无论哪一个先执行完，都会继续执行下一个，直到所有请求完成。
 ```js
@@ -34,20 +35,20 @@ category: Bug
  * @return {Promise} 返回一个 Promise 确认所有数据是否迭代完成
  */
 let mapLimit = (list, limit, asyncHandle) => {
-    let recursion = (arr) => {
-        return asyncHandle(arr.shift())
-            .then(() => {
-                if (arr.length !== 0) {
-                    return recursion(arr) // 数组未迭代完，继续请求
-                }
-            })
-    }
-    let listCopy = [].concat(list)
-    let asyncList = [] // 正在进行的所有并发异步操作
-    while (limit--) {
-        asyncList.push(recursion(listCopy))
-    }
-    return Promise.all(asyncList) // 所有并发异步操作都完成后，本次并发控制迭代完成
+	let recursion = (arr) => {
+		return asyncHandle(arr.shift())
+			.then(() => {
+				if (arr.length !== 0) {
+					return recursion(arr) // 数组未迭代完，继续请求
+				}
+			})
+	}
+	let listCopy = [].concat(list)
+	let asyncList = [] // 正在进行的所有并发异步操作
+	while (limit--) {
+		asyncList.push(recursion(listCopy))
+	}
+	return Promise.all(asyncList) // 所有并发异步操作都完成后，本次并发控制迭代完成
 }
 ```
 

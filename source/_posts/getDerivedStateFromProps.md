@@ -10,6 +10,7 @@ category: Bug
 
 
 <br/>
+
 ### 2. 出现Bug
 使用*`getDerivedStateFromProps`* 让组件在props变化时更新state。但实际上只要腹肌重新渲染时，这个生命周期函数就会重新调用，不管 *`props`* 有没有变化。因此会出现下面的bug。
 
@@ -24,6 +25,7 @@ category: Bug
 
 
 <br/>
+
 ### 3. 解决方法
 #### 3.1 完全可受控组件
 从组件里删除state，变量只受`props`控制，调用父组件方法修改值。
@@ -35,6 +37,7 @@ function EmailInput(props) {
 
 
 <br/>
+
 #### 3.2 有key的非可控组件
 让组件自己存储临时的email state，但组件可以从`props`接收初始值，但更改之后的值就与props无关。
 ```js
@@ -63,6 +66,7 @@ class EmailInput extends React.Component {
 
 
 <br/>
+
 #### 3.3 getDerivedStateFromProps
 但有时组件初始化的开销太大，一个麻烦但可行的方案是在`getDerivedStateFromPorps`观察`userID`的变化。这样可以确认state的值，是通过父组件修改的，再做对应的处理。
 ```js
@@ -86,6 +90,7 @@ class EmailInput extends React.Component {
 
 
 <br/>
+
 #### 3.4 ref调用子组件方法
 注意，不能ref高阶组件(connect到redux的组件)
 

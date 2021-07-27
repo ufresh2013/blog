@@ -23,6 +23,7 @@ View需要什么数据，ViewModel要提供这个数据；View有哪些些操作
 
 
 <br/>
+
 ### 2. 数据驱动
 对于 View 来说，如果封装得好，一个UI组件能很方便地给大家复用。对于 Model 来说，它其实是用来存储业务的数据的，如果做得好，它也可以方便地复用。那么，ViewModel有多少可以复用？我们写完了一个 Vue实例之后，可以很方便地复用它吗？结论是：*非常难复用*。
 
@@ -44,6 +45,7 @@ ViewModel做的什么？就是写那些不能复用的业务代码。当交互�
 
 
 <br/>
+
 ### 3. Object.defineProperty
 Vue实现数据驱动的核心是利用了ES5的Object.defineProperty。
 
@@ -60,6 +62,7 @@ obj.text = 1; // 会触发updateUI()
 Vue采用这种数据劫持的方式，通过Object.defineProperty()方法来劫持 data 所有对象的 setter，使得data发生变动时能自动执行 重新编译模板。
 
 <br/>
+
 #### 3.1 实现Demo
 {% raw %}
 <input id="input">
@@ -109,6 +112,7 @@ Vue采用这种数据劫持的方式，通过Object.defineProperty()方法来劫
 <img src="3.png">
 
 <br/>
+
 #### 3.2 检查变化的缺陷
 受现代JS的限制
 - Vue不允许动态添加根级别的响应式属性
@@ -133,6 +137,7 @@ this.arr = thia.arr.filter((item) => item.key)
 
 
 <br/>
+
 ### 4. proxy
 ```js
 const handler = {
@@ -151,6 +156,7 @@ this.data = new Proxy(this.data, handler);
 ```
 
 <br/>
+
 ### 5. 依赖收集
 这看上去很简单，但是它背后又潜藏着几个要处理的问题：
 
@@ -188,6 +194,7 @@ var Dep = {
 
 
 <br/>
+
 ### 6. 实现MVVM Demo
 ```html
 <!DOCTYPE html>
