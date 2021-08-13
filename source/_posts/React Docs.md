@@ -1,7 +1,6 @@
 ---
 title: React
 date: 2018-10-25 10:54:32
-category: React
 ---
 ### 1. Main Concept
 Building blocks of React apps: elements and components. Once you master them, you can create complex apps from small reusable pieces.

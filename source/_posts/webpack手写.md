@@ -9,8 +9,7 @@ category: NodeJS
 <br/>
 
 ### 1. 打包文件分析
-
-首先webpack构建出的`bundle.js`长这样
+首先webpack构建出的`bundle.js`长这样。整个代码是一个自执行函数，函数接收的是一个数组，数组的每一项是一个模块，它们也被一个函数包裹起来。
 ```js
 (function(modules) {
   // 模拟require语句
@@ -18,7 +17,7 @@ category: NodeJS
   }
   // 执行存放所有模块数组中的第0个模块
   _webpack_require__[0]
-})([/* 存放所有模块的数组 */])
+})([/* 存放所有模块的数组 */module0, module1])
 
 ```
 

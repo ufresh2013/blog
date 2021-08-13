@@ -1,5 +1,5 @@
 ---
-title: electron + creact-react-app + dva搭建项目
+title: Electron + creact-react-app + ant-design搭建项目
 date: 2019-08-05 16:57:09
 category: NodeJS
 ---
@@ -24,7 +24,7 @@ npm start
 npm run eject
 
 # 安装electron
-npm install electron --save-dev
+npm install electron --save
 
 # 修改pakcage.json
 "main": "public/electron.js",
@@ -38,6 +38,7 @@ npm install electron --save-dev
 
 
 <br/>
+
 ### 2. 添加electron启动文件
 创建electron启动文件`/public/electron.js`，有两点修改：
 - 定义开发环境下`mainWindow.loadURL('http://localhost:3000')`,发布环境下则加载 `build/index.html` 文件。

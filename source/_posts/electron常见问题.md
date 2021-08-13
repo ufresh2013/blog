@@ -1,5 +1,5 @@
 ---
-title: electron开发中碰到的问题
+title: Electron碰到的问题
 date: 2019-09-19 11:33:36
 category: NodeJS
 ---

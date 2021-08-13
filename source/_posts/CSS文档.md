@@ -17,7 +17,15 @@ KHTML引擎内核的浏览器 | Konqueror        | -khtml-
 Trident引擎内核的浏览器 | Internet Explorer | -ms- 
 Webkit             | Chrome, Safari   | -webkit-
 
+<br/>
+
 #### 1.2 选择器
+样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则。
+
+试想一下，如果采用从左至右的方式读取CSS规则，那么大多数规则读到最后（最右）才会发现是不匹配的，这样做会费时耗能，最后有很多都是无用的；
+
+而如果采取*从右向左的方式，那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配。*
+
 - 属性选择器
 ```
 <div data-quantity="1kg" data-vegetable="not spicy like chili"></div>

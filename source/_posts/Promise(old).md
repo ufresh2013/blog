@@ -6,10 +6,194 @@ category: JS
 
 
 
+### 1. 地狱回调
+在Promise出现之前，当我们需要根据第一个网络请求的结果，再去执行第二个网络请求....代码大概如下：
+```js
+let fs = require('fs')
+fs.readFile('./a.txt','utf8',function(err,data){
+  fs.readFile(data,'utf8',function(err,data){
+    fs.readFile(data,'utf8',function(err,data){
+      console.log(data)
+    })
+  })
+})
+```
+回调地狱 出现了。这时，有人提议用一种更加友好的代码组织方式，解决异步嵌套的问题。于是Promise规范诞生了。
+```js
+let fs = require('fs');
+
+funtion read(url) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(url, 'urf8', function(error, data){
+      error && reject(error);
+      resolve(data)
+    })
+  })
+}
+
+read('./a.txt').then(data => {
+  return read(data)
+}).then(data => {
+  return read(data)
+}).then(data => {
+  console.log(data)
+})
+```
+
+
+
+
+<br/>
+
+### 2. 常见异步编程方案
+#### 2.1 回调函数callback
+```js
+// ajax readystatechange == 4 执行回调函数
+$.ajax('http://www.baidu.com', {
+  success: function(res){
+    // ... 
+  }
+})
+
+// jquery加载完执行callback
+$(function(){
+  // ....
+})
+```
+
+
+
+<br/>
+
+#### 2.2 事件监听
+start的执行不取决于代码的顺序，而取决于事件是否发生。
+```js
+function start(){
+  // 响应事件
+}
+
+document.getElementById('start').addEventListerner('click', start, false);
+```
+
+
+
+<br/>
+
+#### 2.3 发布/订阅
+事件可以理解成“信号”， 如果存在一个“信号中心”，某个任务执行完成，就向信号中心“发布”一个信号。其他任务可以向信号中心“订阅”(subscribe)这个信号，从而知道什么时候自己可以开始执行。这叫做“发布/定于模式”，又称“观察者模式”。
+
+f1执行完成后，向信号中心jQuery发布done信号，从而引发f2的执行。
+```js
+jQuery.subscribe('done', f2);
+
+function f1() {
+  setTimeout(function(){
+    // ...
+    jQuery.publish('done');
+  })
+}
+```
+
+
+
+<br/>
+
+### 3. Promise
+在浏览器里,回调主要出现在ajax, file API, 事件监听里，这个时候问题尚不严重。有了Node.js以后，无阻塞高并发的特点，产生了大量操作依赖回调函数。
+
+*异步函数的问题*
+- 异步函数在一个新的栈里面执行，外面的栈无法通过try()catch{}捕获这个栈的错误信息
+- 无法判断多个异步函数的完成顺序，我们需要把返回结果存储在外层作用域。这时候外部变量容易出现错误
+
+基于这些问题，Promise提出了一套将异步操作队列化，使异步计算按照期望的顺序执行的方法。
+
+```js
+new Promise(
+  // 执行器
+  function(resolve, reject) {
+    // 一段耗时很长的异步操作
+    resolve(); // 数据处理完成，调用resolve，改变promise实例的状态
+    reject();  // 数据处理出错，调用reject，改变promise实例的状态
+  }
+)
+.then(function A(){
+  // 上面的resolve执行后，执行这里
+}, function B(){
+  // 上面的reject执行后，执行这里
+})
+```
+
+- 一个Promise表示一个现在、将来或永不可能可用的值。
+- Promise有3个状态：pending(初始状态), fulfilled(操作成功), rejected(操作失败)
+- Promise状态发生改变，就会触发.then()里的响应函数处理后续步骤
+- Promise状态已经修改，不会再变
+- Promise实例一经创建，执行器立即执行
+- .then()接受两个函数作为参数，分别代表fulfilled和rejected。当前面的Promise状态改变时，.then()根据其最终状态，选择特定的状态响应函数执行。
+- .then()返回一个新的Promise实例，所以它可以链式调用
+- 如果.then()返回其他任何值，则会立即执行下一级.then()
+- 错误处理的两种做法： `reject('错误信息').then(null, message => {})`; `throw new Error('错误信息').catch(message => {})`。建议在队列的最后面加上`.catch()`，以避免漏掉错误处理。
+
+```js
+new Promise(resolve => {
+  setTimeout(() => {
+    resolve('hello')
+  }, 2000);
+})
+.then(value => {
+  console.log(value);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('world')
+    }, 2000)
+  })
+})
+.then(value => {
+  console.log(value + 'world')
+})
+
+// 2s hello
+// 再过2s hello world
+```
+另一个例子
+```js
+console.log('start');
+
+let promise = new Promise(resolve => {
+  setTimeout(() => {
+    console.log('the promise fulfilled');
+    resolve('hello world')
+  }, 1000)
+})
+
+setTimeout(() => {
+  promise.then(value => {
+    console.log(value)
+  })
+}, 3000)
+
+// start
+// 1s后 the promise fulfilled
+// 再过2s hello world
+```
+
+
+
 <br/>
 
 ### 2. Promise API
 Promise对象用于表示一个异步操作的最终完成（或失败），及其结果值。executor是带有resolve和reject两个参数的函数，Promise执行时立即调用executor函数。
+```js
+function myAsyncFunc(url) {
+  return new Promise((resolve, reject) => {
+    /* executor */
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.onload = () => resolve(xhr.responseText)
+    xhr.onerror = () => reject(xhr.statusText)
+    xhr.send()
+  })
+}
+```
 
 - Promise.prototype.then
 
@@ -208,8 +392,6 @@ Promise.all()接受一个由promise任务组成
 
 
 ### async/await和promise优缺点分析
-async await是有传染性的 —— 当一个函数变为async后，这意味着调用他的函数也需要是async。
-
 async/await优点：
 - 做到了真正的串行同步写法
 - 对条件语句和其他流程语句比较友好，可以直接写到判断条件里

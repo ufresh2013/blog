@@ -1,33 +1,29 @@
 ---
 title: React
 date: 2019-05-29 17:27:47
-category: React
 ---
 
-> 传统DOM操作关注太多细节；应用程序状态分散在各处，难以追踪和维护。为了解决这些问题，React提供了以下方案来解决这些问题：1. **允许用组件描述UI**，解决UI细节问题； 2. **单向数据流**，以state为基础来产生UI，始终整体刷新。
-
-
 <br/>
-### 1. React组件
-React组件可以理解为一个纯函数`props + state = View`。React组件尽量无状态，所需数据通过props获取。
+
+### 1. 组件类API
+`Component`, `PureComponent`，和react提供的内置组件，如`Fragment`,`StrictMode`, `forwardRef`, `memo`等
+
+
+### 2. setState
+React将多个setState的调用合并为一个来执行，也就是说，当执行setState的时候，state中的数据并不会马上更新。
+
+但是实际开发中，我们可能需要同步的获取到更新之后的数据，那么怎么获取呢？
+
+setState提供了一个回调函数，在回调函数中，我们可以实时的获取到更新之后的数据。
 ```js
-// 表单元素状态由使用者维护
-<input
-  type="text"
-  value={this.state.value}
-  onChange={evt => this.setState({ value: evt.target.value })}
-/>
-
-// 表单元素状态DOM自身维护
-<input
-  type="text"
-  ref={node => this.input = node}
-/>
-```
-
+this.setState({number:3},()=>{
+  console.log(this.state.number)
+})
+``
 
 
 <br/>
+
 ### 2. JSX
 与vue自定义的一套模板不同，jsx不是模板语言，只是一种语法糖 —— 在js代码中直接写HTML标记。当遇到*`<`*就当HTML解析,遇到*`{`*就当js解析。
 ```js
@@ -45,6 +41,7 @@ const element = <li>{props.message}</li>;
 
 
 <br/>
+
 ### 3. 生命周期
 **constructor**
 标准js类的构造函数，用于初始化内部状态。
@@ -76,6 +73,7 @@ UI渲染完成后调用，只执行一次，此处可以发起ajax请求
 
 
 <br/>
+
 ### 4. Virtual DOM
 Virtual DOM是jsx的运行基础。React组件在内部维护了一套Virtual DOM的状态，这套虚拟状态最终会映射到真实的DOM节点。虚拟DOM状态发生变化时，会diff Virtual DOM, 最小化真实DOM的修改。
 
@@ -91,4 +89,16 @@ Virtual DOM是jsx的运行基础。React组件在内部维护了一套Virtual DO
 <br/>
 ### 6. Context API
 共享全局状态, 根节点提供所有的上下文数据，子节点通过context API获取全局状态。当Provider的值发生变化时，下面所有Consumer都会发生变化。
+
+
+
+
+
+
+
+
+### React 
+- 遵循组件设计模式、声明式变成范式、函数式编程
+
+
 

@@ -1,13 +1,92 @@
 ---
-title: DOM - 原生js操作页面元素
+title: DOM 如何生成？提供了哪些API？
 date: 2018-10-07 10:03:16
 category: Browser
 ---
+
+### 0. DOM
+从网络传给渲染引擎的HTML文件字节流是无法直接被渲染引擎理解的，所以要将其转化为渲染引擎能够理解的内部结构，这个结构就是 DOM。*DOM 是表述 HTML 的内部数据结构。*
+- 从页面视角看，DOM是生成页面的基础数据结构
+- 从 JavaScript 脚本视角来看，DOM 提供给 JavaScript 脚本操作的接口，通过这套接口，JavaScript 可以对 DOM 结构进行访问，从而改变文档的结构、样式和内容
+- 从安全视角来看，DOM 是一道安全防护线，一些不安全的内容在 DOM 解析阶段就被拒之门外了。
+
+<br/>
+
+#### *DOM树如何生成？*
+在渲染引擎内部，有一个叫 **HTML 解析器（HTMLParser**）的模块，它的职责就是负责将 HTML 字节流转换为 DOM 结构。
+具体的流程如下：
+- 网络进程接收到响应头后，如果`content-type是text/html`, 那么浏览器就会判断这是一个 HTML 类型的文件，然后为该请求选择或者创建一个渲染进程
+- 渲染进程准备好之后，网络进程接收到数据后，将数据传递给渲染进程。渲染进程则把数据交给**HTML解析器**（ HTML 解析器并不是等整个文档加载完成之后再解析的，而是网络进程加载了多少数据，HTML 解析器便解析多少数据。）
+- 通过分词器将字节流转换成Token
+<img src="6.jpg">
+- 将Token解析为DOM节点，并将DOM节点添加到DOM树中
+<img src="7.jpg" style="width: 600px">
+
+
+<br/>
+
+
+#### *JS会阻塞DOM生成吗？* —— 会
+- 解析到*`内嵌<script>脚本`*标签时，渲染引擎判断这是一段脚本，此时 HTML 解析器就会暂停 DOM 的解析，因为接下来的 JavaScript 可能要修改当前已经生成的 DOM 结构。
+```html
+<html>
+<body>
+    <div>1</div>
+    <script>
+      let div1 = document.getElementsByTagName('div')[0]
+      div1.innerText = 'time.geekbang'
+    </script>
+    <div>test</div>
+</body>
+</html>
+```
+- 解析到*`<scirpt>文件`*时，执行流程还是一样的，会暂停整个DOM的解析，先下载这个JS文件，然后执行JS代码
+- *`async`* 或 *`defer`* 来标记代码
+
+  - *`async`* 一旦加载完成，会立即执行；
+  - *`defer`* 在 DOMContentLoaded 事件之前执行。
+
+    - *`onload`* 页面上所有的DOM，样式表，脚本，图片，flash都已经加载完成了。
+    - *`DOMContentLoaded`* 仅DOM加载完成，不包括样式表，图片，flash。
+
+- 预解析操作：当渲染引擎收到字节流之后，会开启一个预解析线程，用来分析 HTML 文件中包含的 JavaScript、CSS 等相关文件，解析到相关文件之后，预解析线程会提前下载这些文件。
+
+
+<br/>
+
+#### *CSS会阻塞DOM生成吗？* —— 会
+JS代码出现了 `div1.style.color = ‘red'` 的语句，它是用来操纵 CSSOM 的，所以在执行之前，需要先解析js语句之上所有的 CSS 样式。所以如果代码里引用了外部的 CSS 文件，那么在执行js之前，还需要等待外部的 CSS 文件下载完成，并解析生成 CSSOM 对象之后，才能执行。
+```html
+<html>
+  <head>
+    <style src='theme.css'></style>
+  </head>
+<body>
+  <div>1</div>
+  <script>
+      let div1 = document.getElementsByTagName('div')[0]
+      div1.innerText = 'time.geekbang' //需要DOM
+      div1.style.color = 'red'  //需要CSSOM
+  </script>
+  <div>test</div>
+</body>
+</html>
+```
+
+
+#### *DOM什么时候渲染？*
+
+#### *为什么操作DOM很慢？*
+
+
+<br/>
+
 ### 1. Node
 DOM是针对HTML和XML文档的一个API。DOM描述了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。每一段标记都可以通过树中的一个节点来表示。
 <img src="1.png" style="max-width:250px">
 
 <br/>
+
 #### 1.1 节点类型
 JS中的所有节点类型都继承自Node类型，除了IE，其他浏览器都可以访问这个类型。每个节点都有一个`nodeType`属性，由12个数值常量来表示。
 ```
@@ -28,6 +107,7 @@ Node.NOTATION_NODE          | 12
 
 
 <br/>
+
 #### 1.2 节点关系
 每一个节点都有一个`childNodes`属性，其中保存着一个`NodeList`对象。`NodeList`是一种类数组对象，用于保存一组有序的节点，它实际上基于DOM结构动态执行查询的结果。DOM结构的变化能自动反映在`NodeList`对象中。
 ```
@@ -53,6 +133,7 @@ someNode.lastChild          // 最后一个子节点
 ```
 
 <br/>
+
 #### 1.3 操作节点
 - *appendChild*
 用于向`childNodes`列表的末尾添加一个节点。

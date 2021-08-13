@@ -1,8 +1,15 @@
 ---
-title: Vue API
+title: Vue API 是真的好用！
 date: 2019-10-11 10:27:39
 category: Vue
 ---
+### 0. Vue实例挂载过程会发生什么？
+我们首先找到`Vue`的构建函数
+```js
+
+```
+
+
 ### 1. *`Mixin`*:各种属性会如何混入当前组件？
 `Mixin`本质是一个js对象，它可以包含我们组件中任意功能选项，如`data`, `components`, `methods`, `created`, `computed`等等。
 
@@ -31,11 +38,11 @@ for (let i = 0; i < 10000; i++) {
 ```
 
 *NextTick实现原理*
-(源码位置：/src/core/util/next-tick.js）
 - 把回调函数放入callbacks等待执行
 - 将待执行函数放到微任务或者宏任务中：Promise.then、MutationObserver、setImmediate、setTimeout降级操作
 - 事件循环到了微任务或者宏任务，执行函数依次执行callbacks中的回调
 ```js
+// 源码位置：/src/core/util/next-tick.js
 // 把回调函数放入callbacks等待执行
 export function nextTick(cb) {
 	callbacks.push(() => {
@@ -122,8 +129,6 @@ function flushCallbacks () {
 
 <br/>
 
-### 5. *`$mount`*:组件挂载时会发生什么？
-
 
 <br/>
 
@@ -152,10 +157,9 @@ function flushCallbacks () {
 <router-view v-if="$route.meta.keepAlive"></router-view>
 ```
 
-*源码位置*
-src/core/components/keep-alive.js
 缓存命中的组件实例，如果设置了max则采用LRU淘汰算法更新缓存
 ```js
+// src/core/components/keep-alive.js
 export default {
   name: 'keep-alive',
   abstract: true,
@@ -282,7 +286,7 @@ Vue.directive('focus', {
 
 <br/>
 
-### 9. *`Provide/Inject`*
+### 9. 实现*`Provide/Inject`*
 `Provide`可以在祖先组件中指定我们想要提供给后代组件的数据和方法，在任何后代组件中，我们都可以用`Inject`来接收`Provide`提供的数据和方法。
 
 
@@ -294,8 +298,15 @@ Vue.directive('focus', {
 - vue搭配runtime可以实现点对点粒度的更新触发机制，而jsx只能以组件为粒度触发vdom diff
 
 
-
+### 11. Event Bus
 <br/>
+
+
+#### 12. computed实现原理
+computed 内依赖的响应式数据变更时，会通知该 computed watcher 执行 update 操作，但实际上此时只是标记为 dirty = true，只有当下次要参与计算时才会执行取值。
+
+#### 13. watch实现原理
+注册阶段触发响应式数据的getter从而完成依赖手机
 
 #### 参考资料
 - [JS每日一题](https://github.com/febobo/web-interview)
@@ -332,16 +343,16 @@ nativeClick
 ```js
 Vue.prototype.bus = new Vue();
 Vue.component('child', {
-    methods: {
-        handleClick: function() {
-            this.bus.$emit('change', 'content')
-        }
-    },
-    mounted: function() {
-        this.bus.$on('change', function(msg){
-            console.log(msg); // 'content'
-        })
+  methods: {
+    handleClick: function() {
+      this.bus.$emit('change', 'content')
     }
+  },
+  mounted: function() {
+    this.bus.$on('change', function(msg){
+      console.log(msg); // 'content'
+    })
+  }
 })
 
 ```

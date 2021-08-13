@@ -1,8 +1,9 @@
 ---
-title: JS中的执行上下文, this
+title: JS this，执行上下文，作用域
 date: 2019-07-29 12:06:20
 category: JS
 ---
+
 ### 1. 执行上下文
 每当Javascript代码在运行的时候，它都是在执行上下文中运行。js中有三种执行上下文
 
@@ -31,6 +32,7 @@ category: JS
 
 
 <br/>
+
 #### 1.2 压入执行栈
 创建后的执行上下文，会被压入执行栈。*执行栈* 是一种用于LIFO（后进先出）数据结构的栈，被用来存储代码运行时创建的所有执行上下文。
 ```js
@@ -56,32 +58,18 @@ console.log('Inside Global Execution Context');
 
 <br/>
 <br/>
-#### 1.3 垃圾回收机制
-函数执行结束，这些局部变量不再被使用，它们所占用的空间也就被释放。全局变量的声明周期会一直持续，直到页面卸载。
-垃圾回收有两种实现方式，现代浏览器中用的是**标记清除**。
-
-- *标记清除*
-当变量进入执行环境时标记为“进入环境”，当变量离开执行环境时则标记为“离开环境”。标记为离开环境的变量是可以被回收的
-
-- *引用计数*
-统计变量被引用的次数，当次数为0时，该变量将被回收。引用计数有一个明显的缺点，循环引用时，需要手动将变量的内存释放。
-```js
-function func() {
-  const c = {};  // c的引用计数为0
-  let d = c;     // c的引用计数为1
-  let e = c;     // c的引用计数为2
-  d = {};        // d不再引用c, c的引用计数减为1
-  e= null;       // e不再引用c, c的引用计数减为0, 被回收
-}
-```
-
 
 <br/>
-#### 1.4 内存泄露
+
+#### 1.3 内存泄露
 这些不再被需要的内存，由于某种原因，无法被释放，就是内存泄露。常见的内存泄露案例
+- 意外的全局变量
+- 被遗忘的计时器或回调函数
+- DOM引用
+- 闭包
 
 
-##### 1.4.1 意外创建全局变量
+##### 1.3.1 意外创建全局变量
 this被指向了全局变量window，意外地创建了全局变量。还有一些明确定义的全局变量，用来暂存大量数据，记得在使用后，对其重新赋值为null。或在javascript文件头部加上*`use strict`*。
 ```js
 function fn() {
@@ -94,12 +82,14 @@ console.log(name);  // "123"
 
 
 <br/>
-##### 1.4.2 未销毁的定时器
+
+##### 1.3.2 未销毁的定时器
 没有回收定时器，整个定时器依然有效，不但定时器无法被内存回收，定时器函数的依赖也无法回收。
 
 
 <br/>
-##### 1.4.3 DOM引用
+
+##### 1.3.3 DOM引用
 当删除button的DOM节点时，变量button仍保存在内存中。
 ```js
 var btn = document.getElementById('myBtn');
@@ -111,7 +101,8 @@ btn = null;
 ```
 
 <br/>
-##### 1.4.4 闭包
+
+##### 1.3.4 闭包
 **闭包**是指读取了其他函数内部变量的函数。创建闭包的常见方式，就是在一个函数内部创建另一个函数。
 ```js
 function createComparisonFunction(propertyName) {
@@ -151,6 +142,7 @@ console.log(counter1.value())
 ```
 
 <br/>
+
 *使用匿名闭包*
 使用匿名闭包，使得循环中被创建的方法，不会共享同一个词法作用域。或者，使用let而不是var，就不需要增加额外的闭包。
 ```js
@@ -184,7 +176,8 @@ setupHelp();
 
 
 <br/>
-#### 1.5 use strict
+
+#### 1.4s use strict
 使用严格模式，可以减少意外创建全局变量，导致内存泄露的情况。一些在正常模式下可以运行的语句，在严格模式下将不能运行。
 
 正常模式 | 严格模式
@@ -204,27 +197,49 @@ setupHelp();
 
 
 <br/>
+
 ### 2. this
-上面讲到在创建执行山下文时，会确定this的值。*`this`*本身是一个指针，指向调用函数的对象。如何准确判断this指向的是什么？需要了解this的绑定规则。
+上面讲到在创建执行山下文时，会确定this的值。*`this`*本身是一个指针，指向调用函数的对象。如何准确判断this指向的是什么？*this永远指向最后调用它的那个对象*。
 
 
 <br/>
+
 #### 2.1 默认绑定
 默认绑定，在不能应用其他绑定规则时使用的默认规则，通常是独立函数调用。
 
-在调用`sayHi()`时，应用了默认绑定，`this`指向全局对象（非严格模式下），严格模式下，`this`指向undefined, undefined上没有this对象，会抛出错误。
+在调用`a()`时，相当于执行了`window.a()`，这个时候`this`指向`window对象`。
+严格模式下，`this`指向undefined, undefined上没有this对象，会抛出错误`Uncaught TypeError: Cannot read property 'name' of undefined`。
+
 ```js
-function sayHi() {
+function a() {
   console.log('hello,', this.name)
 }
 
 var name = 'Amy'
-sayHi();  // 浏览器下 hello,Amy
+a();  // 浏览器下 hello,Amy
 // node环境下 hello,undefined。因为node中name并不是挂在全局对象上的
 ```
 
+看下面这个例子，`fn`仍然是被`window`调用的，所有`this`仍然指向`window`
+```js
+var name = "windowsName";
+
+function fn() {
+  var name = 'Cherry';
+  innerFunction();
+  function innerFunction() {
+    console.log(this.name);      // windowsName
+  }
+}
+
+fn()
+```
+
+
+
 
 <br/>
+
 #### 2.2 隐式绑定
 函数的调用是在某个对象上触发的，典型形式为*`XXX.fun()`*， 调用位置上存在上下文对象。
 
@@ -250,6 +265,7 @@ person1.friend.sayHi()  // Hi,Amy
 
 
 <br/>
+
 *隐式绑定丢失*
 Hi直接指向了sayHi的引用，在调用的时候，跟person没有关系。*`XXX.fn()`*如果`fn()`前什么都没有，那肯定不是隐式绑定，但也不一定就是默认绑定。
 ```js
@@ -302,6 +318,7 @@ setTimeout(function(){
 
 
 <br/>
+
 #### 2.3 显式绑定
 通过`call`, `apply`, `bind`的方式，显示的指定this的值。call,apply,bind的第一个参数，就是指定this所指向的对象。call和apply的作用一样，只是传参方式不同。call和apply都会执行对应的函数，而bind方法不会。
 ```js
@@ -321,6 +338,7 @@ Hi.call(person);     // hello,Amy
 ```
 
 <br/>
+
 *显式绑定丢失*
 `Hi.call(person, person.sayHi)`的确将this绑定到Hi中的this。但在执行fn的时候，相当于直接调用了sayHi方法（没有显式板顶， person.sayHi已经赋值给fn, 隐式绑定也丢失了）。因此对应的是默认绑定。
 ```js
@@ -344,6 +362,7 @@ Hi.call(person, person.sayHi);
 
 
 <br/>
+
 #### 2.4 new绑定
 在javascript中，构造函数只是使用new操作符时被调用的函数，这些函数和普通的函数并没有什么不同，它不属于某个类，也不可能实例实例出一个类。任何一个函数都可以使用new来调用，因此其实并不存在构造函数，而只有对于函数的“构造调用”。
 
@@ -363,8 +382,8 @@ var Hi = new sayHi('Amy');
 console.log(Hi.name);   // Amy
 ```
 
-
 <br/>
+
 ### 3. 其他
 #### 3.1 绑定优先级
 优先级: new绑定 > 显式绑定 > 隐式绑定 > 默认绑定
@@ -373,6 +392,8 @@ console.log(Hi.name);   // Amy
 将null, undefined作为this的绑定对象传入call, apply, bind，这些值在调用时会被忽略，实际应用的是默认绑定规则
 
 #### 3.3 箭头函数
+箭头函数的 this 始终指向函数定义时的 this，而非执行时。
+箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值。
 箭头函数没有自己的this，因此不能用call, apply, bind这些方法去改变this的执行。它的this继承于外层代码库中的this。
 
 
@@ -405,26 +426,11 @@ console.log(window.number)  // 20
 ```
 
 <br/>
+
 #### 3.5 React绑定事件
 在Javascript中，class的方法默认不会绑定`this`。如果`this.handleClick`没有bind.this，这时这个函数的this的值是undefined。
-```js
-class Child extends React.Component{
-  handleClick() {
-    console.log(this); // undefined
-  }
 
-  render() {
-    return (
-      <button onClick={this.handleClick}></button>
-    )
-  }
-}
-```
-
-<br/>
-
-- 正确写法
-注意： 在render方法中使用Function.prototype.bind, 或者使用箭头函数，都会在每次组件渲染时创建一个新的函数，可能会影响性能。应在构造函数中绑定。
+ 在render方法中使用Function.prototype.bind, 或者使用箭头函数，都会在每次组件渲染时创建一个新的函数，可能会影响性能。应在构造函数中绑定。
 ```js
 // wrong
 <button onClick={this.handleClick.bind(this)}></button>
@@ -466,6 +472,7 @@ handleClick(e) => {
 
 
 <br/>
+
 ### 参考资料
 - [嗨，你真的懂this吗？](https://github.com/YvetteLau/Blog/issues/6)
 - [在组件中使用事件处理函数](https://react.docschina.org/docs/faq-functions.html)
@@ -474,11 +481,4 @@ handleClick(e) => {
 - [javascript 垃圾回收机制](https://juejin.im/post/5b684f30f265da0f9f4e87cf)
 - [闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
 - [Javascript严格模式详解](http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html)
-
-
-
-
-
-
-
-
+- [this、apply、call、bind](https://juejin.cn/post/6844903496253177863)

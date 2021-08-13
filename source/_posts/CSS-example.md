@@ -352,8 +352,25 @@ body {
 }
 ```
 
-#### 参考资料
+#### 12. 移动端1px问题
+由于不同的手机有不同的像素密度导致的。如果移动显示屏的分辨率始终是普通屏幕的2倍，1px的边框在devicePixelRatio=2的移动显示屏下会显示成2px，所以在高清瓶下看着1px总是感觉变胖了。
 
+- 在ios8+中当devicePixelRatio=2的时候使用0.5px
+```js
+.border { border: 1px solid #999 }
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border { border: 0.5px solid #999 }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 3) {
+  .border { border: 0.333333px solid #999 }
+}
+```
+
+- transform: scale(0.5)
+
+<br/>
+
+#### 参考资料
 - [CSS3 Patterns Gallery 纹路背景](https://leaverou.github.io/css3patterns/)
 - [Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
 - [多行溢出](https://www.jianshu.com/p/d2be62a507b8)

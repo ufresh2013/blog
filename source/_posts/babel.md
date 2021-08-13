@@ -1,13 +1,19 @@
 ---
-title: Babel兼容IE - 用es5实现es6语法
+title: Babel：用es5实现es6语法
 date: 2020-04-23 14:16:27
 category: JS
 ---
 > 因为要兼容IE，跑了一下Babel文档，发现。。恩？兼容IE，不就是把ES6语法转换成ES5语法吗！果断解锁考点！
 
 <br/>
+
 ### 1. 简介
 Babel是一个Javascript编译器，用于将ES5+的代码转换为向后兼容的JS语法，以便能够运行在当前和旧版本的浏览器或其他环境中。[官方Demo](https://www.babeljs.cn/docs/usage)
+
+Babel 的功能很纯粹，它只是一个编译器，大多数编译器的工作过程可以分为三部分：
+- 解析（Parsing）：将代码字符串解析成抽象语法树。
+- 转换（Transformation）：对抽象语法树进行转换操作。
+- 生成（Code Generation）: 根据变换后的抽象语法树再生成代码字符串。
 
 
 组成 | 作用
@@ -17,6 +23,25 @@ Babel是一个Javascript编译器，用于将ES5+的代码转换为向后兼容�
 @babel/cli        | 允许你在终端用命令行实现语法转换。把src目录下的所有js文件，编译输出到lib目录。<br/>`./node_modules/.bin/babel src --out-dir lib` 
 @babel/polyfill   | Babel默认只转换新的JS语法，而不转换新的API，如Iterator, Generator, Set, Maps, Proxy, Reflect, Symbol, Promise等全局对象。当运行环境(*IE*)并没有实现一些全局对象时，babel-polyfill会给其做兼容。
 
+
+<br/>
+
+### 1.1 Babel职责范围
+Babel 只是转译新标准引入的语法，比如：
+- 箭头函数
+- let / const
+- 解构
+
+哪些在 Babel 范围外？对于新标准引入的全局变量、部分原生对象新增的原型链上的方法：
+- 全局变量
+	- Promise
+	- Symbol
+	- WeakMap
+	- Set
+- includes
+- generator 函数
+
+对于上面的这些 API，Babel 是不会转译的，需要引入 polyfill 来解决。
 
 <br/>
 ### 2. es5实现[es6语法糖](https://github.com/lukehoban/es6features#readme)

@@ -282,6 +282,8 @@ import * as example from './example.js';
 
 Set、Map、Symbol、Interator、Generator、Promise、Proxy、Reflection
 
+Symbol 表示独一无二的值
+
 #### 8.1 Set 过滤重复值
 
 对一个数组，进行复制并创建一个无重复元素的新数组。

@@ -5,6 +5,12 @@ category: React
 ---
 > 应用中所有的state都以一个对象树的形式储存在一个单一的store中。唯一修改state的办法就是触发action，有一个描述发生什么的对象。为了描述action如何改变state树，你需要编写reducers。
 
+- redux基本用法？
+- react-redux实现原理？
+- redux-saga是什么？
+- reducer为什么是纯函数？
+- 为什么有了action, 还有独立一个reducer？
+- redux, flux, mobx
 
 <br/>
 
@@ -69,15 +75,15 @@ function todo(state=[], action){
 
 
 <br/>
+
 ### 3. Redux API
 *createStore(reducer)*
-创建store
+创建一个store
 ```js
 import { createStore } from 'redux';
 import todoApp from './reducers';
 let store = createStore(todoApp);
 ```
-
 *store.getState()*
 获取store的数据
 
@@ -138,6 +144,7 @@ export default combineReducers({
 ```
 
 <br/>
+
 *bindActionCreators*
 创建action，同时把它dispatch出去。不需要知道store， dispatch在哪, 就能触发dispatch。
 ```js
@@ -155,6 +162,7 @@ const boundAddTodo = text => dispatch(addTodo(text))
 
 
 <br/>
+
 ### 3. React-redux
 React-Redux是基于 容器组件和展示组件相分离 的开发思想。大部分组件都是展示型的，但一般需要少数的几个容器组件把它们和Redux store连接起来。
 
@@ -218,6 +226,7 @@ render(
 
 
 <br/>
+
 ### 4. Redux异步请求
 一般情况下，每个API请求都需要dispatch至少三种action:
 - 通知reducer请求开始的action
@@ -228,6 +237,7 @@ render(
 
 
 <br/>
+
 ### 5. 组织action和reducer
 - 所有action放一个文件，会无限扩展
 - action，reducer分开，在action中发请求，在reducer中做处理，实现业务逻辑时需要来回切换

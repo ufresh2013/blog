@@ -1,16 +1,10 @@
 ---
 title: React与React-Dom API
 date: 2019-08-07 17:29:45
-category: React
 ---
 #### 1. React API
-React是React库的入口，通过script, import等方法，可以获得React的顶层API。
-```js
-import React from 'react'
-```
-
 #### 1.1 定义组件
-使用React组件可以将UI拆分为独立且复用的代码片段，每部分都可独立维护。你可以通过`React.Component` 或 `React.PureComponent` 来定义React组件。
+*`React.Component`* 或 *`React.PureComponent`* 来定义React组件。
 ```js
 class Greeting extends React.Component {
   render() {
@@ -19,7 +13,7 @@ class Greeting extends React.Component {
 }
 ```
 
-如果你的函数组件在给定相同props的情况下渲染相同的结果，那么你可以通过将其包装在`React.memo`中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。这意味着在这种情况下，React 将跳过渲染组件的操作并直接复用最近一次渲染的结果。
+*`React.memo`*: 如果你的函数组件在给定相同props的情况下渲染相同的结果，那么你可以通过将其包装在`React.memo`中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。这意味着在这种情况下，React 将跳过渲染组件的操作并直接复用最近一次渲染的结果。
 ```js
 const MyComponent = React.memo(function MyComponent(props){
   // ...
@@ -55,9 +49,14 @@ React.forwardRef
 React.lazy
 React.Suspense
 
+#### 1.7
+
 
 #### 1.7 Hook
 
 
 <br/>
 ### 2. React-Dom API
+```js
+  ReactDom.render(<h1>hello!</h1>, document.getElementById('root'))
+```
