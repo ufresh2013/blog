@@ -12,7 +12,7 @@ category: Bug
 <br/>
 
 ### 2. 出现Bug
-使用*`getDerivedStateFromProps`* 让组件在props变化时更新state。但实际上只要腹肌重新渲染时，这个生命周期函数就会重新调用，不管 *`props`* 有没有变化。因此会出现下面的bug。
+使用*`getDerivedStateFromProps`* 让组件在props变化时更新state。但实际上只要父组件重新渲染时，这个生命周期函数就会重新调用，不管 *`props`* 有没有变化。因此会出现下面的bug。
 
 操作                | props   |  state
 ---|:--:|---:

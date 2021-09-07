@@ -3,14 +3,15 @@ title: Webpack基本用法
 date: 2018-11-14 15:47:27
 category: NodeJS
 ---
-
-> 为什么需要 Webpack 构建工具？
-1. 多终端应用场景，需要不同的打包配置。如：PC 单页面打包，H5 支持服务端渲染和 PWA 离线缓存
-2. npm 是 JS 的包管理系统，但 npm 包不能在 js 中直接引用
-3. React, Vue, AngularJS, less, CssModules 语法在浏览器中无法直接解析
+### 为什么需要 Webpack？
+- 多终端应用场景，需要不同的打包配置。如：PC 单页面打包，H5 支持服务端渲染和 PWA 离线缓存
+- npm 是 JS 的包管理系统，但 npm 包不能在 js 中直接引用
+- React, Vue, AngularJS, less, CssModules 语法在浏览器中无法直接解析
 
 <br/>
+
 ### 1. 基本概念
+webpack 是一个用于现代 JavaScript 应用程序的 静态模块打包工具。当 webpack 处理应用程序时，它会在内部从一个或多个入口点构建一个 依赖图(dependency graph)，然后将你项目中所需的每一个模块组合成一个或多个 bundles，它们均为静态资源，用于展示你的内容。
 
 #### 1.1 安装运行
 
@@ -428,3 +429,4 @@ rules: [
 ### 参考资料
 - [代码分离](https://webpack.docschina.org/guides/code-splitting/)
 - [react-router4代码分割](https://www.jianshu.com/p/e3334a2c08e7)
+- [极客时间-深入浅出Webpack]()

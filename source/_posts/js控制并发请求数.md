@@ -43,7 +43,7 @@ let mapLimit = (list, limit, asyncHandle) => {
 				}
 			})
 	}
-	let listCopy = [].concat(list)
+	let listCopy = [].concat(list)b
 	let asyncList = [] // 正在进行的所有并发异步操作
 	while (limit--) {
 		asyncList.push(recursion(listCopy))

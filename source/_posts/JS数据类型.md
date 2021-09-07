@@ -1,5 +1,5 @@
 ---
-title: JS数据类型
+title: JS 变量类型 typeof、instanceof、Object.prototype.toString
 date: 2019-07-29 09:29:44
 category: JS
 ---

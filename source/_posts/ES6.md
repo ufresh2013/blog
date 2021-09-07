@@ -4,18 +4,19 @@ date: 2018-10-15 17:49:23
 category: JS
 ---
 
-### 1. let, const
-
-- _块级声明_
+### 1. let, const，块级作用域
+- _块级作用域_
   声明在指定块的作用域之外无法访问的变量。存在于函数内部和块`{}`中。一旦执行到块外会立即销毁。
+  （为什么需要块级作用域？1. 避免内层变量覆盖外层变量；2.避免用于计数的循环变量泄露为全局变量）
 
-* var 声明的变量
+* var
   其作用域为该语句所在的函数内，且存在变量提升现象
 
-* let 声明的变量
+* let
   其作用域为该语句所在的代码块内，不存在变量提升；
+  暂时性死区：只要块级作用于内存在`let`，就不再受外部环境影响
 
-* const 声明的是常量
+* const
   在后面出现的代码中不能再修改该常量的值。
   需要注意的是，const 里面只存了一个值，可以是一个地址(object)，也可以是一个值(string/number/..)。当 const 定义的是地址的时候，我们可以修改实际指向的 object 的内容，但是不可以修改这个指向地址。
 ```js
@@ -91,7 +92,7 @@ checkArgs('a', 'b');
 ```
 
 #### 3.2 展开运算符(...)
-
+使用...的条件是可枚举（）
 展开运算符可以让你指定一个数组，将它们打散后作为独立的参数传入函数。
 
 ```js
@@ -101,7 +102,6 @@ console.log(Math.max(...values));
 ```
 
 #### 3.3 箭头函数
-
 箭头函数是一种使用箭头(=>)定义函数的新语法
 
 - 箭头函数中的`this, super, arguments, new.target`的值由外围最近一层非箭头函数决定
@@ -166,11 +166,8 @@ let friend = {
 <br>
 
 ### 5. 解构
-
-简化获取信息的过程，无需深入整个数据结构找到数据，编写代码为变量赋值。
-
+这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
 - 对象解构
-
 ```js
 let node = { type: 'Identifier', name: 'foo' };
 let { type, name } = node;
@@ -181,11 +178,16 @@ console.log(localType); // 'Identifier'
 ```
 
 - 数组解构
-
 ```js
 let colors = ['red', 'green'];
 let [firstColor, secondColor] = colors;
 console.log(firstColor); // "red"
+```
+
+- 字符串解构
+事实上，只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值。
+```js
+const [a, b, c, d, e] = 'hello';
 ```
 
 <br>
@@ -278,14 +280,8 @@ import * as example from './example.js';
 
 <br>
 
-### 8. 其它
-
-Set、Map、Symbol、Interator、Generator、Promise、Proxy、Reflection
-
-Symbol 表示独一无二的值
-
+### 8. Set, WeakSet, Map, WeakMap，{}
 #### 8.1 Set 过滤重复值
-
 对一个数组，进行复制并创建一个无重复元素的新数组。
 
 ```js
@@ -294,9 +290,64 @@ array = [...set];
 console.log(array); // [1,2,3,4,5]
 ```
 
-#### 8.2 Generator 的异步应用
+#### 8.2 WeakSet
 
-##### 8.2.1 协程
+#### 8.3 Map 和 {} 的区别
+`{}`的key只能是基本类型，Map的key可以是
+
+#### 8.4 WeakMap
+
+#### 8.5 {} 的key是如何排序的？
+数字属性被最先打印出来，且是按照数字大小的顺序打印；字符串属性是按照设置顺序打印的。
+```js
+function Foo() {
+  this[100] = 'test-100'
+  this[1] = 'test-1'
+  this["B"] = 'bar-B'
+  this[50] = 'test-50'
+  this[9] =  'test-9'
+  this[8] = 'test-8'
+  this[3] = 'test-3'
+  this[5] = 'test-5'
+  this["A"] = 'bar-A'
+  this["C"] = 'bar-C'
+}
+var bar = new Foo()
+
+for(key in bar){
+  console.log(`index:${key}  value:${bar[key]}`)
+}
+
+/* 
+index:1  value:test-1
+index:3  value:test-3
+index:5  value:test-5
+index:8  value:test-8
+index:9  value:test-9
+index:50  value:test-50
+index:100  value:test-100
+index:B  value:bar-B
+index:A  value:bar-A
+index:C  value:bar-C
+*/
+```
+之所以出现这样的结果，是因为在 ECMAScript 规范中定义了**数字属性**应该按照索引值大小升序排列，**字符串属性**根据创建时的顺序升序排列。
+
+在 V8 内部，为了有效地提升存储和访问这两种属性的性能，分别使用了两个线性数据结构来分别保存**数字属性 element**和**字符串属性 properties**。
+
+
+
+### 9. 其它
+
+Set、Map、Symbol、Interator、Generator、Promise、Proxy、Reflection
+
+Symbol 表示独一无二的值
+
+
+
+#### 9.2 Generator 的异步应用
+
+##### 9.2.1 协程
 
 多个线程互相协作，完成异步任务。大致流程：① 协程 A 开始执行。② 协程 A 执行到一半，进入暂停，执行权转移到协程 B。③(一段时间后)协程 B 交还执行权。④ 协程 A 恢复执行。
 
@@ -318,7 +369,7 @@ result.value.then(function(data) {
 });
 ```
 
-##### 8.2.2 基于 Thunk 函数的 Generator 执行器
+##### 9.2.2 基于 Thunk 函数的 Generator 执行器
 
 执行过程：将同一个回调函数，反复传入 next 方法的 value 属性。内部的 next 函数就是 Thunk 的回调函数。next 函数先将指针移到 Generator 函数的下一步（gen.next 方法），根据 result.done 判断函数是否结束，没结束将 next 函数再次传入。已结束，直接退出。只要 Generator 函数还没执行到最后一步，next 函数就调用自身，以此实现自动执行。
 
@@ -376,6 +427,7 @@ run(gen);
 
 <br>
 <br>
+
 ### 参考资料
 - 《深入理解ES6》NICHOLAS C.ZAKAS
 - [《ECMAScript6入门》 阮一峰](http://es6.ruanyifeng.com/)

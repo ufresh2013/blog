@@ -3,21 +3,41 @@ title: Vue中v-for为什么要加key
 date: 2019-12-16 08:52:44
 category: Vue
 ---
+> key 的作用主要是给 VNode 添加唯一标识，通过这个 key，可以更快找到新旧 VNode 的变化，从而进一步操作。
+
+### 1. 虚拟DOM
+虚拟DOM就是一个用来描述真实DOM的javaScript对象。
+
 VirtualDOM的主要思想就是模拟DOM的树状结构，在内存中创建保存映射DOM信息的节点数据。视图需要更新时，先对节点数据进行diff后得到差异结果后，再一次性对DOM进行批量更新操作。
 
 将一棵树转换成另一棵树的最小操作数，即使在最前沿的算法中，该算法的复杂程度为O(n³)，其中n是树中元素的数量。展示 1000 个元素所需要执行的计算量将在十亿的量级范围。在VirtualDOM方法被提出后，社区中不断涌现对diff的改进算法，最终从O(n³)提升至O(n)。
 
+#### 虚拟DOM的作用
+- 跟踪视图状态，比较前后两次DOM更新真实DOM，减少操作DOM的范围
+- 跨平台使用：浏览器渲染，服务器渲染，小程序等
+- 
+
 
 <br/>
 
-### 1. Diff算法
-#### *1.1 按tree层级diff*
+### 2. Diff算法
+- 使用`h()`函数创建JS对象(VNode)描述真实DOM
+- 创建`patch()`比较新旧两个VNode
+    - `patch(oldVNode, newVnode)`
+    - 按层级diff，而非深度优先遍历
+    - 比较新旧节点是否相同节点（key, sel相同），如果不是相同节点，删除之前的，重新渲染；如果是相同节点，判断VNode是否有text，有直接更新text文本内容
+    - 新老节点有children属性且不等，走updateChildren
+- 把变化的内容更新到真实DOM树
+
+
+
+#### *2.1 按层级diff，而非深度优先遍历*
 UI中很少出现DOM的层级结构因为交互而产生更新。因此VirtualDOM的diff策略是在新旧节点树之间按层级进行diff得到差异，而非传统的按深度遍历搜索。
 <img src="1.png">
 
 <br/>
 
-#### *1.2 按类型diff*
+#### *2.2 不同类型的节点，会创建新的VirtualDom替换旧的*
 VirtualDOM中的节点数据对应的是一个原生DOM节点，或者vue/react中的一个组件。不同类型的节点往往相差很大，当节点类型发生改变时，则不进行子树的比较，直接创建新类型的VirtualDOM，替换旧节点。
 <img src="2.png">
 
@@ -49,70 +69,30 @@ function patch(oldVnode, vnode) {
 
 <br/>
 
-#### *1.3 列表diff*
+#### *2.3 新旧节点都有children且不等，走updateChildren*
+- oldStartVnode/newStartVnode(旧开始节点/新开始节点)相同
+- oldEndVnode/newEndVnode(旧结束节点/新结束节点)相同
+- oldStartVnode/newEndVnode(旧开始节点/新结束节点)相同
+- oldEndVnode/newStartVnode(旧结束节点/新开始节点)相同
+- 特殊情况当1,2,3,4的情况都不符合的时候就会执行,在oldVnodes里面寻找跟newStartVnode一样的节点然后位移到oldStartVnode,若没有找到在就oldStartVnode创建一个
+
+
+
+#### 优化列表更新性能
 当被diff的节点处于同一层级时，可以执行 插入、移动和删除三种操作。同时提供用户设置key属性的方式调整排序。
 <img src="3.png">
 
-
-
-<br/>
-<br/>
-
-### 2. Key
-*v-for为什么要加Key?*
-当递归DOM节点的子元素时，Vue会同时遍历两个子元素的列表，当产生差异时，生成一个DOM操作。
-在列表末尾新增元素时，变更开销比较小。Vue遍历列表，发现前两个元素没变，然后插入第三个元素。
-在列表头部插入时，Vue依次遍历下来，会针对每个子元素都生成了DOM操作。
-
-**明明移动节点就可以解决问题，却变成了DOM节点不断地删除和重建！**
-```html
-<ul>
-    <li>first</li>
-    <li>second</li>
-</ul>
-
-<ul>
-    <li>zero</li>
-    <li>first</li>
-    <li>second</li>
-</ul>
-```
-这种情况多数出现在`v-for`。
-出现`v-for`时， Vue会认为又有更新列表的操作了！
-**这个列表DOM更新的性能问题又要出现了！**
-这时，控制台会提醒我们: 加个*`key`*啊！！！！！
-
-```html
-<ul>
-    <li key="1">first</li>
-    <li key="2">second</li>
-</ul>
-
-<ul>
-    <li key="0">zero</li>
-    <li key="1">first</li>
-    <li key="2">second</li>
-</ul>
-
-```
-`key`这个属性不是给用户用的，而是给Vue自己用的。Vue需要判断，对数组中的每一项，到底是新建一个元素加入到页面中，还是更新原来的元素。从而避免组件被不必要地重建。
-
-
-
-<br/>
-
-### 3. 优化列表更新性能
 下面看看snabbdom怎么处理这个*`key`*值。
 (snabbdom仅有300行代码，被vue2.0收入来实现DOM比较和更新)
 
-#### 3.1 列表头插入元素
+#### 列表头插入元素
 发现oldCh里没有当前newCh中的节点，将新节点插入到oldStartVnode的前边。
 <img src="4.png" style="max-width: 500px; margin-top: 20px">
 
 
 <br/>
 
-#### 3.2 列表重新排序
+#### 列表重新排序
 如果oldCh中有这个key值，就对旧节点进行更新，再将其插入到当前的oldStartVnode的前面。
 ```js
 function createKeyToOldIdx(children, beginIdx, endIdx) {
@@ -170,6 +150,58 @@ function updateChild(parentElm, oldVnode, vnode) {
     }
 }
 ```
+
+<br/>
+
+### 3. Key
+*v-for为什么要加Key?*
+- Diff操作更加快速
+- Diff操作更加准确（避免渲染错误）
+
+#### 3.1 Diff操作更加快速
+当递归DOM节点的子元素时，Vue会同时遍历两个子元素的列表，当产生差异时，生成一个DOM操作。
+在列表末尾新增元素时，变更开销比较小。Vue遍历列表，发现前两个元素没变，然后插入第三个元素。
+在列表头部插入时，Vue依次遍历下来，会针对每个子元素都生成了DOM操作。
+
+**明明移动节点就可以解决问题，却变成了DOM节点不断地删除和重建！**
+```html
+<ul>
+    <li>first</li>
+    <li>second</li>
+</ul>
+
+<ul>
+    <li>zero</li>
+    <li>first</li>
+    <li>second</li>
+</ul>
+```
+这种情况多数出现在`v-for`。
+出现`v-for`时， Vue会认为又有更新列表的操作了！
+**这个列表DOM更新的性能问题又要出现了！**
+这时，控制台会提醒我们: 加个*`key`*啊！！！！！
+
+```html
+<ul>
+    <li key="1">first</li>
+    <li key="2">second</li>
+</ul>
+
+<ul>
+    <li key="0">zero</li>
+    <li key="1">first</li>
+    <li key="2">second</li>
+</ul>
+
+```
+`key`这个属性不是给用户用的，而是给Vue自己用的。Vue需要判断，对数组中的每一项，到底是新建一个元素加入到页面中，还是更新原来的元素。从而避免组件被不必要地重建。
+
+
+#### 3.2 避免渲染错误
+因为没有设置key,默认都是undefined,所以节点都是相同的,更新了text的内容但还是沿用了之前的dom,所以实际上a->z(a原本打勾的状态保留了,只改变了text)
+
+<br/>
+
 
 <br/>
 

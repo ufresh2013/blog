@@ -15,6 +15,7 @@ hash 和 history都是实现前端路由的浏览器历史记录API。相对而�
 
 
 <br/>
+
 #### 2.2 History
 History API允许操作曾经在浏览器标签页访问的会话历史记录。
 
@@ -43,53 +44,30 @@ History API允许操作曾经在浏览器标签页访问的会话历史记录。
 <br/>
 
 ### 2. 实现功能
-有了上面的基本了解，终于可以开始实现一个Vue Router了。Vue Router包含了很多功能，而我们只实现最基本的功能
+Vue Router功能：
 - Router构建选项`mode`: 支持HTML5 History, hash, abstract模式
 - Router构建选项`routes`: 支持传入`{ path: string, component: Component }`
 - 使用`<router-link>`来定义导航链接
 - 使用`<router-view>`渲染路径匹配到的视图组件
 - 使用`this.$router.push()`, `this.$router.replace`, `this.$router.go`实现路由跳转
 - 使用`this.$route.params`, `this.$route.query`获取路径参数
-- Router的生命周期钩子，及执行顺序
-  
+- 实现Router的生命周期钩子（执行顺序）
 
-
-
+- 动态路由匹配
+- 嵌套路由
+- 嵌套视图
+- 导航守卫
+- 过渡动效
+- 路由懒加载
 
 <br/>
 
 ### 3. 开始实现
-#### 3.1 实现效果
-我们的目标是在App.vue中使用`<router-link>`, `<router-view>`实现组件切换
 ```js
-// App.vue
-<template>
-  <div id="app">
-    <router-link to="/">Home</router-link>
-    <router-link to="/foo">Foo</router-link>
-    <router-link to="/bar">Bar</router-link>
-    <router-view></router-view>
-  </div>
-</template>
-```
-
-在main.js传入路由配置routes, 页面组件，初始化路由
-```js
-// main.js
-import Vue from 'vue'
-import App from './App.vue'
-import install from './src/install'
-import routes from './views/routes'
-import VueRouter from './src'
-
-Vue.config.productionTip = false
-
 const router = new VueRouter({
   mode: 'history',
   routes
 })
-
-install(Vue)
 
 new Vue({
   render: h => h(App),
@@ -98,12 +76,10 @@ new Vue({
 ```
 
 
-<br/>
-
-
-
-#### 3.2 创建VueRouter实例
-创建一个Vue Router实例，接收`mode`, `routes`参数，提供路由`push`, `replace`, `go`, `back`, `forward`方法
+#### 3.1 创建VueRouter实例
+创建一个Vue Router实例，接收`mode`, `routes`参数
+- 为`this.$router`提供路由`push`, `replace`, `go`, `back`, `forward`方法
+- 将传入的routes转成routerMap 
 ```js
 // src/index.js
 import HashHistory from '../history/hash'
@@ -160,7 +136,9 @@ export default class VueRouter {
 
 
 #### 3.3 router, route
-保证每个Vue实例都有router对象`new Vue()`传入了`router`对象，将`$router`, `$route`放到`Vue.prototype`上；定义全局组件router-link, router-view
+- `Vue.use(Router)`时，会执行`install`方法并把Vue类传入，混入`beforeCreate`方法
+- 将`$router`, `$route`放到`Vue.prototype`上，保证每个Vue实例都可以访问
+- 定义全局组件`router-link`, `router-view`
 ```js
 // install.js
 import View from '../components/view'
@@ -204,10 +182,14 @@ export default function install(Vue) {
   // 定义全局组件router-link, router-view
   Vue.component('RouterLink', Link)
   Vue.component('RouterView', View)
+
+  const strats = Vue.config.optionMergeStrategies
+  strats.beforeRouteEnter = strats.beforeRouteLeave = strats.beforeRouteUpdate = strats.created
 }
 ```
 
 #### 3.4 HTML5 History模式
+还有hash模式、
 ```js
 import { START } from '../util/route'
 
@@ -254,126 +236,6 @@ export default class HTML5History{
 	}
 }
 ```
-
-#### 3.5 Hash模式
-```js
-import { START } from '../util/route'
-
-export default class HashHistory {
-  constructor(router) {
-    this.router = router
-    this.current = START
-    this.setupListeners();
-  }
-  
-  // 监听popstate, hashchange事件
-  setupListeners () {
-    window.addEventListener(
-      supportsPushState ? 'popstate' : 'hashchange',
-      () => {
-        this.transitionTo(getHash())
-      }
-    )
-  }
-
-  listen (cb) {
-		this.cb = cb
-  }
-  
-  transitionTo (location) {
-		const route = this.router.match(location, this.current)
-		this.current = route
-		this.cb && this.cb(route)
-	}
-
-  getCurrentLocation() {
-    return getHash()
-	}
-
-  push(location) {
-    // pushHash
-    window.location.hash = location.path
-  }
-  
-  replace(location) {
-    // replaceHash
-    window.location.replace('#' + location.path)
-  }
-
-  go(n) {
-    window.history.go(n)
-  }
-}
-
-// input: http://www.baidu.com/#/list?page=1
-// output: /list?page=1
-const getHash = () => {
-  let href = window.location.href
-  const index = href.indexOf('#')
-  // empty path
-  if (index < 0) return ''
-
-  href = href.slice(index + 1) 
-  return decodeURI(href)
-}
-```
-
-#### 3.6 Abstract模式
-```js
-import { START } from '../util/route'
-
-export default class AbstractHistory {
-  constructor(router) {
-    this.router = router
-    this.current = START
-    this.stack = []
-    this.index = -1
-  }
-
-  listen (cb) {
-		this.cb = cb
-	}
-
-	// 修改this.current值
-	transitionTo (location) {
-		// 修改current的值
-		const route = this.router.match(location, this.current)
-		this.current = route
-
-		// 修改所有app下的_route值，触发RouterView重新渲染
-		this.cb && this.cb(route)
-  }
-  
-  push(location) {
-    this.transitionTo(location)
-    this.stack = this.stack.slice(0, this.index + 1).concat(this.current)
-    this.index++
-  }
-
-  replace(location) {
-    this.transitionTo(location)
-    this.stack = this.stack.slice(0, this.index).concat(this.current)
-  }
-
-  go(n) {
-    const targetIndex = this.index + n
-    if (targetIndex < 0 || targetIndex >= this.stack.length) {
-      return
-    }
-
-    const route = this.stack[targetIndex]
-    this.current = route
-    this.cb && this.cb(route)
-    this.index = targetIndex
-  }
-
-  getCurrentLocation() {
-    const current = this.stack[this.stack.length - 1]
-    return current ? current.path : '/'
-  }
-}
-```
-
 
 #### 3.8 Router-View组件
 ```js
@@ -481,3 +343,4 @@ const router = new VueRouter({
 - [VueRouter 源码深度解析](https://juejin.im/post/5b5697675188251b11097464)
 - [Vue的钩子函数[路由导航守卫、keep-alive、生命周期钩子]](https://juejin.cn/post/6844903641866829838)
 - [Vue-Router文档](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html)
+- [带你全面分析vue-router源码](https://juejin.cn/post/6844904064367460366)

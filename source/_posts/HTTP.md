@@ -1,9 +1,8 @@
 ---
-title: HTTP
+title: HTTP常见问题
 date: 2019-08-16 09:42:20
-category: Basic
+category: HTTP
 ---
-
 ### 1. TCP/IP 协议
 
 计算机与网络设备要相互通信，双方就必须基于相同的方法。如何探测到通信目标，由哪一边先发起通信、使用哪种语言进行通信，怎样结束通信等规则都需要事先确定。我们把这种规则成为协议 (protocol)。与互联网相关联的协议集合起来总称为 TCP/IP。
@@ -81,13 +80,14 @@ proxy-revalidate  | 缓存服务器在接收到客户端带有该指令的请求
 no-transform      | 缓存不能改变实体主题的媒体类型，防止缓存或代理压缩图片等操作
 
 - *Content-Type*
-请求允许发送多种数据，采用了 MIME (Multipurpose Internet Mail Extensions, 多用途因特网邮件扩展) 机制，它允许邮件处理文本、图片、视频等多个不同类型的数据。例如，图片等二进制数据以 ASCII 码字符串编码的方式指明。
-```
-
-Content-Type: multipart/form-data;
-Content-Type: mulitpart/byteranges;
-
-````
+常见的媒体资源：
+  - text/html: HTML 格式
+  - text/plain: 纯文本格式
+  - text/xml: XML 格式
+  - 图片格式：image/gif, image/jpeg, image/png
+  - application/json: JSON 数据格式
+  - application/x-www-form-urlencoded: form 表单数据被编码为 key/value 格式发送到服务器（表单默认的提交数据的格式）
+  - multipart/form-data：在表单中进行文件上传时，会使用该格式
 
 
 - *Content-Range*
@@ -143,6 +143,12 @@ CONNECT| 要求用隧道协议连接代理
 
 <br/>
 ### 4. 状态码
+- 1XX	Informational（请求正在处理）
+- 2XX	Success（请求成功）
+- 3XX	Redirection（重定向）	需要进行附加操作以完成请求
+- 4XX	Client Error（客户端错误）
+- 5XX	Server Error（服务器错误）
+
 状态码|描述
 ---|---:
 `100 Continue` | 临时响应,表明客户端应该继续请求

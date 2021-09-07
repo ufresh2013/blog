@@ -107,7 +107,7 @@ function flushCallbacks () {
 ### 3. 为什么*`Data`*是一个函数而不是一个对象？
 - 根实例对象`data`可以是对象也可以是函数（根实例是单例），不会产生数据污染情况
 - 组件实例对象`data`必须为函数，为了防止多个组件实例对象之间公用一个`data`,产生数据污染。采用函数的形式，`initData`时会将其作为工厂函数都会返回全新`data`对象
-
+（简单来说，是方便初始化data，直接`this.data = vm.$options.data()`就可以拿到一份新的data，不用深拷贝一个`data`，方便）
 
 <br/>
 
@@ -126,9 +126,6 @@ function flushCallbacks () {
 	<template v-slot:content>content</template>
 </Component>
 ```
-
-<br/>
-
 
 <br/>
 
@@ -286,79 +283,107 @@ Vue.directive('focus', {
 
 <br/>
 
-### 9. 实现*`Provide/Inject`*
-`Provide`可以在祖先组件中指定我们想要提供给后代组件的数据和方法，在任何后代组件中，我们都可以用`Inject`来接收`Provide`提供的数据和方法。
-
-
-
-### 10. 为什么我支持模板而不是JSX
+### 10. template vs JSX
+为什么我支持模板而不是JSX
 - JSX提供更高的自由度，实际上应该避免使用这种自由度。jsx需要额外考虑jsx -> vdom的执行情况，而renderProps(vue slot)则是更好的设计。
 - 模板驱使程序员写m v vm分离的代码，前端开发的不良设计经常是混淆v和vm导致的
 - 模板和逻辑分离，有利于运营/设计的协作
 - vue搭配runtime可以实现点对点粒度的更新触发机制，而jsx只能以组件为粒度触发vdom diff
 
 
-### 11. Event Bus
+<br/>
+
+### 12. computed实现原理
+- 计算属性Watcher存储在`vm._computedWatchers`上
+- 给computed value赋初始值，这个时候读到依赖的data值，会触发依赖收集
+- `data`变化时，会通知computed watcher执行操作，这个时候只是将computed watcher的dirty标记为true
+- 视图更新调用computed值时会从新执行，获得新的计算属性值。
+- computed值变更，触发视图更新
+
+```js
+function initComputed (vm, computed) {
+  const watchers = vm._computedWatchers = Object.create(null)
+  for (const key in computed) {
+    // create internal watcher for the computed property.
+    watchers[key] = new Watcher(
+      vm,
+      getter || noop,
+      noop,
+      computedWatcherOptions
+    )
+
+    if (!(key in vm)) {
+      const sharedPropertyDefinition = createComputedGetter(vm, key, userDef)
+      Object.defineProperty(target, key, sharedPropertyDefinition)
+    }
+  }
+}
+
+function createComputedGetter (key) {
+  return function computedGetter () {
+    const watcher = this._computedWatchers && this._computedWatchers[key]
+    if (watcher) {
+      if (watcher.dirty) {
+        watcher.evaluate()
+      }
+      if (Dep.target) {
+        watcher.depend()
+      }
+      return watcher.value
+    }
+  }
+}
+```
+执行`watcher.evaluate()`, 计算属性的`value`值就是在这里更新。
+```js
+evaluate() {
+  this.value = this.get()
+  this.dirty = false
+}
+```
+
+*computed为什么会被缓存*
+某个计算属性C，它依赖data中的A，如果没有缓存的话，每次读取C时，C都回去读取A，从而触发A的get。多次触发A的get有时候是一个非常消耗性能的操作。所以Computed必须要有缓存。
+
+computed里利用标记dirty控制缓存，dirty是watcher的一个属性。
+- 当dirty为true时，读取computed会重新计算
+- 当dirty为false时，读取computed会使用缓存
+
+
 <br/>
 
 
-#### 12. computed实现原理
-computed 内依赖的响应式数据变更时，会通知该 computed watcher 执行 update 操作，但实际上此时只是标记为 dirty = true，只有当下次要参与计算时才会执行取值。
-
-#### 13. watch实现原理
+### 13. watch实现原理
 注册阶段触发响应式数据的getter从而完成依赖手机
 
-#### 参考资料
-- [JS每日一题](https://github.com/febobo/web-interview)
-- [分享8个非常实用的Vue自定义指令](https://juejin.cn/post/6906028995133833230)
-- [notebook](https://github.com/theydy/notebook/issues)
-- [require()源码解读](https://www.ruanyifeng.com/blog/2015/05/require.html)
+### 14. 父子组件生命周期执行顺序
+想象有一段JSX，组件`<ComponentA>`会被`babel-loader`转换成`createElement`，执行`render()`的时候，会深度优先遍历（DFS）依次从父组件往里面执行，然后再依次往回`return`。
+
+加载渲染过程
+1. 父beforeCreate
+2. 父created
+3. 父beforeMount
+4. 子beforeCreate
+5. 子created
+6. 子beforeMount
+7. 子mounted
+8. 父mounted
+
+子组件更新过程：
+1. 父beforeUpdate
+2. 子beforeUpdate
+3. 子updated
+4. 父updated
+
+销毁过程：
+1. 父beforeDestroy
+2. 子beforeDestroy
+3. 子destroyed
+4. 父destroyed
 
 
 
-
-
-
-
-
-
-### 2. 组件通信
-- 获取组件实例
-this.$parent拿到父组件实例
-this.$children拿到子组件实例（数组）
-
-- 父组件调用子组件方法
-在子组件上加上ref，通过this.$refs.ref.method调用
-
-- 子组件调用父组件方法
-    1. this.$parent.event
-    2. $emit向父组件触发一个事件，父组件监听这个事件
-    3. 父组件把方法传入子组件，子组件直接调用这个方法
-
-组件的data为什么是一个function
-ref
-emit
-nativeClick
-非父子组件间的传值: Bus/总线/发布订阅模式/观察者模式
-```js
-Vue.prototype.bus = new Vue();
-Vue.component('child', {
-  methods: {
-    handleClick: function() {
-      this.bus.$emit('change', 'content')
-    }
-  },
-  mounted: function() {
-    this.bus.$on('change', function(msg){
-      console.log(msg); // 'content'
-    })
-  }
-})
-
-```
-
-
-### 3. 生命周期
+生命周期
 Vue实例从创建到销毁的过程，就是生命周期，从开始创建、初始化数据、编译模板、挂载DOM -> 更新渲染 -> 卸载等一系列的过程。
 - 组件挂载: beforeCreate, created, beforeMount, mounted(完成DOM渲染， 官方实例的异步请求在mounted中调用，实际上created也可以)
 - 组件更新: beforeUpdate, updated
@@ -375,6 +400,20 @@ beforeMount
 
 mounted
 el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子
+
+
+
+
+<br/>
+
+#### 参考资料
+- [JS每日一题](https://github.com/febobo/web-interview)
+- [分享8个非常实用的Vue自定义指令](https://juejin.cn/post/6906028995133833230)
+- [notebook](https://github.com/theydy/notebook/issues)
+- [require()源码解读](https://www.ruanyifeng.com/blog/2015/05/require.html)
+- [Vue中computed原理分析](https://blog.csdn.net/lznism666/article/details/108513723)
+
+
 
 
 

@@ -1,5 +1,5 @@
 ---
-title: Object.defineProperty和proxy实现双向绑定
+title: Object.defineProperty和proxy实现响应式（Reactivity）
 date: 2018-11-14 15:47:27
 category:
 - Vue
@@ -25,7 +25,7 @@ View需要什么数据，ViewModel要提供这个数据；View有哪些些操作
 <br/>
 
 ### 2. 数据驱动
-对于 View 来说，如果封装得好，一个UI组件能很方便地给大家复用。对于 Model 来说，它其实是用来存储业务的数据的，如果做得好，它也可以方便地复用。那么，ViewModel有多少可以复用？我们写完了一个 Vue实例之后，可以很方便地复用它吗？结论是：*非常难复用*。
+对于 View 来说，如果封装得好，一个UI组件能很方便地给大家复用。对于 Model 来说，它其实是用来存储业务的数据的，如果做得好，它也可以方便地复用。那么，ViewModel有多少可以复用？结论是：*非常难复用*。
 
 ViewModel做的什么？就是写那些不能复用的业务代码。当交互复杂，一个数据的改变引起多处DOM的修改。ViewModel将变得*十分臃肿*。
 ```js
@@ -139,6 +139,11 @@ this.arr = thia.arr.filter((item) => item.key)
 <br/>
 
 ### 4. proxy
+在Vue2.0中，数据双向绑定就是通过`Object.defineProperty`去监听对象的每一个属性，然后在get,set方法中通过发布订阅者模式来实现的数据响应，但是存在一定的缺陷，比如只能监听已存在的属性，对于新增删除属性就无能为力了，同时无法监听数组的变化，所以在Vue3.0中将其换成了功能更强大的`Proxy`。
+- Object.defineProperty监听的是对象的每一个属性，而Proxy监听的是对象自身
+- 使用Object.defineProperty需要遍历对象的每一个属性，对于性能会有一定的影响
+- Proxy对新增的属性也能监听到，但Object.defineProperty无法监听到。
+
 ```js
 const handler = {
     get: (target, propkey) => {

@@ -86,6 +86,7 @@ function f() {
 ```
 
 <br/>
+
 #### 2.2 箭头函数
 ```js
 // es5
@@ -99,6 +100,7 @@ var a = [1, 2, 3].map(function (v) {
 
 
 <br/>
+
 #### 2.3 函数默认参数
 ```js
 // es5
@@ -115,6 +117,7 @@ function f(x) {
 
 
 <br/>
+
 #### 2.4 解构
 ```js
 // es5
@@ -134,6 +137,7 @@ var _c$d$e = const { c, d, e: { f } } = { c: 1, d: 2, e: { f: 3 } },
 
 
 <br/>
+
 #### 2.5 模板字符串
 ```js
 // es5
@@ -153,6 +157,7 @@ var c = "hello ".concat(name, ",\n\thow are you ").concat(today);
 
 
 <br/>
+
 #### 2.6 Class
 ```js
 class Arr {
@@ -229,6 +234,7 @@ arr.getVal();
 
 
 <br/>
+
 ### 3. polyfill
 Babel默认只转换新的JS语法，而ES6新特性像Promise, async/await，则是通过[core-js](https://github.com/zloirock/core-js)实现。
 
