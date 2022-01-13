@@ -18,6 +18,21 @@ category: Vue
 大部分使用 TypeScript 的 Vue 开发者都在通过 vue-class-component 这个库将组件撰写为 TypeScript class。Vue 现有的 API 在设计之初没有照顾到类型推导，这使适配 TypeScript 变得复杂。
 
 
+<br/>
+
+### 2. Composition API
+- setup
+- reactive
+```js
+// reactive 几乎等价 Vue.observable(), 返回的state是一个响应式对象
+const state = reactive({
+  count: 0
+})
+```
+
+
+<br/>
+
 ### 2. Vue vs React
 - 数据驱动实现方式不同
 Vue是用proxy, Object.defineProperty实现依赖追踪

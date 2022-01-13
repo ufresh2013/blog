@@ -108,9 +108,9 @@ Host: api.alice.com
 
 服务器收到“预检”请求号，检查了`Origin, Access-Control-Request-Method 和 Access-Control-Request-Headers`字段后，确定允许跨域请求，做出回应。
 ```
-HTTP/1.1 200 OK
+HTTP/1.1 200 OKs
 // 服务器回应的CORS相关字段
-Access-Control-Allow-Origin: http://api.bob.com
+Access-Control-Allow-Origin: http://api.bob.coms
 Access-Control-Allow-Methods: GET, POST, PUT
 Access-Control-Allow-Headers: X-Custom-Header
 Access-Control-Max-Age: 1728000
