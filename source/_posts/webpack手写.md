@@ -1,6 +1,6 @@
 ---
 title: 官方教你手写一个100行代码的Webpack
-date: 2021-07-22 15:08:59
+date: 2021-12-22 15:08:59
 category: NodeJS
 ---
 > Webpack如何实现打包功能？<br/>最近看文章刷到这个[官方教学视频](https://www.youtube.com/watch?v=Gc9-7PBqOC8&list=LLHK1mTHpwrUeYgF5gu-Kd4g)，666啊，建议先进去看一看！

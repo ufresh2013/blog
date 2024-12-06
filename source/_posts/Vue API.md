@@ -1,5 +1,5 @@
 ---
-title: Vue API 是真的好用！
+title: Vue2 的 API 是真的好用！
 date: 2019-10-11 10:27:39
 category: Vue
 ---

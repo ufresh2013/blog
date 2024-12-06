@@ -3,7 +3,34 @@ title: Vue组件通信
 date: 2021-08-21 13:23:26
 category: Vue
 ---
-### 1 props
+> 组件通信方式都有哪些？哪种比较好？
+
+### 0. 各种通信方式的优劣势
+- *`props`*
+只适用于父组件向子组件传值，不适合多层级关系，多层级传值写法冗余
+
+- *`prarent/children/ref`*
+适用于父组件调用子组件方法，兄弟组件通信
+
+- *`provide/inject`*
+适用于一个数据有多个子组件在同时使用，如提交一个复杂表单
+（ 要注意，`provide`和`inject`绑定并不是可响应的，你必须`watch`来实现响应 ）
+
+- *`eventBus/$on/$emit`*
+用得少，层级深入复杂，且组件之间没有啥关系。要让他们通信，如果是是在小项目中，EventBus就是个不错的选择。
+
+- *`$attrs/$listeners`*
+对层级不深的组件关系，怎么传值？attrs跟listeners是一个不错的选择。他的中间组件，可以不受影响，去传递给子孙组件。
+
+- *`vuex`*
+关于全局缓存变量的储存，在传统时代，根据cookies,localstorage,session等，已经有了很友好的方案，基本可以完成变量的存储。但是在数据驱动的时代，他们却无法满足我们的需求。以vue为实例，所有的数据需要双向绑定才能完成数据驱动，但是明显cookies，localstorage，session等，是无法完成双向绑定的，那就意味着，但数值变化时，我们的页面无法同步展示，因为我们压根监听不到他们。
+那么解决方案是什么呢？每个单页都有自己的完善的状态处理器，例如vue的vuex，react的react-redux等，提供了*全局状态管理*，*持久化处理*。
+
+<br/>
+
+
+
+### 1. props
 #### 1.1 props怎样传值给子组件？
 先看一段代码,我给 test 绑定了一个对象作用域，加上 with 绑定 this，然后读取 parentName 就会从 传入的对象上获取
 ```js
@@ -54,6 +81,8 @@ for (const key in propsOptions) {
 
 <br/>
 
+
+
 ### 2. $emit
 子组件不能直接修改`props`，必须通过发送事件的方式让父组件修改`props`。子组件初始化的时候，会将`v-on`的事件保存在`vm.$event`上方便`$emit`调用
 ```js
@@ -74,10 +103,14 @@ Vue.prototype.$emit = function (event: string): Component {
 
 <br/>
 
+
+
 ### 3. v-model
 `v-model`会解析成名为`value`的`prop`和名为`@input`的事件。其根本，还是通过事件的方式让父组件修改数据。
 
 <br/>
+
+
 
 ### 4. $listeners, .sync
 有时我们需要对一个 `prop` 进行“双向绑定”。不幸的是，真正的双向绑定会带来维护上的问题，因为子组件可以变更父组件，且在父组件和子组件两侧都没有明显的变更来源。Vue推荐使用`update:myPropName`的方式触发事件取而代之。
@@ -94,6 +127,7 @@ Vue.prototype.$emit = function (event: string): Component {
 </script>
 ```
 
+<br/>
 
 ### 5. $parent, $chilren, $refs
 在`this.$parent.children`中通过组件`name`查询到需要的组件实例，进行通信
