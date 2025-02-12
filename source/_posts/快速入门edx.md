@@ -1,7 +1,7 @@
 ---
 title: 快速开始Edx-H版开发
 date: 2019-05-09 13:52:44
-category: 其他
+category: Work
 ---
 ### 1. 前提
 要快速入门edx，首先你可以体验一下英荔商学院，

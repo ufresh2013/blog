@@ -235,7 +235,8 @@ arr.getVal();
 
 <br/>
 
-### 3. polyfill
+### 3. babel 和 polyfill
+*有了babel，为什么要polyfill？*
 Babel默认只转换新的JS语法，而ES6新特性像Promise, async/await，则是通过[core-js](https://github.com/zloirock/core-js)实现。
 
 Promise, aysnc/await, Generator, Set, Map, Proxy

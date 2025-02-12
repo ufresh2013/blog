@@ -1,8 +1,7 @@
 ---
 title: SVG文档
 date: 2018-10-06 09:34:11
-category:
-- HTML
+category: HTML
 ---
 SVG文档由`<svg>`根元素和基本形状元素(用于定义圆形、矩形、简单或复杂的曲线)构成。还有一个`<g>`元素，用来把若干基本形状编成一个组。SVG支持渐变、旋转、滤镜效果、JS接口等功能。
 <br>
@@ -506,7 +505,7 @@ In order to animate an SVG shape you need to call a Javascript function repeated
 <input type="button" value="Stop Animation" onclick="stopAnimation();">
 {% endraw %}
 
-```
+```html
 <svg width="500" height="100">
     <circle id="circle1" cx="20" cy="20" r="10"
             style="stroke: none; fill: #ff0000;"/>

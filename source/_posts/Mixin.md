@@ -1,5 +1,5 @@
 ---
-title: Mixin Considered Harmful - Mixin的替代方案(译文)
+title: Mixin Considered Harmful(译文)
 date: 2019-12-19 09:46:04
 category: React
 ---

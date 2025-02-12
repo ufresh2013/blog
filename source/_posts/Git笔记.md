@@ -1,5 +1,5 @@
 ---
-title: Git常用命令
+title: Git命令
 date: 2018-09-13 15:00:00
 category: Basic
 ---

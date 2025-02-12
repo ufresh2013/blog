@@ -1,7 +1,7 @@
 ---
 title: XHR：实现一个Axios
-date: 2019-06-26 14:06:28
-category: Browser
+date: 2022-06-26 14:06:28
+category: HTTP
 ---
 
 ### 1. Ajax

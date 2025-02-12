@@ -1,7 +1,7 @@
 ---
 title: Chrome插件
 date: 2019-12-13 16:17:04
-category: 其他
+category: Browser
 ---
 
 #### *1. Octotree*

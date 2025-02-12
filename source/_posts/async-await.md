@@ -1,5 +1,5 @@
 ---
-title: 回调、Promise、Async/Await
+title: 异步的三种实现方式：回调、Promise、Async/Await
 date: 2021-08-16 12:12:52
 category: JS
 ---

@@ -1,8 +1,7 @@
 ---
-title: Markdown
+title: Markdown 语法
 date: 2017-10-06 11:12:55
-category:
-- 其他
+category: Basic
 ---
 #### 1. 标题
 ```
