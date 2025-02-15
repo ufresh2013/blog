@@ -19,7 +19,7 @@ setState提供了一个回调函数，在回调函数中，我们可以实时的
 this.setState({number:3},()=>{
   console.log(this.state.number)
 })
-``
+```
 
 
 <br/>

@@ -7,12 +7,12 @@ category:
 ### 1. 元素
 - canvas元素
 canvas是一个可以使用JS来绘制图形的HTML元素。canvas标签只有两个属性——width和height。
-```
+```js
 <canvas id="tutorial" width="150" height="150"></canvas>
 ```
 - 渲染上下文
 canvas元素创造了一个固定大小的画布，它公开了一个或多个渲染上下文，用来绘制和处理要展示的内容。
-```
+```js
 var canvas = document.getElementById('tutorial');
 var ctx    = canvas.getContext('2d'); 
 ```
@@ -23,7 +23,7 @@ var ctx    = canvas.getContext('2d');
 
 ### 2. 绘制
 #### 2.1 矩形
-```
+```js
 ctx.fillRect(x, y, width, height)     绘制一个填充的矩形
 ctx.strokeRect(x, y, width, height)   绘制一个矩形的边框
 ctx.clearRect(x, y, width, height)    清除指定矩形区域，让清除部分完全透明
@@ -31,19 +31,19 @@ ctx.clearRect(x, y, width, height)    清除指定矩形区域，让清除部分
 
 #### 2.2 圆弧
 画一个以(x,y)为圆心的radius为半径的圆，从startAngle开始到endAngle结束，按照anticlockwise给定的方向(默认顺时针)生成。
-```
+```js
 ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise)
 ```
 
 
 根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。
-```
+```js
 ctx.acrTo(x1, y1, x2, y2, radius)
 ```
 
 #### 2.3 路径
 路径是通过不同颜色和宽度的线段/曲线相连形成的不同形状的店的集合。绘制图形的步骤：①创建路径起点；②使用画图命令画出路径；③封闭路径；④通过描边或填充路径来渲染图形。
-```
+```js
 ctx.beginPath()   新建路径
 ctx.moveTo(x,y)   将笔触移动到(x,y)上
 ctx.lineTo(x,y)   绘制一条从当前位置到(x,y)的直线
@@ -54,12 +54,12 @@ ctx.fill()        填充路径
 
 #### 2.4 贝塞尔曲线
 二次贝塞尔曲线, cplx,cply为一个控制点, x,y为结束点
-```
+```js
 quadraticCurveTo(cplx, cply, x, y)
 ```
 
 三次贝塞尔曲线, cplx,cply为控制点1, cp2x,cp2y为控制点2, x,y为结束点
-```
+```js
 bezierCurveTo(cplx, cply, cp2x, cp2y, x, y)
 ```
 <img src="2.png" style="padding-top:20px; max-width: 380px">
@@ -67,7 +67,7 @@ bezierCurveTo(cplx, cply, cp2x, cp2y, x, y)
 
 ### 3. 使用样式和颜色
 #### 3.1 描边，填充
-```
+```js
 ctx.fillStyle = color               设置图形的填充颜色
 ctx.strokeStyle = color             设置图形轮廓的颜色
 ctx.globalAlpha = transparencyValue 设置canvas里所有图形的透明度
@@ -84,7 +84,7 @@ lineDashOffset = value              设置虚线样式的起始偏移量
 
 #### 3.2 渐变
 我们可以用线性或径向的渐变来填充或描边。新建一个`canvasGradient`对象，并且赋给`fillStyle或strokeStyle`属性。
-```
+```js
 // 创建canvasGradient对象
 var lineargradient = ctx.createLinearGradient(x1, y1, x2, y2);
 var radialgradient = ctx.createRadialGradient(x1, y1, r1, x2, y2, r2);
@@ -102,7 +102,7 @@ ctx.strokeStyle = lineargradient;
 
 #### 3.3 图案样式
 图案的应用和渐变很像，创建出一个pattern后，赋给`fillStyle或strokeStyle`属性即可。
-```
+```js
 var img = new Image();
 img.src = 'someimage.png';
 var ptrn = ctx.createPattern(img, type)
@@ -110,7 +110,7 @@ var ptrn = ctx.createPattern(img, type)
 ```
 
 #### 3.4 阴影
-```
+```js
 ctx.shadowOffsetX = float   设定阴影在X轴的延伸距离
 ctx.shadowOffsetY = float   设定阴影在Y轴的延伸距离
 ctx.shadowBlur    = float   设定阴影的模糊程度
@@ -121,8 +121,9 @@ ctx.fillText('Sample String', 5, 30);
 ```
 
 <br>
+
 ### 4. 文本和图片
-```
+```js
 ctx.font = '10px sans-serif';
 ctx.textAlign = 'start/end/left/right/center';
 ctx.textBaseline = 'top/hanging/middle/alphabetic/ideographic/bottom';
@@ -136,7 +137,7 @@ var text = ctx.measureText('foo');
 text.width // 16
 ```
 
-```
+```js
 drawImage(image, x, y)                                              绘制图片
 drawImage(image, x, y, width, height)                               绘制图片(缩放)
 drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight3) 切片
@@ -149,13 +150,13 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight3) 切片
 Canvas状态存储在栈中，每当`save()`方法被调用后，当前的状态就被推送到栈中。你可以调用任意多次`save`方法，每一次调用`restore`方法，上一个保存的状态就从栈中弹出，所有设定都恢复。
 
 一个绘画状态包括：①当前应用的变形(移动、旋转、缩放)；②strokeStyle, fillStyle, globalAlpha, lineWidth, lineCap, lineJoin, miterLimit, shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor, globalCompositeOperation 的值； ③当前的裁切路径
-```
+```js
 ctx.save()    保存canvas状态
 ctx.restore() 恢复canvas状态
 ```
 
 #### 5.2 移动，旋转，变形，缩放
-```
+```js
 ctx.translate(x, y)   [移动]移动canvas和它的原点到一个不同的位置
 ctx.rotate(angle)     [旋转]以原点为中心旋转canvas
 ctx.scale(x, y)       [缩放]对形状，位图进行缩小或者放大，x, y默认值为1
@@ -166,13 +167,14 @@ ctx.transform(水平方向的缩放，水平方向的倾斜偏移，竖直方向
 <img src="4.png" style="padding-top:20px; max-width: 380px">
 
 <br>
+
 ### 6. 其它
 #### 6.1 动画
 保存canvas状态, 清空canvas, 重绘动画帧。[高级动画示例](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Advanced_animations)
 
 #### 6.2 颜色选择器
 像素操作: `ctx.getImageData(left, top, width, height)`
-```
+```js
 var img = new Image();
 img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
 var canvas = document.getElementById('canvas');
@@ -197,7 +199,7 @@ canvas.addEventListener('mousemove', pick);
 
 #### 6.3 图片灰度和反相颜色
 在场景中写入像素数据: `ctx.putImageData(myImageData, dx, dy)`
-```
+```js
 var img = new Image();
 img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
 img.onload = function() {
@@ -239,7 +241,7 @@ function draw(img) {
 ```
 
 #### 6.4 把canvas保存为图片
-```
+```js
 canvas.toDataURL('image/png', quality)        创建一个png图片,0-1的品质量,1最好
 canvas.toBlob(callback, type, encoderOptions) 创建一个画布中代表图片的Blob对象
 ```
@@ -250,7 +252,7 @@ canvas.toBlob(callback, type, encoderOptions) 创建一个画布中代表图片�
 - 橡皮檫，清空画布
 - 撤销，恢复功能(再执行最近一次操作)
 
-```
+```js
 function repaint(ctx, strokes) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   if (strokes === undefined) {

@@ -1,5 +1,5 @@
 ---
-title: React
+title: React Class Component
 date: 2018-10-25 10:54:32
 ---
 ### 1. Main Concept

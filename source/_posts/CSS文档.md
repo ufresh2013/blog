@@ -1,8 +1,6 @@
 ---
 title: CSS文档
 date: 2018-10-06 11:12:55
-tags:
-- CSS
 category:
 - CSS
 ---

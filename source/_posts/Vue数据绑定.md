@@ -1,5 +1,5 @@
 ---
-title: Object.defineProperty和proxy实现响应式（Reactivity）
+title: Object.defineProperty和proxy实现响应式
 date: 2018-11-14 15:47:27
 category:
 - Vue
