@@ -1,212 +1,113 @@
 ---
-title: Redux
-date: 2019-02-28 15:06:04
+title: 实现一个Redux + React-Redux
+date: 2024-10-25 11:48:17
 category: React
 ---
-> 应用中所有的state都以一个对象树的形式储存在一个单一的store中。唯一修改state的办法就是触发action，有一个描述发生什么的对象。为了描述action如何改变state树，你需要编写reducers。
 
-- redux基本用法？
-- react-redux实现原理？
-- redux-saga是什么？
-- reducer为什么是纯函数？
-- 为什么有了action, 还有独立一个reducer？
-- redux, flux, mobx
+### 1. 适用场景
+从组件角度出发
+- 某个组件的状态，需要共享
+- 某个状态需要在任何地方都可以拿到
+- 一个组件需要改变全局状态
+- 一个组件需要改变另一个组件的状态
+
+发生上面情况时，如果不使用 Redux 或者其他状态管理工具，不按照一定规律处理状态的读写，代码很快就会变成一团乱麻。你需要一种机制，可以在同一个地方查询状态、改变状态、传播状态的变化。
+(适用场景：多交互、多数据源、数据需要统一保存(如多个chat)、用户之间可以协作)
+
 
 <br/>
 
-### 1. 核心概念
-- Store : 一个纯js对象，描述应用的state
-- Action :一个普通Javascript对象，用来描述发生了什么
+### 2. Redux是怎么做的？
+首先，所有的状态，都保存在一个对象里。
+- *`store`*：保存数据的地方
+- *`state`*: 是store当前时刻的快照，可以通过`store.getState()`获得
+- *`action`*: 是一个对象 `const action = { type: 'ADD_TODO'， payload: 1 }`，表示当前要执行的操作
+- *`dispatch`*: 是发出Action的唯一办法
+- *`reduer`*: store收到action后，必须给出一个全新的state，这样view才发生变化。这种state的计算过程就叫reducer。Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
 ```js
-{ type: 'ADD_TODO', text: 'Build your data' }
-{ type: 'TOGGLE_TODO', index: 1 }
-```
+// 必须是全新的对象
+function reducer(state, action) {
+  return Object.assign({}, state, { thingToChange });
+  // 或者
+  return { ...state, ...newState };
+}
 
-- Reducer : 是一个接收state和action, 并返回新的state的纯函数。保持reducer纯净很重要，永远不要在reducer里做这些操作: ① 修改传入参数; ② 执行有副作用的操作，如API请求和路由跳转；③ 调用非纯函数，如`Date.now()`或`Math.random()`
-```js
-function todo(state=[], action){
-  switch (action.type){
-    case 'ADD_TODO':
-      // 不能使用Object.assign(state, {...})，因为它会改变第一个参数的值
-      return Object.assign({}, state, {
-        todos: [
-          ...state.todos,
-          {
-            text: action.text,
-            completed: false,
-          }
-        ]
-      })
-    
-    case 'TOGGLE_TODO':
-      // 形成一个新的数组
-      return state.map(
-        (item, index) => 
-          action.index == index ? { text: item.text, completed: !item.completed } : item
-      )
-    
-    default:
-      return state
-  }
+// State 是一个数组
+function reducer(state, action) {
+  return [...state, newItem];
 }
 ```
-
-
-<br/>
-### 2. 三个原则
-- 单一数据源
-*`state -> DOM ; store -> APP`*
-全局只有一个唯一的store, 所有的组件状态都可以放在外部store中。所有节点的更新都通过Store完成。组件之间的通信不再依赖组件的层级结构。
-<img src="1.png" style="max-width: 500px">
-
-
-<br/>
-- state是只读的
-*`(state, action) => new state`* 
-唯一改变state的方法就是触发action。视图和网络请求都不能直接修改state。点击按钮后，会形成一个action，这个action会被dispatche到Reducer。Reducer处理这个action，返回一个新的store。store的变化，会触发UI的变化。
-<img src="2.png" style="max-width: 400px">
-<br/>
-
-
-- 使用纯函数来执行修改
-更新store的reducer是一个纯函数，输出结果由参数决定。
-
-
-
+- *`subscribe`*: Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。
 
 <br/>
 
-### 3. Redux API
-*createStore(reducer)*
-创建一个store
+*整个流程如下：*
+让用户发出action，Reducer函数算出新的State, View重新渲染。
 ```js
-import { createStore } from 'redux';
-import todoApp from './reducers';
-let store = createStore(todoApp);
-```
-*store.getState()*
-获取store的数据
-
-*store.dispatch(action)*
-用户点击一个按钮，产生一个action，dispatch将这个action传递给reducer，来更新store
-
-*store.subscribe(callback)*
-监听store的变化，变化后执行回调函数
-
-
-```js
-import { createStore } from 'redux';
-
-// 定义reducer
-function counter(state = 0, action){
-  switch (action.type){
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
-    default:
+const defaultState = 0;
+const reducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'ADD':
+      return state + action.payload;
+    default: 
       return state;
   }
-}
+};
 
-// 创建store来存放应用的状态(store是一个纯js对象)
-// API 是 { subscribe, dispatch, getState }
-let store = createStore(counter);
-
-// 监听store的变化，变化后执行回调函数
-store.subscribe(() => {
-  // 获取store里的数据
-  console.log(store.getState())
+// store.dispatch触发reduer的自动执行
+const state = reducer(1, {
+  type: 'ADD',
+  payload: 2
 });
-
-store.dispatch({ type: 'INCREMENT' })
-```
-
-
-*combineReducers*
-系统中有多个reduer，可以使用`combineReducers`整合在一起。
-```js
-import { combineReducers } from 'redux';
-function todos( state = [], action) {
-  // ...
-  return nextState;
-}
-
-function visibleTodoFilter(state = 'SHOW_ALL', action) {
-  // ...
-  return nextState;
-}
-
-export default combineReducers({
-  todos,
-  visibleTodoFilter
-})
 ```
 
 <br/>
 
-*bindActionCreators*
-创建action，同时把它dispatch出去。不需要知道store， dispatch在哪, 就能触发dispatch。
+### 3. 实现一个Redux
 ```js
-function addTodoWithDispatch(text){
-  const action = {
-    type: ADD_TODO,
-    text
-  }
-  dispatch(action)
-}
+// store
+const createStore = (reducer) => {
+  let state;
+  let listeners = [];
 
-// 另一种写法
-const boundAddTodo = text => dispatch(addTodo(text))
-```
+  const getState = () => state;
 
+  const dispatch = (action) => {
+    state = reducer(state, action);
+    listeners.forEach(listener => listener());
+  };
 
-<br/>
-
-### 3. React-redux
-React-Redux是基于 容器组件和展示组件相分离 的开发思想。大部分组件都是展示型的，但一般需要少数的几个容器组件把它们和Redux store连接起来。
-
-<br/>
-
-#### 3.3 connect工作原理
-```js
-// 传递redux state
-cosnt mapStateToProps = state => {
-  return {
-    todos: state.todos
-  }
-}
-
-// 分发action
-const mapDispatchToProps = dispatch => {
-  return {
-    onTodoClick: id => {
-      dispatch(toggleTodo(id))
+  const subscribe = (listener) => {
+    listeners.push(listener);
+    return () => {
+      listeners = listeners.filter(l => l !== listener);
     }
-  }
-}
+  };
 
-// 最后通过connect()，将<TodoList>与redux联系起来
-import { connect } from 'react-redux';
+  dispatch({});
+  return { getState, dispatch, subscribe };
+};
 
-const VisibleTodoList = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoList)
-
-export default VisibleTodoList;
 ```
 
-#### 3.4 传入store
+<br/>
+
+### 4. 视图更新
+数据和操作数据的逻辑有了，剩下的问题就是，计算出新的state后，怎么触发视图更新？
+这时需要用到`React-Redux`，`React-Redux`需要解决两个问题：
+- state对象如何转化为组件的参数
+- 用户发出的Action如何从UI组件传出去
+
+
+#### 4.1 获取state
+使用`<Provide />`组件，让所有组件都能拿到`state`
 ```js
-import React from 'react'
-import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import todoApp from './reducers'
 import App from './components/App'
 
-let store = createStore(todoApp)
+let store = createStore(todoApp);
 
 render(
   <Provider store={store}>
@@ -214,73 +115,87 @@ render(
   </Provider>,
   document.getElementById('root')
 )
-```
-（这里还不太懂）
-示例：https://www.redux.org.cn/docs/basics/ExampleTodoList.html
 
-
-
-
-
-
-
-
-<br/>
-
-### 4. Redux异步请求
-一般情况下，每个API请求都需要dispatch至少三种action:
-- 通知reducer请求开始的action
-- 通知reducer请求成功的action
-- 通知reducer请求失败的action
-
-
-
-
-<br/>
-
-### 5. 组织action和reducer
-- 所有action放一个文件，会无限扩展
-- action，reducer分开，在action中发请求，在reducer中做处理，实现业务逻辑时需要来回切换
-建议单个action和reducer放在同一个文件
-```js
-import { COUNTER_PLUS_ONE } from './counter';
-
-export function counterPlusOne(){
-  return { type: COUNTER_PLUS_ONE }
+// 组件内获取state
+componentDidMount() {
+  const { store } = this.context;
 }
+```
 
-export function reducer(state, action){
-  switch (action.type){
-    case COUNTER_PLUS_ONE:
-      return {
-        ...state,
-        count: state.count + 1,
-      }
-    
-    default:
-      return state;
+<br/>
+
+#### 4.2 connect
+Redux提供 *`connect`*方法，让组件变成能响应state变化的组件。
+```js
+import { connect } from 'react-redux'
+const VisibleTodoList = connect()(TodoList);
+```
+
+`connect`方法接收两个参数，mapStateToProps 和 mapDispatchToProps
+
+<br/>
+
+#### 4.3 mapStateToProps
+会将state映射到组件的props上。
+mapStateToProps会订阅 Store，每当state更新的时候，就会自动执行，重新计算 UI 组件的参数，从而触发 UI 组件的重新渲染。
+```js
+const mapStateToProps = (state) => {
+  return {
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
   }
 }
 ```
 
+#### 4.4 mapDispatchToProps
 
-<img src="4.png" style="max-width:500px">
+#### 4.5 整个流程
+- 纯UI组件
+```js
+class Counter extends Component {
+  render() {
+    const { value, onIncreaseClick } = this.props
+    return (
+      <div>
+        <span>{value}</span>
+        <button onClick={onIncreaseClick}>Increase</button>
+      </div>
+    )
+  }
+}
+```
+
+- connect生成能响应state的组件
+```js
+function mapStateToProps(state) {
+  return {
+    value: state.count
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onIncreaseClick: () => dispatch(increaseAction)
+  }
+}
+
+// Action Creator
+const increaseAction = { type: 'increase' }
+
+const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Counter)
+
+```
 
 <br/>
-### 6. redux-saga
-<img src="3.png" style="max-width:400px">
 
 
-### 7. dva
+### 5. 实现一个React-Redux
 
 
-
+<br/>
 
 ### 参考资料
-- [Redux](https://www.redux.org.cn/)
-- [Redux-sage](https://redux-saga-in-chinese.js.org/)
-- [Dva](https://dvajs.com/)
-- [Redux 简明教程](https://github.com/kenberkeley/redux-simple-tutorial)
-- [Redux 进阶教程](https://github.com/kenberkeley/redux-simple-tutorial/blob/master/redux-advanced-tutorial.md)
-- [容器组件和展示组件相分离](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
-- [简述React中无状态组件和有状态组件的区别](https://segmentfault.com/a/1190000016774551)
+- [Vuex框架原理与源码分析](https://tech.meituan.com/2017/04/27/vuex-code-analysis.html)
+- [Redux 入门教程](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)

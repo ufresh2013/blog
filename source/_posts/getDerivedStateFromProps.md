@@ -1,7 +1,7 @@
 ---
 title: React 你可能不需要派生的state
 date: 2019-07-24 10:45:11
-category: Bug
+category: React
 ---
 ### 1. 实现需求
 - 子组件是个弹框

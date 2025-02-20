@@ -47,7 +47,7 @@ class Heap {
 class MinHeap {
   constructor (nums) {} // 接受一个数组，一开始对nums进行堆排序
   insert (num) {} // 往堆里插入元素
-  removeMax () {} // 获取堆顶元素
+  removeMin () {} // 获取堆顶元素
 }
 
 var getLeastNumbers = function(arr, k) {
@@ -79,8 +79,10 @@ var getLeastNumbers = function(arr, k) {
 [undefined, 7, 5, 6, 4, 2, 1]
 ```
 
+<br/>
 
 #### 3.2 实现大顶堆
+保证堆顶元素最大
 ```js
 /* 
 - 往堆中插入一个元素
@@ -139,6 +141,7 @@ class MaxHeap {
 <br/>
 
 #### 3.3 实现小顶堆
+保证堆顶元素最小
 ```js
 const swap = (arr, idx1, idx2) => {
   const temp = arr[idx1]

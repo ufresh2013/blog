@@ -1,5 +1,5 @@
 ---
-title: 仿照 Vue-Router 实现一个路由
+title: 实现一个 Vue-Router
 date: 2019-10-25 16:52:30
 category: Vue
 ---

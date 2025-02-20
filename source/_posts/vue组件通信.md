@@ -1,5 +1,5 @@
 ---
-title: Vue组件通信
+title: Vue2 组件通信
 date: 2021-08-21 13:23:26
 category: Vue
 ---
