@@ -1,5 +1,5 @@
 ---
-title: React组件 & 组件传值
+title: React Class 组件 & 组件传值 & 生命周期
 date: 2019-06-21 17:23:14
 category: React
 ---
@@ -340,6 +340,7 @@ function Page(props) {
 React中数据是通过props属性自上而下(由父及子)进行传递的，但这种做法对于某些类型的属性而言是极其繁琐的（如：地区偏好，UI主题），这些属性是应用程序中许多组件都需要的。Context提供了一种在组件之间共享此值的方式，而不必显示地通过组件树的逐层传递props。
 
 <br/>
+
 #### 3.3 Refs
 将DOM Refs暴露给父组件。你希望在父组件汇总引用子节点的DOM节点。
 不能Ref高阶组件（connect到redux的HOC组件），ref出来的会是高阶组件，不是本组件。
@@ -388,15 +389,31 @@ return (
 
 ```
 
-<br/>
-#### 3.4 redux
-配合dva使用
-
-
-
 
 <br/>
-#### Other
+
+### 4. 生命周期
+#### 4.1 挂载
+当组件实例被创建并插入DOM中时，其生命周期调用顺序如下
+- constructor
+- getDerivedStateFromProps
+- render
+- componentDidMount
+
+<br/>
+#### 4.2 更新
+当组件的props或state发生变化时会触发更新。组件更新的生命周期调用顺序如下
+- getDerivedStateFromProps 
+- shouldComponentUpdate 
+- render 
+- getSnapshotBeforeUpdate 
+- componentDidUpdate
+
+
+<br/>
+#### 4.3 卸载
+当组件从DOM中移除之前，会调用
+- compoenntWillMount
 
 ### 参考资料
 https://github.com/xitu/gold-miner/blob/master/TODO/our-best-practices-for-writing-react-components.md

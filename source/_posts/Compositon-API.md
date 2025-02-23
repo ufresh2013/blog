@@ -1,24 +1,28 @@
 ---
-title: Vue2, Vue3, React(Class Component), React Hooks的区别
+title: Vue2, Vue3, React Class, React Hooks的区别
 date: 2021-08-25 14:07:49
 category: Vue
 ---
 
+> 都是MVC（Model-View-Controller）数据驱动类型的前端框架，Vue和React代码组织方式分别好在哪里？
+React为什么都要升级为Hooks的写法？
+
+<br/>
 
 ### 1. MVC
-MVC（Model-View-Controller） 是一种经典的软件架构模式，用于分离应用的核心逻辑、用户界面和数据
-- Model：管理数据和业务逻辑。
-- View：界面展示，从 Model 获取数据并呈现给用户。
+先回顾一下，啥是MVC?
+MVC（Model-View-Controller） 是一种经典的软件架构模式，用于分离应用的数据、界面、逻辑
+- Model：管理数据。
+- View：界面展示，从 Model 获取数据并呈现出来。
 - Controller：接收用户输入，调用 Model 修改数据，更新 View 展示结果。
 
-*都是MVC（Model-View-Controller）数据驱动类型的前端框架，Vue和React代码组织方式分别好在哪里？
-他们为什么都要升级为Hooks的写法？*
+
 
 
 <br/>
 
 ### 2. Vue2
-使用`Options API`配置化的方式组织代码，加上Vue2提供的各种API、指令，很容易就满足了各种前端页面需求，上手容易，好用，简单！
+使用*`Options API`*配置化的方式组织代码，加上Vue2提供的各种API、指令，很容易就满足了各种前端页面需求，上手容易，好用，简单！
 ```js
 // 每个`.vue`文件就是一个组件
 export default {
@@ -81,8 +85,9 @@ function Counter() {
 }
 ```
 
-甚至你还可以创建自己的Hooks
+你还可以创建自己的Hooks
 ```js
+
 const usePerson = (personId) => {
   const [loading, setLoading] = useState(true);
   const [person, setPerson] = useState({});
@@ -105,7 +110,8 @@ const usePerson = (personId) => {
 
 
 ### 4. Vue3 Compsition API
-更好的逻辑复用与代码组织，通过 ref 和 reactive 管理数据。
+受到React hooks的启发，Vue3也提供了类似的composition api。通过 ref 和 reactive 管理数据。
+集合Vue本身的特性，Composition API 是第一个将显式依赖追踪和hooks结合的设计
 ```js
 import { ref } from 'vue';
 export default {
@@ -122,18 +128,29 @@ export default {
 
 ### 5. Vue 和 React 的区别
 - 数据驱动实现方式不同
-Vue是用proxy(vue3), Object.defineProperty(vue2)实现依赖追踪（getter，setter 对用户不可见）
+Vue是用proxy(vue3), Object.defineProperty(vue2)实现依赖收集、依赖追踪（getter，setter 对用户不可见）
 React显式调用`setState`来通知变更
 
 - 渲染方式不同：JSX vs template
-template 和 JSX 的都是 render 的一种表现形式。不同的是，JSX 相对于 template 而言，具有更高的灵活性，在复杂的组件中，更具有优势，而 template 虽然显得有些呆滞。但是 template 在代码结构上更符合视图与逻辑分离的习惯，更简单、更直观、更好维护。
+template 和 JSX 的都是 render 的一种表现形式。
+  - JSX 具有更高的灵活性，在复杂的组件中，更具有优势，
+  - template 在JSX上封装了一层，相同的逻辑代码量更少，在代码结构上更符合视图与逻辑分离的习惯，更简单、更直观、更好维护。template可以提供更好的性能优化
+  ```js
+  // v-for
+  render() {
+    return this.list.map(item => {
+      return h('div', { key: item.id}, item.text)
+    })
+  }
+
+  ```
 
 - Vue 一口气渲染 vs React Fiber
 由于是浏览器是单线程，在计算量大的情况下，React Fiber给了交互响应的间隙
 
 - 代码组织方式不同
   Vue 提供了大量友好的 API：watch, computed, 指令，keep-alive
-  React的 JSX，函数组件，Hooks，提供更强的编程灵活性。
+  React的 JSX，函数组件，Hooks，理念先进，提供更强的编程灵活性。
 
 
 <br/>

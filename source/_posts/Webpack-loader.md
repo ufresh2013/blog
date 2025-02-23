@@ -1,6 +1,6 @@
 ---
 title: Webpack Loader的输入输出是什么？
-date: 2021-08-05 11:33:59
+date: 2021-12-05 11:33:59
 category: NodeJS
 ---
 在Webpack中，可以把loader看作一个数据管道，输入一个字符串或者 `Buffer`，然后经过加工，输出另一个字符串。多个loader可以像水管一样串联起来。

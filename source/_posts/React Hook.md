@@ -1,20 +1,37 @@
 ---
-title: React Hook(Function Component)
+title: React Hooks 用法
 date: 2021-07-29 12:41:48
 category: React
 ---
-### 1. Hooks
-任何一个组件，可以用*`Class`*来写，也可以用*`Hook`*来写。*`Hook`*是函数，用起来更轻，`Hook`是React函数组件的副效应解决方案，用来为函数组件引入副效应。
+### 1. Hooks和函数组件
+React16 为什么会改用 Hooks + Function Component这样写法
+看 https://ufresh2013.github.io/2021/08/25/Compositon-API/
 
+- 保持组件纯粹：
+面对相同的输入，组件只负责输出相同的JSX。而其他变化交给其他Hook
+
+
+- 将UI视为树
 
 <br/>
 
+
+
 ### 2. 常用钩子
-纯函数只进行数据计算，那些不涉及计算的操作（比如存储数据、改变应用状态）。Hooks将这些操作称为“副效应”，通过`useEffect`执行，常见的副效应有：获取数据、事件监听、改变DOM
+#### 2.1 useState
+随着时间推移 保持不变？如此，便不是 state。
+通过 props 从父组件传递？如此，便不是 state。
+是否可以基于已存在于组件中的 state 或者 props 进行计算？如此，便不是state！
 
-<img src="1.jpg" style="width: 300px">
+组件需要“记住”一些东西：当前的输入值、当前的图片、购物车。在 React 中，这种特定于组件的记忆被称为状态。你可以用`useState` Hook为组件添加状态。
+```js
+const [index, setIndex] = useState(0);
+```
 
-有时候，我们不希望`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，使用一个数组指定副效应函数的依赖项，只有依赖项发生变化，才会重新渲染。
+<br/>
+
+#### 2.2 useEffect
+通过`useEffect`执行，常见的副效应有：获取数据、事件监听、改变DOM。有时候，我们不希望`useEffect()`每次渲染都执行，这时可以使用它的第二个参数，使用一个数组指定副效应函数的依赖项，只有依赖项发生变化，才会重新渲染。
 
 ```js
 import React, { useState, useEffect } from 'react';

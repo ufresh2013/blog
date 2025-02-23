@@ -241,7 +241,7 @@ grow 和 shrink 是一对双胞胎，grow 表示伸张因子，shrink 表示是�
 #### 5.3 em, rem, vw, vh
 em和rem都是相对单位长度
 - em是相对父级font-size变化的，如果嵌套过深，计算会比较繁琐，因此一般大范围不适用，小范围可结合px单位使用。
-- rem是相对html根元素font0size变化的，没有em的繁琐计算，配合动态计算rem的js代码，rem在移动端布局中很受欢迎
+- rem是相对html根元素font-size变化的，没有em的繁琐计算，配合动态计算rem的js代码，rem在移动端布局中很受欢迎
 ```js
 (function(win) {
 	var doc = win.document;

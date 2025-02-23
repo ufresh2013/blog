@@ -1,7 +1,7 @@
 ---
 title: Threejs基本概念
 date: 2024-12-02 23:01:11
-category: ThreeJS
+category: 草稿
 ---
 
 ### 1. 基本组成

@@ -1,7 +1,7 @@
 ---
 title: CocosCreator Demo 鹰击长空
 date: 2024-12-16 15:12:13
-category: ThreeJS
+category: 草稿
 ---
 
 > 实现一个简易版飞机射击游戏 —— 鹰击长空(cocos creator 3.84)

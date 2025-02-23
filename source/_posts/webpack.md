@@ -1,32 +1,32 @@
 ---
-title: Webpack基本用法
+title: Webpack 用法
 date: 2021-11-14 15:47:27
 category: NodeJS
 ---
 ### 为什么需要 Webpack？
-- 多终端应用场景，需要不同的打包配置。如：PC 单页面打包，H5 支持服务端渲染和 PWA 离线缓存
+- 多终端应用场景，需要不同的打包配置。如：React native移动端、web端、服务端渲染打包
 - npm 是 JS 的包管理系统，但 npm 包不能在 js 中直接引用
-- React, Vue, AngularJS, less, CssModules 语法在浏览器中无法直接解析
+- React, Vue, less, CssModules 等语法在浏览器中无法直接解析
 
 <br/>
 
 ### 1. 基本概念
-webpack 是一个用于现代 JavaScript 应用程序的 静态模块打包工具。当 webpack 处理应用程序时，它会在内部从一个或多个入口点构建一个 依赖图(dependency graph)，然后将你项目中所需的每一个模块组合成一个或多个 bundles，它们均为静态资源，用于展示你的内容。
+webpack 是一个静态模块打包工具。当 webpack 处理程序时，它会在内部从一个或多个入口点构建一个 依赖图(dependency graph)，然后将你项目中所需的每一个模块组合成一个或多个 bundles，它们均为静态资源，用于展示你的网页。
 
 #### 1.1 安装运行
-
 ```js
 npm install webpack webpack-cli --save-dev
 ./node_modules/.bin/webpack -v
 ```
 
-通过 npm script 运行 webpack。模块局部安装会在 node_modules/.bin 目录创建软连接
+通过 npm script 运行 webpack
 
 ```js
 scripts: { "build": "webpack --config prod.config.js" }
 ```
 
 <br/>
+
 #### 1.2 基本组成
 - 配置文件
   默认配置是 webpack.config.js， 可以通过`webpack --config`指定配置文件
@@ -94,6 +94,7 @@ resolve: {
 
 
 <br/>
+
 #### 1.4 optimization
 webpack4开始，不同的mode会执行不同的优化，production与development的区别如下：
 ```js
@@ -292,6 +293,7 @@ Webpack默认支持开启tree-shaking，设置*`mode: 'production'`*即可。或
 
 
 <br/>
+
 #### 3.2 Scope Hoisting
 构造后的代码存在大量函数闭包包裹代码，导致体积增大（模块越多越明显）。运行代码时创建的函数作用于变多，内存开销变大。*`Scope Hositing`*译为作用域提升。它将所有模块的代码按照引用顺序放在一个函数作用域里，然后适当的重命名一些变量以防止变量名冲突。从而减少函数声明代码和内存开销。
 
@@ -299,12 +301,14 @@ Webpack4设置*`mode: production`*，会默认开启scope hoisting。
 Webpack3中需要增加*`new webpack.optimize.MouduleConcatenationPlugin()`*。
 
 <br/>
+
 #### 3.1 提取公用资源
 
 提取公共资源
 CommonSplitChunk
 
 <br/>
+
 #### 3.4 代码分离
 把代码分离到不同的bundle中，可以按需加载或并行加载这些文件。常用的代码分离有三种：
 - 入口起点： 使用`entry`配置手动地分离代码
@@ -392,7 +396,8 @@ export default (loadComponent, placeholder = null) => {
 
 #### 4.2 缩小构建目标
 缩小loader应用范围，限定只在 src 目录下的 js/jsx 文件需要经 babel-loader 处理
-```
+
+```js
 rules: [ 
   {
     test: /\.jsx?/,
@@ -412,18 +417,23 @@ rules: [
 #### 4.5 优化显示日志
 
 <br/>
-### 5. 其他
-#### 5.1 .eslintrc
-#### 5.2 .babelrc
-#### 5.3 其他
-- `clean-webpack-plugin`
-自动清理构建目录， 避免每次构建前要手动清除dist
 
-- devtool
+### 5. 实现分包
+默认的分包规则：
+- 同一个 entry 下触达到的模块组织成一个 chunk
+- 异步模块单独组织为一个 chunk
+- entry.runtime 单独组织成一个 chunk
 
+<br/>
 
-- globs
-多页面打包，当存在多个entry和html时，可以动态获取entry、动态设置html-webpack-plugin。
+### 6. 热更新原理
+Webpack 的热更新又称热替换（Hot Module Replacement），缩写为 HMR。 这个机制可以做到不用刷新浏览器而将新变更的模块替换掉旧的模块。
+
+HMR 的核心就是客户端从服务端拉取更新后的文件，准确的说是 chunk diff (chunk 需要更新的部分)。
+
+实际上 WDS 与浏览器之间维护了一个 Websocket，当本地资源发生变化时，WDS 会向浏览器推送更新，并带上构建时的 hash，让客户端与上一次资源进行对比。客户端对比出差异后会向 WDS 发起 Ajax 请求来获取更改内容 (文件列表、hash)，这样客户端就可以再借助这些信息继续向 WDS 发起 jsonp 请求获取该 chunk 的增量更新。
+
+后续的部分 (拿到增量更新之后如何处理？哪些状态该保留？哪些又需要更新？) 由 HotModulePlugin 来完成，提供了相关 API 以供开发者针对自身场景进行处理，像 react-hot-loader 和 vue-loader 都是借助这些 API 实现 HMR。
 
 
 ### 参考资料

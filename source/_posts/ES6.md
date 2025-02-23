@@ -28,7 +28,7 @@ obj = { a: 2 }; // TypeError: Assignment to constant variable.
 
 <br>
 
-### 2. 模板字面量
+### 2. 模板字面量(\`\`)
 
 实现了多行字符串，将变量的值嵌入字符串，HTML 转义(向 HTML 插入经过安全转换后的字符串)的能力
 
@@ -101,7 +101,7 @@ console.log(Math.max(...values));
 // 等价于console.log(Math.max(1,2,3,4))
 ```
 
-#### 3.3 箭头函数
+#### 3.3 箭头函数(=>)
 箭头函数是一种使用箭头(=>)定义函数的新语法
 
 - 箭头函数中的`this, super, arguments, new.target`的值由外围最近一层非箭头函数决定
@@ -165,7 +165,7 @@ let friend = {
 
 <br>
 
-### 5. 解构
+### 5. 解构赋值
 这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
 - 对象解构
 ```js
@@ -290,14 +290,11 @@ array = [...set];
 console.log(array); // [1,2,3,4,5]
 ```
 
-#### 8.2 WeakSet
-
-#### 8.3 Map 和 {} 的区别
+#### 8.2 Map 和 {} 的区别
 `{}`的key只能是基本类型，Map的key可以是
 
-#### 8.4 WeakMap
 
-#### 8.5 {} 的key是如何排序的？
+#### 8.3 {} 的key是如何排序的？
 数字属性被最先打印出来，且是按照数字大小的顺序打印；字符串属性是按照设置顺序打印的。
 ```js
 function Foo() {
@@ -337,95 +334,27 @@ index:C  value:bar-C
 
 
 
-### 9. 其它
+### 9. Promise
+### 10. ES8
+#### 10.1 async/await
+#### 10.2 Object.values() / Object.entries()
+#### 10.3 Promise.finally
 
-Set、Map、Symbol、Interator、Generator、Promise、Proxy、Reflection
 
-Symbol 表示独一无二的值
+<br/>
+
+### 11. ES2020
+#### 11.1 ?. ??
+- *`?.`*
+可选链操作符
+当访问对象属性时，如果中间有null或undefined，会短路返回undefined，不会继续往下走，也不会抛出错误。
+例如，`user?.profile?.name`，如果user为null或undefined，整个表达式返回undefined，不会继续访问`profile`。
+
+- *`??`*
+左侧是null或undefined时才返回右侧的值
+`const name = user.name ?? 'Guest';`，如果user.name不存在或为null/undefined
 
 
-
-#### 9.2 Generator 的异步应用
-
-##### 9.2.1 协程
-
-多个线程互相协作，完成异步任务。大致流程：① 协程 A 开始执行。② 协程 A 执行到一半，进入暂停，执行权转移到协程 B。③(一段时间后)协程 B 交还执行权。④ 协程 A 恢复执行。
-
-协程遇到 yield 命令就暂停，等到执行权返回，再从暂停的地方继续往后执行。_优点：写法非常像同步操作_。每次调用`next`方法，会返回一个对象，表示当前阶段的信息(`value`和`done`)。`value`是`yield`语句后表达式的值，`done`是一个布尔值，表示 Generator 函数是否执行完毕。`next`返回的 value，是 Generator 向外输出的数据；`next`方法还可以接受参数，向 Generator 函数体内输入数据。
-
-```js
-// 使用Generator，执行一个真实的异步任务
-var fetch = require('node-fetch');
-function* gen() {
-  var url = 'https://api.github.com/users/github';
-  var result = yield fetch(url);
-  console.log(result.bio);
-}
-
-var g = gen();
-var result = g.next();
-result.value.then(function(data) {
-  g.next(data);
-});
-```
-
-##### 9.2.2 基于 Thunk 函数的 Generator 执行器
-
-执行过程：将同一个回调函数，反复传入 next 方法的 value 属性。内部的 next 函数就是 Thunk 的回调函数。next 函数先将指针移到 Generator 函数的下一步（gen.next 方法），根据 result.done 判断函数是否结束，没结束将 next 函数再次传入。已结束，直接退出。只要 Generator 函数还没执行到最后一步，next 函数就调用自身，以此实现自动执行。
-
-```js
-var fs = require('fs');
-
-var readFile = function(fileName) {
-  return new Promise(function(resolve, reject) {
-    fs.readFile(fileName, function(error, data) {
-      if (error) return reject(error);
-      resolve(data);
-    });
-  });
-};
-
-var gen = function*() {
-  var f1 = yield readFile('/etc/fstab');
-  var f2 = yield readFile('/etc/shells');
-  console.log(f1.toString());
-  console.log(f2.toString());
-};
-```
-
-手动执行上面的 Generator 函数
-
-```js
-var g = gen();
-
-g.next().value.then(function(data) {
-  g.next(data).value.then(function(data) {
-    g.next(data);
-  });
-});
-```
-
-手动执行，转换为自动执行器
-
-```js
-function run(gen) {
-  var g = gen();
-
-  function next(data) {
-    var result = g.next(data);
-    if (result.done) return result.value;
-    result.value.then(function(data) {
-      next(data);
-    });
-  }
-
-  next();
-}
-
-run(gen);
-```
-
-<br>
 <br>
 
 ### 参考资料

@@ -1,7 +1,7 @@
 ---
 title: CocossCreator Script
 date: 2024-12-18 21:48:19
-category: ThreeJS
+category: 草稿
 ---
 
 ### 1. cc类

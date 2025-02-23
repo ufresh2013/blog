@@ -1,7 +1,7 @@
 ---
 title: CANNON.js物理世界
 date: 2024-12-02 23:01:12
-category: ThreeJS
+category: 草稿
 ---
 `cannon.js` 3d物理引擎,
 - 官网：https://schteppe.github.io/cannon.js/

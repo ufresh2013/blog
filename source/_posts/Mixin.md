@@ -5,7 +5,7 @@ category: React
 ---
 > 最近刚接触Vue，一个Vue实例总是调用一个未定义的方法，仔细一看是引用了Mixin，不看不知道，一看吓一跳。代码里好多Mixin啊。一个Mixin里可能又引用了其他Mixin，最后你没办法知道Mixin里的方法都被哪些组件引用了。难搞哦...
 <br/>之前写React的时候都会封装成组件，来实现代码复用，React倒是没有Mixins这个概念。React官网倒是看到一篇文章 - [Mixins Considered Harmful](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。网上找到了它的[中文版](https://lizhiyao.github.io/2018/01/05/f2e/mixins-considered-harmful/)，在这里留个记录。
-（后记：后来觉得Mixin真香！一些简单页面，简单固定逻辑，用Mixin真的是方便实惠）
+（后记：后来觉得Mixin真香！一些简单页面，简单固定逻辑，用Mixin会很方便）
 
 <br/>
 

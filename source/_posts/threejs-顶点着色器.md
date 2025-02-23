@@ -1,7 +1,7 @@
 ---
 title: Shader顶点着色器
 date: 2024-12-04 23:01:11
-category: ThreeJS
+category: 草稿
 ---
 
 ### 1. 旋转顶点
