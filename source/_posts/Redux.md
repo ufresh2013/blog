@@ -148,10 +148,46 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 <br/>
 
 
-### 5. 用Hooks 代替 Redux
+### 5. useReducer 代替 Redux
+但是，自从hooks出来之后，新版 React 结合reducer和Context，就可以直接替代Redux
+state 存在于顶层组件中，由 useReducer 管理，Context 进行分发。子组件可以轻松获取 state 和 dispatch。
+```js
+import { createContext, useReducer } from 'react';
 
+export const TasksContext = createContext(null);
+export const TasksDispatchContext = createContext(null);
+export function TasksProvider({ children }) {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
 
-### 6. 最新版Redux在提供什么解决方案
+  return (
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        {children}
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
+  );
+}
+
+// 组件中获取task和dispatch
+const dispatch = useContext(TasksDispatchContext);
+const tasks = useContext(TasksContext);
+```
+也可以再封装一层
+```js
+export function useTasks() {
+  return useContext(TasksContext);
+}
+export function useTasksDispatch() {
+  return useContext(TasksDispatchContext);
+}
+const tasks = useTasks();
+const dispatch = useTasksDispatch();
+```
+
+<br/>
+
+### 6. 现在的Redux
+那还用redux吗？最新版Redux在提供什么解决方案？
 
 <br/>
 
@@ -159,3 +195,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 - [Vuex框架原理与源码分析](https://tech.meituan.com/2017/04/27/vuex-code-analysis.html)
 - [Redux 入门教程](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
 - [【译】不要再问我React Hooks能否取代Redux了](https://juejin.cn/post/6844903934801215501?searchId=2025022315432084B513C608EBE9B0422F)
+- [使用 Reducer 和 Context 拓展你的应用](https://react.docschina.org/learn/scaling-up-with-reducer-and-context)
