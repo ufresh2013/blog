@@ -3,12 +3,16 @@ title: React Hooks 用法
 date: 2025-01-29 12:41:48
 category: React
 ---
-> React 新官网阅读笔记
+> 这是一份React Hooks 新官网笔记。
+不得不感叹 React 的函数组件加上 Hooks（hooks本质上也是一个函数），寥寥几个api就满足了前端页面所有逻辑交互。Vue啊Vue，掉队了啊
 
-### 1. 保持组件纯粹
-一个组件必须是纯粹的，不应该让外部变量污染组件，错误示例
+<br/>
+
+### 1. React 哲学
+#### 1.1 组件是个纯函数
+一个组件必须是纯粹的，React 的函数组件只应该做一件事情：返回组件的 HTML 代码，而没有其他的功能。不应该让外部变量污染组件
 ```js
-// 受guest影响，多次调用这个组件，会产生不同的JSX，不能这样写
+// 🔴错误示例：受guest影响，多次调用这个组件，会产生不同的JSX，不能这样写
 let guest = 0;
 
 function Cup() {
@@ -19,15 +23,28 @@ function Cup() {
 
 <br/>
 
-### 2. UI Tree
-在进行初次渲染时, React 会调用根组件。
-后续的渲染，如果更新后的组件是同一个组件，React 在原组件上更新触发。如果是别的组件，会渲染新的组件。
+#### 1.2 Hooks
+React Hooks 的意思是，组件写成纯函数，如果需要外部功能和副作用（组件状态state、具有副作用的操作,如获取数据、事件监听、改变DOM），就用钩子把外部代码"钩"进来。
+Hooks本身也是一个函数。一个应用由一个个纯函数链接而成。
+真的好像AI神经网络，应用由一个个节点（神经元）连接起来，每个神经元之间都可以看作是一个函数`a = f(b)`。纯函数有助于机器理解，所以react就是为AI生成代码作铺垫？
+
+<br/>
+
+
+#### 1.3 UI Tree
+树是表示实体之间关系的常见方式，它们经常用于建模 UI。*把React组件之间的嵌套关系，看作一棵UI Tree。*
+
+顶级组件会影响其下所有组件的渲染性能，而叶子组件通常会频繁重新渲染。识别它们有助于理解和调试渲染性能问题。
+
+- 初次渲染时, React 会调用根组件。
+- 后续的渲染，如果更新后的组件是同一个组件，React 在原组件上更新触发。如果是别的组件，会渲染新的组件。
+
 对 React 来说重要的是组件在 UI 树中的位置,而不是在 JSX 中的位置
 
 
 <br/>
 
-### 3. Hooks
+### 2. Hooks
 #### 2.1 useState
 - state 变量：用于保存渲染间的数据。
 - state setter 函数：更新变量并触发 React 再次渲染组件。
@@ -188,20 +205,193 @@ const dispatch = useTasksDispatch();
 #### 2.5 useRef
 和state一样，React会在每次渲染时保留ref, 但设置state会重新渲染组件，ref不会。
 当你希望组件“记住”某些信息，但又不想让这些信息 触发新的渲染 时，你可以使用 ref 。
-
 ```js
 // ref会返回这样一个对象 { current: 0 } ，current表示当前值
 const ref = useRef(0); 
-ref.current // 0
+function handleClick() {
+  ref.current = ref.current + 1;
+  alert('你点击了 ' + ref.current + ' 次！'); // 1, 2, 3...
+}
 ```
+`ref`可以指向任何值，常用于存储和操作DOM元素
+```js
+import { useRef } from 'react';
+
+const myRef = useRef(null);
+
+// 将ref传递给DOM节点
+<div ref={myRef}>
+
+// 访问DOM
+myRef.current.scrollIntoView();
+```
+
+<br/>
+
+#### 2.6 useCallback
+在多次渲染中缓存函数，避免不必要的渲染。
+第二个参数是函数内部需要用到的依赖值
+```js
+const handleSubmit = useCallback((orderDetails) => {
+  post('/product/' + productId + '/buy', {
+    referrer,
+    orderDetails,
+  });
+}, [productId, referrer]);
+```
+
+<br/>
+
+
+#### 2.7 useMemo
+在每次重新渲染的时候能够缓存计算的结果。
+```js
+const cachedValue = useMemo(calculateValue, dependencies)
+```
+
+
 
 
 <br/>
 
-### 3. 组件传值
-对标vue
-- props: 父子组件传值
-- computed: 组件内直接计算值，每次渲染都会拿到最新的重新计算
-- context: useContext
-- vuex: useReducer
-- provide/inject: context和reducer结合
+### 3. Effect
+允许你指定由渲染本身，而不是特定交互引起的副作用，如用于渲染的网络请求、对DOM节点进行操作
+- 执行时机
+```js
+useEffect(() => {
+  // 这里的代码会在每次渲染后执行
+});
+
+useEffect(() => {
+  // 这里的代码只会在组件挂载后执行
+  window.addEventListener('scroll', handleScroll);
+
+  // 清理函数: 每次重新执行Effect前，组件被卸载时，都会调用清理函数
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+useEffect(() => {
+  //这里的代码只会在每次渲染后，并且 a 或 b 的值与上次渲染不一致时执行
+}, [a, b]);
+```
+
+- 清理函数`return () => {}`，常用于
+  - 取消订阅
+  - 重置初始值
+  - 取消或者对正在进行中的异步操作作标记
+
+- 你可能不需要effect
+  1. 能`computed`计算出来的数据，不需要放进`useEffect`
+  ```js
+    const [firstName, setFirstName] = useState('Taylor');
+    const [lastName, setLastName] = useState('Swift');
+
+    // 🔴 避免：多余的 state 和不必要的 Effect
+    useEffect(() => {
+      setFullName(firstName + ' ' + lastName);
+    }, [firstName, lastName]);
+    
+    // ✅ 非常好：在渲染期间进行计算
+    const fullName = firstName + ' ' + lastName;
+  ```
+
+  2. 有条件的`computed`, 使用`useMemo`代替`useEffect`
+  ```js
+  // 🔴 避免：多余的 state 和不必要的 Effect
+  const [visibleTodos, setVisibleTodos] = useState([]);
+  useEffect(() => {
+    setVisibleTodos(getFilteredTodos(todos, filter));
+  }, [todos, filter]);
+
+  // ✅ 除非 todos 或 filter 发生变化，否则不会重新执行 getFilteredTodos()
+  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
+  ```
+
+  3. 当props变化需要调整state时，不需要放进`useEffect`
+  ```js
+  function List({ items }) {
+    const [isReverse, setIsReverse] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    // 🔴 避免：当 prop 变化时，在 Effect 中调整 state
+    useEffect(() => {
+      setSelection(null);
+    }, [items]);
+
+    // ✅ 非常好：在渲染期间计算所需内容
+    const selection = items.find(item => item.id === selectedId) ?? null;
+  }
+  ```
+
+<br/>
+
+<br/>
+
+### 4. API
+#### 4.1 forwardRef
+允许父节点访问子组件里的DOM元素
+```js
+import { forwardRef } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  const { label, ...otherProps } = props;
+  return (
+    <label>
+      {label}
+      <input {...otherProps} ref={ref} />
+    </label>
+  );
+});
+
+function Form() {
+  const ref = useRef(null);
+
+  function handleClick() {
+    ref.current.focus();
+  }
+
+  return (
+    <form>
+      <MyInput label="Enter your name:" ref={ref} />
+      <button type="button" onClick={handleClick}>
+        编辑
+      </button>
+    </form>
+  );
+}
+```
+
+<br/>
+
+#### 4.2 lazy
+声明一个组件
+```js
+import MarkdownPreview from './MarkdownPreview.js';
+```
+
+声明一个懒加载的 React 组件
+```js
+import { lazy } from 'react';
+
+const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
+```
+
+<br/>
+
+
+#### 4.3 memo
+允许你的组件在 props 没有改变的情况下跳过重新渲染。
+使用 memo 将组件包装起来，以获得该组件的一个 记忆化 版本。通常情况下，只要该组件的 props 没有改变，这个记忆化版本就不会在其父组件重新渲染时重新渲染。
+```js
+import { memo } from 'react';
+
+const SomeComponent = memo(function SomeComponent(props) {
+  // ...
+});
+```
+
+<br/>
+
+<br/>
+
+### 参考资料
+- [React官网](https://react.docschina.org/)

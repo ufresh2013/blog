@@ -1,9 +1,14 @@
 ---
-title: 一些好用的vue自定义指令
+title: vue指令
 date: 2024-11-14 15:47:27
 category:
 - Vue
 ---
+### 1. 内置指令
+- v-html: 插入html
+- v-bind: 绑定一个属性 `v-bind:id="app"` 等同于 `:id="app"`
+- v-on: 绑定事件, `v-on:click=""` 等同于 `@click=""`
+
 
 ### 1. v-title
 文本有省略号...显示title，没有则不显示

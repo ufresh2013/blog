@@ -72,7 +72,7 @@ function Welcome(props) {
 *`Hooks`* 是钩子的意思，组件还是要写成纯函数，如果要其他功能，就要用钩子把它们"钩"进来。
 常见的钩子有：
 - `useState()`：为函数组件引入状态state
-- `useEffect()`：引入具有副作用的操作，如获取数据、时间监听、改变DOM
+- `useEffect()`：引入具有副作用的操作，如获取数据、事件监听、改变DOM
 - `useRef()`：保存引用
 - `useContext()`：引入Context对象
 - `useReducer()`：引入redux `const [state, dispatch] = useReduer(reducer, initialState)` 
