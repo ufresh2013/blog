@@ -1,8 +1,7 @@
 ---
 title: iframe的各种问题
 date: 2019-04-30 10:20:51
-category:
-- HTML
+category: Bug
 ---
 ### 1. 视频无法全屏
 使用video.js时，iframe内嵌视频无法全屏。 为iframe添加`allowfullscreen`属性即可

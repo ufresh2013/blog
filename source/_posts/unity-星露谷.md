@@ -1,7 +1,7 @@
 ---
 title: Unity 仿星露谷
 date: 2024-12-30 15:39:26
-categories: 草稿
+categories: 动画/3D
 ---
 
 ### 资源

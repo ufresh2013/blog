@@ -1,6 +1,6 @@
 ---
 title: ES6语法
-date: 2018-10-15 17:49:23
+date: 2020-10-15 17:49:23
 category: JS
 ---
 
@@ -51,59 +51,31 @@ var c = `hello, ${(count * 2).toFixed(2)}`;
 <br>
 
 ### 3. 函数
-
-- 为形参提供默认值
-
+#### 3.1 默认参数
+设置参数默认值
 ```js
-function a(num = getValue(), timeout = 2000, callback = function() {}) {}
-a(20, null, function() {
-  console.log('1');
-}); // 不使用默认值
+function a(num = getValue(), callback = function() {}) {}
 ```
 
-- 默认参数的临时死区
-
-```js
-function getValue(value) {
-  return value + 5;
-}
-
-function add(first, second = getValue(first)) {
-  // 执行add()时，相当于执行以下代码来创建first和second参数值
-  // let first = 1;
-  // let second = getValue(1)
-  return first + second;
-}
-
-add(1); // 7
-```
-
-#### 3.1 不定参数(...)
-
-不定参数可以让你指定多个独立的参数，通过整合后的数组来访问。
-
+#### 3.2 不定参数(...)
+使用限制：每个函数只能声明一个不定数量的参数，且一定要放在所有参数的末尾
 ```js
 function checkArgs(...args) {
   console.log(args.length); // 2
-  console.log(arguments.length); // 2
 }
 checkArgs('a', 'b');
-// 使用限制：每个函数只能声明一个不定参数，且一定要放在所有参数的末尾
 ```
 
-#### 3.2 展开运算符(...)
-使用...的条件是可枚举（）
+#### 3.3 展开运算符(...)
+使用...的条件是可枚举
 展开运算符可以让你指定一个数组，将它们打散后作为独立的参数传入函数。
-
 ```js
 let value = [1, 2, 3, 4];
-console.log(Math.max(...values));
-// 等价于console.log(Math.max(1,2,3,4))
+console.log(Math.max(...values)); // 等价于console.log(Math.max(1,2,3,4))
 ```
 
-#### 3.3 箭头函数(=>)
+#### 3.4 箭头函数(=>)
 箭头函数是一种使用箭头(=>)定义函数的新语法
-
 - 箭头函数中的`this, super, arguments, new.target`的值由外围最近一层非箭头函数决定
 - 箭头函数不能被用作构造函数，不能通过`new`调用
 - 没有原型，不存在`prototype`这个属性
@@ -122,9 +94,7 @@ let d = id => ({ id: id, name: 'Temp'}) // 让箭头向外返回一个对象，�
 <br>
 
 ### 4. 对象
-
 #### 4.1 简写、可计算的属性名
-
 ```js
 var name = 'Mike';
 var suffix = 'name';
@@ -138,41 +108,22 @@ var person = {
 ```
 
 #### 4.2 Object.assign
-
-接受任意数量的源对象，并按指定的顺序将属性复制到接收对象中。
-
+实现一个浅拷贝，接受源对象，并按指定的顺序将属性复制到接收对象中。
 ```js
 Object.assign({}, { type: 'js', name: 'file.js' }, { type: 'css' });
 console.log(receiver.type); // 'css'
 ```
 
-#### 4.3 super
-
-简化原型访问的`super`引用，指向对象原型的指针，实际是`Object.getPrototypeOf(this)`的值。
-
-```js
-let person = {
-  getGreeting() {
-    return 'hello ';
-  }
-};
-let friend = {
-  getGreeting() {
-    return super.getGreeting() + 'friend';
-  } // hello friend
-};
-```
-
 <br>
 
 ### 5. 解构赋值
-这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
+“模式匹配”的写法，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
 - 对象解构
 ```js
 let node = { type: 'Identifier', name: 'foo' };
 let { type, name } = node;
 
-// 为非同名局部变量赋值
+// 重命名解构出来的变量名
 let { type: localType, name: localName } = node;
 console.log(localType); // 'Identifier'
 ```
@@ -192,17 +143,12 @@ const [a, b, c, d, e] = 'hello';
 
 <br>
 
-### 6. 类
-
-ES6 使用`class`，取代需要`prototype`的操作。
-
-#### 6.1 constructor()
-
-用`constructor`方法名来定义构造函数
-
+### 6. Class
+ES6 使用`class`，取代需要`prototype`的操作。用`constructor`方法名来定义构造函数。
 ```js
 class Rectangle {
   constructor(length, width) {
+    super(length, length);
     this.length = length;
     this.width = width;
   }
@@ -212,34 +158,24 @@ class Rectangle {
 }
 ```
 
-#### 6.2 super()
-
-`super()`方法可访问基类的构造函数。ES6 要求，子类的构造函数必须执行依次 super 函数。
-
-```js
-class Square extends Rectangle {
-  constructor(length) {
-    super(length, length);
-  }
-}
-
-var square = new Square(3);
-console.log(square.getArea()); // 9
-```
-
 <br>
 
 ### 7. 模块
-
 模块是一种打包和封装功能的方式，模块的行为与脚本不同，模块不会将它的顶级变量、函数和类修改为全局作用域，而且`this`的值为`undefined`。
 
-#### 7.1 export
 
-将一部分已发布的代码暴露给其他模块
-
+#### 7.1 import、export
+- import: 从模块中export的方法、变量可以通过`import`在另一个模块中访问
+- export: 将代码暴露给其他模块
 ```js
+// 
+import { identifier1, identifier2 } from './example.js';
+import * as example from './example.js';
+
 export var color = 'red';
-export function sum(num1, num2) {
+
+// 导出默认值
+export default function sum(num1, num2) {
   return num1 + num2;
 }
 export class Rectangle {
@@ -248,28 +184,11 @@ export class Rectangle {
     this.width = width;
   }
 }
-
-function multiply(num1, num2) {
-  return num1 * num2;
-}
-
-// 导出默认值
-export default multiply;
 ```
 
-#### 7.2 import
 
-从模块中导出的功能可以通过`import`关键字在另一个模块中访问
-
-```js
-import { identifier1, identifier2 } from './example.js';
-import * as example from './example.js';
-```
-
-#### 7.3 加载模块
-
+#### 7.2 `<script type="module">`
 通过`<script type="module">`加载的模块文件默认具有 defer 属性，在文档完全被解析后，模块按照它们在文档中出现的顺序依次执行。
-
 ```html
 <script type="module" src="module.js"></script>
 <script type="module">
@@ -294,7 +213,7 @@ console.log(array); // [1,2,3,4,5]
 `{}`的key只能是基本类型，Map的key可以是
 
 
-#### 8.3 {} 的key是如何排序的？
+- {} 的key是如何排序的？
 数字属性被最先打印出来，且是按照数字大小的顺序打印；字符串属性是按照设置顺序打印的。
 ```js
 function Foo() {
@@ -333,24 +252,51 @@ index:C  value:bar-C
 在 V8 内部，为了有效地提升存储和访问这两种属性的性能，分别使用了两个线性数据结构来分别保存**数字属性 element**和**字符串属性 properties**。
 
 
+<br/>
 
 ### 9. Promise
+
+<br/>
+
+### 10. Symbol
+ES5 的对象属性名都是字符串，这容易造成属性名的冲突。ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。
+```js
+let s1 = Symbol('foo');
+```
+
+### 11. Proxy 代理
+Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+```js
+var obj = new Proxy({}, {
+  get: function (target, propKey, receiver) {
+    console.log(`getting ${propKey}!`);
+    return Reflect.get(target, propKey, receiver);
+  },
+  set: function (target, propKey, value, receiver) {
+    console.log(`setting ${propKey}!`);
+    return Reflect.set(target, propKey, value, receiver);
+  }
+});
+```
+
+### 12. Reflect
+每一个Proxy对象的拦截操作（get、delete、has），内部都调用对应的Reflect方法，保证原生行为能够正常执行。
+
+<br/>
+
 ### 10. ES8
 #### 10.1 async/await
 #### 10.2 Object.values() / Object.entries()
-#### 10.3 Promise.finally
 
 
 <br/>
 
 ### 11. ES2020
-#### 11.1 ?. ??
-- *`?.`*
-可选链操作符
+#### 11.1  *`?.`* 可选链操作符
 当访问对象属性时，如果中间有null或undefined，会短路返回undefined，不会继续往下走，也不会抛出错误。
 例如，`user?.profile?.name`，如果user为null或undefined，整个表达式返回undefined，不会继续访问`profile`。
 
-- *`??`*
+#### 11.2 *`??`* 空值合并操作符
 左侧是null或undefined时才返回右侧的值
 `const name = user.name ?? 'Guest';`，如果user.name不存在或为null/undefined
 

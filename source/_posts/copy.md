@@ -1,7 +1,7 @@
 ---
 title: Blob, toBlob, FileReader 文件操作 & 复制
-date: 2021-08-16 22:44:14
-category: Browser
+date: 2024-08-16 22:44:14
+category: HTTP
 ---
 
 ### 1. Blob

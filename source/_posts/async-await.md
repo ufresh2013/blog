@@ -1,6 +1,6 @@
 ---
-title: 异步的三种实现方式：回调、Promise、Async/Await
-date: 2021-08-16 12:12:52
+title: 异步方法：callback、Promise、async/await
+date: 2019-11-16 12:12:52
 category: JS
 ---
 ### 1. Promise
@@ -79,17 +79,15 @@ class MyPromise {
 }
 ```
 - 链式调用
-
   - `then`负责收集成功回调 和 失败回调
   - `then`返回的一定是一个新的Promise，保证每个promise都是独立的
   - `then`的回调需要拿到上一个`then`的返回值
   - 当`then`里是一个promise的时候，如何将这个promise的值传递给下一个then
-  <img src="1.jpg">
+
 - 延迟机制
-
   无论`resolve`是被同步执行，还是异步执行，都放在`setTimeout`中保证异步执行。保证回调函数可以延迟绑定
-- 状态机
 
+- 状态机
   Promise状态只能有`Pending`, `Fulfilled`,`Rejected`，状态的变更是单向的，只能从Pending -> Fulfilled, Pending -> Rejected，状态变更不可逆
 
 

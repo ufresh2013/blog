@@ -1,7 +1,7 @@
 ---
-title: Shader
+title: 理解 Shader
 date: 2024-12-02 23:12:23
-category: 草稿
+category: 动画/3D
 ---
 ### 1. 点线面体
 我们绘制一个宽高`1*1`的平面，开启线框模式 *`wireframe: true`*。

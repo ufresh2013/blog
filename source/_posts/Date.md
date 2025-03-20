@@ -1,6 +1,6 @@
 ---
 title: Date
-date: 2020-05-06 10:12:42
+date: 2018-05-06 10:12:42
 category: JS
 ---
 ### 1. Date对象

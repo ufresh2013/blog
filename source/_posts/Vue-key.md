@@ -1,21 +1,22 @@
 ---
-title: Vue中v-for为什么要加key
+title: Vue Dom Diff(v-for为什么要加key)
 date: 2019-12-16 08:52:44
 category: Vue
 ---
 > key 的作用主要是给 VNode 添加唯一标识，通过这个 key，可以更快找到新旧 VNode 的变化，从而进一步操作。
 
-### 1. 虚拟DOM
-虚拟DOM就是一个用来描述真实DOM的javaScript对象。
+### 1. 原生DOM vs 虚拟DOM
+这是一个性能 vs. 可维护性的取舍。框架的意义在于为你掩盖底层的 DOM 操作，让你用更声明式的方式来描述你的目的，从而让你的代码更容易维护。没有任何框架可以比纯手动的优化 DOM 操作更快，因为框架的 DOM 操作层需要应对任何上层 API 可能产生的操作，它的实现必须是普适的。针对任何一个 benchmark，我都可以写出比任何框架更快的手动优化，但是那有什么意义呢？在构建一个实际应用的时候，你难道为每一个地方都去做手动优化吗？出于可维护性的考虑，这显然不可能。框架给你的保证是，你在不需要手动优化的情况下，我依然可以给你提供过得去的性能。
 
-VirtualDOM的主要思想就是模拟DOM的树状结构，在内存中创建保存映射DOM信息的节点数据。视图需要更新时，先对节点数据进行diff后得到差异结果后，再一次性对DOM进行批量更新操作。
 
-将一棵树转换成另一棵树的最小操作数，即使在最前沿的算法中，该算法的复杂程度为O(n³)，其中n是树中元素的数量。展示 1000 个元素所需要执行的计算量将在十亿的量级范围。在VirtualDOM方法被提出后，社区中不断涌现对diff的改进算法，最终从O(n³)提升至O(n)。
 
 #### 虚拟DOM的作用
+虚拟DOM就是一个用来描述真实DOM的javaScript对象。
+
+Virtual DOM的主要思想就是模拟DOM的树状结构，在内存中创建保存映射DOM信息的节点数据。视图需要更新时，先对节点数据进行diff后得到差异结果后，再一次性对DOM进行批量更新操作。
+
 - 跟踪视图状态，比较前后两次DOM更新真实DOM，减少操作DOM的范围
 - 跨平台使用：浏览器渲染，服务器渲染，小程序等
-- 
 
 
 <br/>
@@ -217,3 +218,4 @@ function updateChild(parentElm, oldVnode, vnode) {
 - [snabbdom](https://github.com/snabbdom/snabbdom)
 - [让虚拟DOM和DOM-diff不再成为你的绊脚石](https://juejin.im/post/5c8e5e4951882545c109ae9c)
 - [React 实践心得：key 属性的原理和用法](https://fed.taobao.org/blog/taofed/do71ct/react-key/?spm=taofed.blogs.blog-list.9.29eb5ac8BdaVc1)
+- [网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么？](https://www.zhihu.com/people/111111-80-11-31)

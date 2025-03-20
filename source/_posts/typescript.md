@@ -1,6 +1,6 @@
 ---
 title: Typescript语法
-date: 2020-05-18 15:39:26
+date: 2020-11-18 15:39:26
 categories: JS
 ---
 
@@ -147,7 +147,7 @@ const obj:MyObj = { x: 1, y: 1 };
 
 <br/>
 
-#### 3.2 接口 Interface
+#### 3.2 接口 Interface, extends
 interface 是对象的模板，可以看作是一种类型约定，中文译为“接口”。使用了某个模板的对象，就拥有了指定的类型结构。
 interface 可以表示对象的各种语法，它的成员有5种形式。
 - 对象属性

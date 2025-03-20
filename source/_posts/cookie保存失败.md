@@ -1,10 +1,9 @@
 ---
-title: Set-Cookie失败
+title: Safari 里的 iframe，Set-Cookie会失败
 date: 2021-08-16 22:44:14
 category: Bug
 ---
 
-### 1. iframe里的Cookie
 Safari 的安全策略太严格了，iframe 嵌套的网站的 cookie 被认为是不安全的，因此不允许保存，这就导致了用户即使在 iframe 中登录了网站，也无法保持登录状态，每次跳转页面之后就需要重新登录。
 
 解决方法：

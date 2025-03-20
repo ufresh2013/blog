@@ -255,8 +255,12 @@ const cachedValue = useMemo(calculateValue, dependencies)
 <br/>
 
 ### 3. Effect
-允许你指定由渲染本身，而不是特定交互引起的副作用，如用于渲染的网络请求、对DOM节点进行操作
+允许你指定由渲染本身，而不是特定交互引起的副作用，如用于渲染的网络请求、对DOM节点进行操作。
+
 - 执行时机
+`useEffect` 是异步执行的。在 React 完成 DOM 更新并将更新渲染到屏幕之后，useEffect 的回调函数才会被调用。这意味着它不会阻塞浏览器的渲染过程，用户可以先看到页面的更新，然后 useEffect 再执行副作用操作，比如发起网络请求、订阅事件等。
+
+`useLayoutEffect` 是同步执行的。它会在 React 完成 DOM 更新但还未将更新渲染到屏幕之前被调用。也就是说，useLayoutEffect 会阻塞浏览器的渲染，直到其回调函数执行完毕。
 ```js
 useEffect(() => {
   // 这里的代码会在每次渲染后执行

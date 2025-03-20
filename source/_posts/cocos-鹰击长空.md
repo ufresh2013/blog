@@ -1,7 +1,7 @@
 ---
-title: CocosCreator Demo 鹰击长空
+title: CocosCreator 仿飞机大战
 date: 2024-12-16 15:12:13
-category: 草稿
+category: 动画/3D
 ---
 
 > 实现一个简易版飞机射击游戏 —— 鹰击长空(cocos creator 3.84)

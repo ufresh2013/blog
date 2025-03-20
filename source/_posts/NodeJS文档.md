@@ -163,8 +163,6 @@ class EventEmitter {
 ### 8. 中间件
 在NodeJS中，中间件指封装`http`请求细节处理的方法，如express, koa里，通过将公共逻辑的处理编写在中间件中，可以不用在每一个接口回调中做相同的代码编写。
 
-<img src="1.jpg" style="width:300px">
-
 - token校验
 ```js
 module.exports = (options) => async (ctx, next) {

@@ -1,7 +1,7 @@
 ---
-title: JS设计模式，观察者模式(Event Bus)
+title: 设计模式
 date: 2019-09-14 13:46:38
-category: JS
+category: Basic
 ---
 ### 1. 基本概念
 
@@ -44,6 +44,7 @@ React.createElement = function(tag, attrs, children) {
 ```
 
 <br/>
+
 #### 2.2 单例模式
 确保一个类只有一个实例。
 ```js

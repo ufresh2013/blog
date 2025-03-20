@@ -1,5 +1,5 @@
 ---
-title: Jest运行前端单元测试(实现Jest、expect、mock)
+title: 🤔 Jest运行前端单元测试
 date: 2022-04-24 16:17:45
 category: NodeJS
 ---
