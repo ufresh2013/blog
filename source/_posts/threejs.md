@@ -1,7 +1,7 @@
 ---
 title: Three.js 从入门到入门
 date: 2024-12-02 23:01:11
-category: 动画/3D
+category: 动画/媒体
 ---
 
 ### 1. 基本组成

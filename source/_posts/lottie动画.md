@@ -1,7 +1,7 @@
 ---
 title: 🤔 Lottie 动画
 date: 2024-11-13 10:26:58
-category: 动画/3D
+category: 动画/媒体
 ---
 Lottie是 airbnb 开源的可应用于Web, Android, iOS,Windows动画库。它提供了一套从 AE 到各个终端的工具流，设计师通过 AE 将做好的动画导出成json，再通过 Lottie 各端的库就可以实现动画效果，动画还原度 100%。
 
@@ -2698,7 +2698,7 @@ lottie.play();
 
 
 ### 1. 使用方法
-lottie-web 生成的svg/canvas/html动画，内存占用与 Gif 动画差不多。👆上面这只猫就是一个svg
+lottie-web 生成的svg/canvas/html动画，内存占用与 Gif 动画差不多。👆上面这只猫就是一个svg（12kb）
 ```js
 import lottie from 'lottie-web';
 import animationJsonData from 'xxx-demo.json';  // json 文件

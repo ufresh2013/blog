@@ -1,7 +1,7 @@
 ---
 title: Charles抓包
 date: 2019-05-27 10:38:11
-category: Debug
+category: Browser
 ---
 
 > Charles将自己设置为系统的网络访问代理服务器，这样所有的网络请求都会通过它，从而实现了网络请求的截获和分析。

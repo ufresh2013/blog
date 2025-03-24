@@ -1,7 +1,7 @@
 ---
 title: Shader GLSL语法
 date: 2024-12-02 23:12:24
-category: 动画/3D
+category: 动画/媒体
 ---
 > 着色器是一种使用*`GLSL`*语言编写的运行在*`GPU`*上的程序。是屏幕上呈现画面前的最后一步，用它可以实现对先前渲染结果进行修改（如颜色、位置），从而实现高级的渲染效果。在 `Three.js` 中，需要使用 `GLSL` 语言来编写着色器，全称是 `OpenGL Shading Language`，意为 `OpenGL` 中的着色语言。
 

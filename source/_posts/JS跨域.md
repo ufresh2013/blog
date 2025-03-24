@@ -135,29 +135,30 @@ xhr.withCredentials = true;
 注意，如果要发送Cookie，`Access-Control-Allow-Origin`不能设为星号，必须指定明确的，与请求网页一致的域名。同时，Cookie仍遵循同源政策，跨源(原网页代码中)的`document.cookie`无法读取服务器域名下的Cookie。
 
 <br/>
-#### 2.2 JSONP
-动态增加来一个script标签，请求来自服务器的一段js并执行。（只能get请求）
-```
-<script type="text/javascript">
-    // script加载完成后执行该代码
-    var functionHandler = function(data){
-        console.log(data);
-    }
-    // 请求中可以增加参数
-    var url = 'http://xxx.com/xxxx?prams=xxx&callback=functionHandler';
-    var script = document.createElement('script');
-    script.setAttribute('src', url);
-    document.getElementsByTagName('head')[0].appendChild(script); 
-</script>
+
+
+#### 2.2 jsonp
+利用`<script>`标签没有跨域限制的”漏洞“来达到和第三方通信的目的。
+需要通讯时，创建一个`<script>`元素，地址指向第三方API网址，并提供一个回调参数来接收数据。
+```js
+var callback = function(data){
+  console.log(data);
+}
+// 请求中可以增加参数
+var url = 'http://xxx.com/xxxx?prams=xxx&callback=functionHandler';
+var script = document.createElement('script');
+script.setAttribute('src', url);
+document.getElementsByTagName('head')[0].appendChild(script); 
 ```
 
 服务器返回的script文件内容
-```
-functionHandler(data)
+```js
+callback(data)
 ```
 
 
 <br/>
+
 #### 2.3 服务器代理
 在服务器端配置好代理，浏览器端就不会出现跨域的问题
 在开发阶段比较常实现
@@ -174,6 +175,7 @@ document.domain = 顶级域名
 
 
 <br/>
+
 #### 2.5 window.name
 `window.name`利用同一窗体下加载不同的页面，window.name的值不会清除，达到传递数据的效果。（数据大小支持到2MB）。具体操作需要3个页面
 ```
@@ -189,22 +191,20 @@ a 域名下origin page 通过动态的iframe 加载 data page, data page中设�
 这样origin page就可以获取到非同源下的 data page数据。
 
 a域名下的 origin page
-```
-<script type="text/javascript">
-    var a=document.getElementsByTagName("button")[0];
-    a.onclick=function(){                               
-        var inf=document.createElement("iframe");       //创建iframe
-        inf.src="http://www.b.com/data.html"+"?h=5"     //加载数据页www.b.com/data.html?h=5
-        var body=document.getElementsByTagName("body")[0];
-        body.appendChild(inf);                          //引入a页面
+```js
+var a=document.getElementsByTagName("button")[0];
+a.onclick=function(){                               
+    var inf=document.createElement("iframe");       //创建iframe
+    inf.src="http://www.b.com/data.html"+"?h=5"     //加载数据页www.b.com/data.html?h=5
+    var body=document.getElementsByTagName("body")[0];
+    body.appendChild(inf);                          //引入a页面
 
-        inf.onload=function(){
-            inf.src='http://www.a.com/proxy.html'       //iframe加载完成，加载www.a.com域下边的空白页proxy.html
-            console.log(inf.contentWindow.name)        //输出window.name中的数据
-            body.removeChild(inf)                      //清除iframe
-        }
+    inf.onload=function(){
+        inf.src='http://www.a.com/proxy.html'       //iframe加载完成，加载www.a.com域下边的空白页proxy.html
+        console.log(inf.contentWindow.name)        //输出window.name中的数据
+        body.removeChild(inf)                      //清除iframe
     }
-</script>
+}
 ```
 
 b域名下 data page
