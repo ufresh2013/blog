@@ -1,7 +1,6 @@
 ---
 title: 《Javascript高级程序设计》
 date: 2019-02-26 14:19:53
-tags:
 category: JS
 ---
 ### 1. script
@@ -21,7 +20,7 @@ async只适用于外部文件。指定async的目的是不让页面等待两个�
 ```
 
 
-<br/>
+
 ### 2.基本概念
 JS的变量是松散类型的，所谓松散类型就是可以用来保存任何类型的数据。换句话说，每个变量仅仅是一个用于保存值得占位符。`var message`未经初始化的变量，会保存一个特殊的值——undefined。用var操作符定义的变量会成为定义改变量的作用域中的局部变量。如果在函数中使用var定义一个变量，那么这个变量在函数退出后会被销毁。
 ```js
@@ -384,3 +383,19 @@ function createComparisonFunction(propertyName){
   }
 }
 ```
+
+### 9. use strict
+使用严格模式，可以减少意外创建全局变量，导致内存泄露的情况。一些在正常模式下可以运行的语句，在严格模式下将不能运行。
+
+正常模式 | 严格模式
+---|---: |
+如果一个变量没有声明就赋值，默认是全局变量  | 严格模式禁止这种用法，全局变量必须显式声明
+允许动态绑定，即某些属性和方法属于哪一个对象，不是在编译时确定的，而是在运行时确定的 | 严格模式在某些情况下，只允许静态绑定，属性和方法归属哪个对象，在编译阶段就确定。<br/>1. 禁止使用with语句<br/>2. 增加eval作用域 
+| 禁止this关键字指向全局对象 <br/> `function f(){ "use strict"; this.a = 1; } f(); // 报错，this未定义`
+| 禁止删除变量，只有configurable为true的对象属性才能被删除 
+| 显示报错 
+| 重名错误：对象、函数参数不能有重名的属性 
+| 禁止八进制表示法 `var n = 0100 // error`
+| 不允许对arguments赋值，arguments不再追踪参数的变化, 禁止使用arguments.callee
+| 新版JS会引入块级作用域。为了与新版本接轨，严格模式只允许在全局作用域，或函数作用域的顶层声明函数。不允许在非函数的代码块内声明函数。
+| 保留字，implements, interface, let, package, private, protected, public, static, yield, class, enum, export, extends, import, super, const 使用这些词作为变量名将报错

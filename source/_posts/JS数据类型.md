@@ -1,5 +1,5 @@
 ---
-title: JS 判断变量类型 typeof、instanceof、Object.prototype.toString
+title: JS 基本类型，判断变量类型
 date: 2019-07-29 09:29:44
 category: JS
 ---
@@ -33,6 +33,7 @@ typeof null           // 'object' js的bug导致返回object
 
 
 <br/>
+
 ### 2. Object.prototype.toString.call
 Object.prototype.toString.call() 判断对象属于哪个内置类型。
 
@@ -57,6 +58,7 @@ Object.prototype.toString.call(Math)            // "[Object Math]"
 
 
 <br/>
+
 ### 3. constructor
 constructor用于判断对象的构造函数是谁
 ```js
@@ -85,6 +87,7 @@ m.constructor === Math            // false,事实上没有Math这个构造函数
 
 
 <br/>
+
 ### 4. instanceof
 检测构造函数的`prototype`属性是否出现在对象原型链中的任何位置。使用对象必须是一个object，判断对象继承于哪个对象。
 ```js
@@ -122,6 +125,7 @@ function new_instance_of(leftValue, rightValue) {
 
 
 <br/>
+
 ### 5. 常用判断
 ```js
 // null

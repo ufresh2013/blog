@@ -1,5 +1,5 @@
 ---
-title: V8引擎如何实现闭包？
+title: 闭包，内存泄露
 date: 2019-10-31 14:00:52
 categories: JS
 ---
@@ -7,7 +7,127 @@ categories: JS
 
 <br/>
 
-### 1. 函数即对象
+### 1. 什么是闭包？
+
+### 2. 内存泄露
+
+#### 1.3 内存泄露
+这些不再被需要的内存，由于某种原因，无法被释放，就是内存泄露。常见的内存泄露案例
+- 意外的全局变量
+- 被遗忘的计时器或回调函数
+- DOM引用
+- 闭包
+
+
+##### 1.3.1 意外创建全局变量
+this被指向了全局变量window，意外地创建了全局变量。还有一些明确定义的全局变量，用来暂存大量数据，记得在使用后，对其重新赋值为null。或在javascript文件头部加上*`use strict`*。
+```js
+function fn() {
+  this.name = '123'
+  // name = '123'
+}
+fn()
+console.log(name);  // "123"
+```
+
+
+<br/>
+
+##### 1.3.2 未销毁的定时器
+没有回收定时器，整个定时器依然有效，不但定时器无法被内存回收，定时器函数的依赖也无法回收。
+
+
+<br/>
+
+##### 1.3.3 DOM引用
+当删除button的DOM节点时，变量button仍保存在内存中。
+```js
+var btn = document.getElementById('myBtn');
+btn.onclick = function() {
+  btn.innerHTML = 'hello'
+}
+document.body.removeChild(btn);
+btn = null;
+```
+
+<br/>
+
+##### 1.3.4 闭包
+**闭包**是指读取了其他函数内部变量的函数。创建闭包的常见方式，就是在一个函数内部创建另一个函数。
+```js
+function createComparisonFunction(propertyName) {
+  return function(object1, object2) {
+    var value1 = object1[propertyName];
+    var value2 = object2[propertyName];
+
+    return value1 - value2;
+  }
+}
+```
+
+
+*模拟私有方法*
+```js
+var makeCounter = (function() {
+  var privateCounter = 0;
+  function change(val) {
+    privateCounte += val;
+  }
+
+  return {
+    increment: function() {
+      change(1)
+    },
+    decrement: function() {
+      change(-1)
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }
+})()
+var counter1 = makeCounter();
+counter1.increment();
+console.log(counter1.value())
+```
+
+<br/>
+
+*使用匿名闭包*
+使用匿名闭包，使得循环中被创建的方法，不会共享同一个词法作用域。或者，使用let而不是var，就不需要增加额外的闭包。
+```js
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    // (function() {
+    //   var item = helpText[i];
+    //   document.getElementById(item.id).onfocus = function() {
+    //     showHelp(item.help);
+    //   }
+    // })()
+    let item = helpText[i];
+    document.getElementById(item.id).onfocus = function() {
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+```
+
+
+<br/>
+
+### 2. 函数即对象
 首先我们要理解，函数是一个可执行的对象。它既可以赋值给一个变量，也可以作为函数的参数，还可以作为函数的返回值。
 
 我们定义一个函数*`function foo() {}`*，接着设置*`foo.myName = 1`*。从控制台输出结果，可以得知，我们既可以给*`foo`*添加属性，也可以实现调用*`foo`*。

@@ -1,5 +1,5 @@
 ---
-title: 🤔 WebAssembly 妙用 - 特效/图像/音频
+title: WebAssembly 加速执行
 date: 2025-03-16 17:57:46
 category: 动画/媒体
 ---
