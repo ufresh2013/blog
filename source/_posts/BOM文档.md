@@ -5,7 +5,7 @@ category: Browser
 ---
 ### 1. 简介
 BOM提供了很多对象，用于访问浏览器的功能，这些功能与网页内容无关。
-<br/>
+
 
 ### 2. 窗口关系 & iframe
 在浏览器中，`window`对象既是JS访问浏览器窗口的一个接口，又是JS规定的`Global`对象。如果页面包含iframe，则每个iframe都拥有自己的`window`对象，并且保存在`frames`集合中。
@@ -41,7 +41,7 @@ BOM提供了很多对象，用于访问浏览器的功能，这些功能与网�
 <img src="1.png" style="max-width:350px">
 
 
-<br/>
+
 ### 3. 窗口属性
 - 浏览器相对于屏幕左边和上边的位置
 ```js
@@ -66,7 +66,7 @@ if (typeof pageWidth != "number"){
 ```
 
 
-<br/>
+
 ### 4. 打开新窗口
 ```
 window.open(url, 窗口目标，特性字符串，一个表示新页面是否取代浏览器历史记录中当前加载页面的布尔值)
@@ -109,7 +109,7 @@ a.moveTo(100, 100)    // 移动位置
 a.close()             // 关闭新打开的窗口
 ```
 
-<br/>
+
 ### 5. location
 #### 5.1 查询URL参数
 `location`是最有用的BOM对象之一，可以通过`window.location`和`document.location`访问。它不仅保存着当前文档的信息，还将它解析为独立的片段。
@@ -143,7 +143,7 @@ function getQueryStringArgs(){
 }
 alert(args["q"])  // "javascript"
 ```
-<br/>
+
 
 #### 5.2 修改URL
 - 在当前页面打开新URL(并在浏览器的历史记录中生成一条记录)
@@ -188,7 +188,7 @@ location.reload(true); // 从服务器重新加载
 ```
 
 
-<br/>
+
 ### 6. navigator
 #### 6.1 检查插件
 在浏览器中，可以使用`plugins`数组，检查浏览器中是否安装了特定的插件。
@@ -224,7 +224,7 @@ function hasFlash(){
 ```
 
 
-<br/>
+
 #### 6.2 判断浏览器类型
 ```js
 function getExploreName(){
@@ -249,10 +249,10 @@ function getExploreName(){
 }
 ```
 
-<br/>
+
 ### 7. screen
 表示浏览器窗口外部的显示器的信息，如像素宽高。
-<br/>
+
 
 ### 8. history
 `history`对象保存着用户上网的历史记录。出于安全考虑，开发人员无法得知用户浏览过的URL。但是使用`go()`方法可以在用户的历史记录中任意跳转。
@@ -267,7 +267,7 @@ history.go("wrox.com")
 ```
 
 
-<br/>
+
 ### 6. 其他
 - setTimeout, clearTimeout
 - setInterval, clearInterval
@@ -281,7 +281,7 @@ window.moveBy(0, 100)       将窗口向下移动100像素
 window.resizeTo(100, 100)   将窗口调整到100 * 100
 ```
 
-<br>
+
 ### 参考资料
 - 《Javscript高级程序设计》 第八章 BOM
 - 《Javascript高级程序设计》第九章 客户端监测

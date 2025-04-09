@@ -1,7 +1,7 @@
 ---
 title: 🤔 Redux + React-Redux 工作原理
 date: 2024-10-25 11:48:17
-category: React
+category: JS
 ---
 
 > 曾几何时，Redux 作为 React 全家桶的固定成员，几乎是面试必考题。Redux 做了什么？解决了什么问题？原理是啥？Hooks出来之后，我们还需要它吗？
@@ -11,7 +11,7 @@ category: React
 这个时候你需要一种机制，可以在全局同一个地方查询状态、改变状态、传播状态的变化。
 *Redux* 就是这个机制。
 
-<br/>
+
 
 ### 2. Redux是怎么做的？
 首先，所有的状态，都保存在一个对象里。
@@ -31,7 +31,7 @@ category: React
   ```
 <!-- - *`subscribe`*: Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。 -->
 
-<br/>
+
 
 *整个流程如下：*
 让用户发出action，Reducer函数算出新的State, View重新渲染。
@@ -53,7 +53,7 @@ const state = reducer(1, {
 });
 ```
 
-<br/>
+
 
 ### 3. 实现一个Redux
 我们来实现一个Redux
@@ -83,7 +83,7 @@ const createStore = (reducer) => {
 
 ```
 
-<br/>
+
 
 ### 4. 视图更新
 数据和操作数据的逻辑有了，剩下的问题就是，计算出新的state后，怎么触发视图更新？
@@ -137,7 +137,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 ```
 
-<br/>
+
 
 
 ### 5. useReducer 代替 Redux
@@ -176,7 +176,7 @@ const tasks = useTasks();
 const dispatch = useTasksDispatch();
 ```
 
-<br/>
+
 
 ### 6. 现在的Redux
 那还用redux吗？最新版Redux在提供什么解决方案？最新包叫`Redux Toolkit`
@@ -203,7 +203,7 @@ const todosSlice = createSlice({
 });
 ```
 
-<br/>
+
 
 ### 参考资料
 - [Vuex框架原理与源码分析](https://tech.meituan.com/2017/04/27/vuex-code-analysis.html)

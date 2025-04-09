@@ -5,7 +5,7 @@ category: JS
 ---
 > 因为要兼容IE，跑了一下Babel文档，发现。。恩？兼容IE，不就是把ES6语法转换成ES5语法吗！果断解锁考点！
 
-<br/>
+
 
 ### 1. 简介
 Babel是一个Javascript编译器，用于将ES5+的代码转换为向后兼容的JS语法，以便能够运行在当前和旧版本的浏览器或其他环境中。[官方Demo](https://www.babeljs.cn/docs/usage)
@@ -19,12 +19,12 @@ Babel 的功能很纯粹，它只是一个编译器，大多数编译器的工�
 组成 | 作用
 ---|---:
 @babel/core       | 实现语法解析，转换
-@babel/preset-env | plugins是一些js程序，用来指导babel如何对代码执行转换。你可以写自己的插件。<br/>preset是多个plugins的组合。
-@babel/cli        | 允许你在终端用命令行实现语法转换。把src目录下的所有js文件，编译输出到lib目录。<br/>`./node_modules/.bin/babel src --out-dir lib` 
+@babel/preset-env | plugins是一些js程序，用来指导babel如何对代码执行转换。你可以写自己的插件。preset是多个plugins的组合。
+@babel/cli        | 允许你在终端用命令行实现语法转换。把src目录下的所有js文件，编译输出到lib目录。`./node_modules/.bin/babel src --out-dir lib` 
 @babel/polyfill   | Babel默认只转换新的JS语法，而不转换新的API，如Iterator, Generator, Set, Maps, Proxy, Reflect, Symbol, Promise等全局对象。当运行环境(*IE*)并没有实现一些全局对象时，babel-polyfill会给其做兼容。
 
 
-<br/>
+
 
 ### 1.1 Babel职责范围
 Babel 只是转译新标准引入的语法，比如：
@@ -43,7 +43,7 @@ Babel 只是转译新标准引入的语法，比如：
 
 对于上面的这些 API，Babel 是不会转译的，需要引入 polyfill 来解决。
 
-<br/>
+
 ### 2. es5实现[es6语法糖](https://github.com/lukehoban/es6features#readme)
 要想知道babel怎么实现ES6语法，直接到[Babel官网的REPL在线编辑器](https://babeljs.io/repl#?browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=MYewdgzgLgBAhjAvDATAbgFAOQRiA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.9.0&externalPlugins=)，配置好`preset`和`plugins`后，输入你想要转化的代码，babel自动会给你输出转化后的代码。
 
@@ -85,7 +85,7 @@ function f() {
 }
 ```
 
-<br/>
+
 
 #### 2.2 箭头函数
 ```js
@@ -99,7 +99,7 @@ var a = [1, 2, 3].map(function (v) {
 ```
 
 
-<br/>
+
 
 #### 2.3 函数默认参数
 ```js
@@ -116,7 +116,7 @@ function f(x) {
 ```
 
 
-<br/>
+
 
 #### 2.4 解构
 ```js
@@ -136,7 +136,7 @@ var _c$d$e = const { c, d, e: { f } } = { c: 1, d: 2, e: { f: 3 } },
 ```
 
 
-<br/>
+
 
 #### 2.5 模板字符串
 ```js
@@ -156,7 +156,7 @@ var c = "hello ".concat(name, ",\n\thow are you ").concat(today);
 ```
 
 
-<br/>
+
 
 #### 2.6 Class
 ```js
@@ -233,7 +233,7 @@ arr.getVal();
 ```
 
 
-<br/>
+
 
 ### 3. babel 和 polyfill
 *有了babel，为什么要polyfill？*
@@ -243,7 +243,7 @@ Promise, aysnc/await, Generator, Set, Map, Proxy
 
 
 
-<br/>
+
 ### 参考资料
 - [ES6语法](https://github.com/lukehoban/es6features#readme)
 - [Babel](https://www.babeljs.cn/docs/usage)

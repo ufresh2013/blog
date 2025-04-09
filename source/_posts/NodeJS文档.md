@@ -21,7 +21,7 @@ Node.js 不是一门语言也不是框架，它只是基于 Google V8 引擎的 
 - module
 - require
 
-<br/>
+
 
 ### 2. process
 当前 Node.js 进程的信息
@@ -38,7 +38,7 @@ Node.js 不是一门语言也不是框架，它只是基于 Google V8 引擎的 
 - process.title 指定进程名称，有的时候需要给进程指定一个名称
 
 
-<br/>
+
 
 ### 3. fs
 读取本地文件的能力
@@ -55,7 +55,7 @@ console.log(buf); // <Buffer 48 65 6c 6c 6f>
 console.log(data); // Hello
 ```
 
-<br/>
+
 
 ### 4. buffer(缓冲区)
 Buffer就是在内存中开辟一片区域（初次初始化为8KB），用来存放二进制数据。如果数据到达的速度比进程消耗的速度快，那么少数早到达的数据会处于等待区等候被处理。反之，如果数据到达的速度比进程消耗的数据慢，那么早先到达的数据需要等待一定量的数据到达之后才能被处理。
@@ -66,7 +66,7 @@ const outputStream = fs.createWriteStream('output.txt'); // 创建可写流
 inputStream.pipe(outputStream); // 管道读写
 ```
 
-<br/>
+
 
 ### 5. Stream
 流（Stream），是一个数据传输手段，是端到端信息交换的一种方式，而且是有顺序的,是逐块读取数据、处理内容，用于顺序读取输入或写入输出。
@@ -84,7 +84,7 @@ const server = http.createServer(function (req, res) {
 });
 ```
 
-<br/>
+
 
 ### 6. EventEmit
 观察者模式，被观察者(主体)维护着一组其他对象派来(注册)的观察者，有新的对象对主体感兴趣就注册观察者，不感兴趣就取消订阅，主体有更新的话就依次通知观察者们
@@ -153,12 +153,12 @@ class EventEmitter {
 ```
 
 
-<br/>
+
 
 ### 7. path
 
 
-<br/>
+
 
 ### 8. 中间件
 在NodeJS中，中间件指封装`http`请求细节处理的方法，如express, koa里，通过将公共逻辑的处理编写在中间件中，可以不用在每一个接口回调中做相同的代码编写。
@@ -281,7 +281,7 @@ module.exports = function (dir) {
 ```
 
 
-<br/>
+
 
 ### 参考资料
 - [一篇文章构建你的 NodeJS 知识体系](https://www.zhihu.com/search?type=content&q=nodejs%E6%96%87%E6%A1%A3)

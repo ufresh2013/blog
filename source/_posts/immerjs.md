@@ -24,7 +24,7 @@ function shallowClone(obj) {
 }
 ```
 
-<br/>
+
 
 ### 2. 深拷贝
 深拷贝不是那么好实现的。(完全独立于副本)
@@ -57,7 +57,7 @@ function deepClone (obj, hash = new WeakMap()) {
 }
 ```
 
-<br/>
+
 
 
 ### 3. Immer.js
@@ -66,7 +66,7 @@ function deepClone (obj, hash = new WeakMap()) {
 
 
 
-<br/>
+
 
 #### 3.1 不可变数据
 例如，我们直接复制对象`const obj2 = obj1`, 当我们修改obj2时，却不小心把obj1也一起修改了。
@@ -89,8 +89,8 @@ const obj2 = { ...obj1, name: '金毛2' }
 ```
 而当obj1是一个多层嵌套的对象，我们需要一个包来帮忙处理层层嵌套的逻辑。这时就需要用到Immer.js。
 
-<br/>
-<br/>
+
+
 
 #### 3.2 基本用法
 Immer.js的核心目标, 通过直观的操作修改数据，得到一个拷贝对象（这个副本只新建被改变的变量, 其余变量都复用）
@@ -108,8 +108,8 @@ const obj2 = immer.produce(obj1, (draft) => {
 
 
 
-<br/>
-<br/>
+
+
 
 #### 3.3 实现一个简易的Immer.js
 Immer.js 通过递归式的 proxy 代理和浅拷贝，充分复用数据结构中不变的节点，同时满足性能要求 和 不可变数据的要求。
@@ -132,7 +132,7 @@ function createDraftstate(target) {
 }
 ```
 
-<br/>
+
 
 ##### 3.3.2 入口方法
 传入`target`需要被拷贝的对象， `producer`修改操作，最后返回拷贝 + 修改后的对象（还不会出现多层proxy）
@@ -144,7 +144,7 @@ function produce(target, producer) {
 }
 ```
 
-<br/>
+
 
 ##### 3.3.3 核心代理方法
 不管处于对象的哪一层，Immer.js 给访问到的key都转化为一个proxy对象。该代理对象能够跟踪对象属性的读取和修改操作。当对象的属性被读取时，会将该属性值也转换为代理对象；当属性被修改时，会标记对象已被修改，并更新内部的草稿状态。
@@ -184,7 +184,7 @@ function toProxy(targetState) {
 })}
 ```
 
-<br/>
+
 
 ##### 3.3.4 修改链回溯
 上面的代码只完成了前4步，我们还没让修改后的值`draftState`返回出来。
@@ -253,7 +253,7 @@ const newState = produce(a, function (draft) {
 
 
 
-<br/>
+
 
 ##### 3.3.5 完整代码
 可以直接放入浏览器试试效果
@@ -337,11 +337,11 @@ console.log('Original State:', originalState);
 console.log('New State:', newState);
 ```
 
-<br/>
 
 
 
-<br/>
+
+
 
 
 ### 参考资料

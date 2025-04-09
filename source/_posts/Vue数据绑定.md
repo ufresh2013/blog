@@ -1,8 +1,7 @@
 ---
 title: Object.defineProperty和proxy实现响应式
 date: 2018-11-14 15:47:27
-category:
-- Vue
+category: JS
 ---
 
 ### 1. MVVM
@@ -22,7 +21,7 @@ MVVM拆开来即为Model-View-ViewModel，由View，ViewModel，Model三部分�
 View需要什么数据，ViewModel要提供这个数据；View有哪些些操作，ViewModel就要响应这些操作
 
 
-<br/>
+
 
 ### 2. 数据驱动
 对于 View 来说，如果封装得好，一个UI组件能很方便地给大家复用。对于 Model 来说，它其实是用来存储业务的数据的，如果做得好，它也可以方便地复用。那么，ViewModel有多少可以复用？结论是：*非常难复用*。
@@ -44,7 +43,7 @@ ViewModel做的什么？就是写那些不能复用的业务代码。当交互�
 > 所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。它相比我们传统的前端开发，如使用 jQuery 等前端库直接修改 DOM，大大简化了代码量。特别是当交互复杂的时候，只关心数据的修改会让代码的逻辑变的非常清晰，因为 DOM 变成了数据的映射，我们所有的逻辑都是对数据的修改，而不用碰触 DOM，这样的代码非常利于维护。
 
 
-<br/>
+
 
 ### 3. Object.defineProperty
 Vue实现数据驱动的核心是利用了ES5的Object.defineProperty。
@@ -61,7 +60,7 @@ obj.text = 1; // 会触发updateUI()
 ```
 Vue采用这种数据劫持的方式，通过Object.defineProperty()方法来劫持 data 所有对象的 setter，使得data发生变动时能自动执行 重新编译模板。
 
-<br/>
+
 
 #### 3.1 实现Demo
 {% raw %}
@@ -111,7 +110,7 @@ Vue采用这种数据劫持的方式，通过Object.defineProperty()方法来劫
 ```
 <img src="3.png">
 
-<br/>
+
 
 #### 3.2 检查变化的缺陷
 受现代JS的限制
@@ -136,7 +135,7 @@ this.arr = thia.arr.filter((item) => item.key)
 
 
 
-<br/>
+
 
 ### 4. proxy
 在Vue2.0中，数据双向绑定就是通过`Object.defineProperty`去监听对象的每一个属性，然后在get,set方法中通过发布订阅者模式来实现的数据响应，但是存在一定的缺陷，比如只能监听已存在的属性，对于新增删除属性就无能为力了，同时无法监听数组的变化，所以在Vue3.0中将其换成了功能更强大的`Proxy`。
@@ -160,7 +159,7 @@ const handler = {
 this.data = new Proxy(this.data, handler);
 ```
 
-<br/>
+
 
 ### 5. 依赖收集
 这看上去很简单，但是它背后又潜藏着几个要处理的问题：
@@ -198,7 +197,7 @@ var Dep = {
 <img src="2.png">
 
 
-<br/>
+
 
 ### 6. 实现MVVM Demo
 ```html
@@ -329,7 +328,7 @@ var Dep = {
 </body>
 </html>
 ```
-<br/>
+
 
 ### 参考资料
 - [简单理解MVVM--实现Vue的MVVM模式](https://zhuanlan.zhihu.com/p/38296857)

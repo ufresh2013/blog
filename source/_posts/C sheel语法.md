@@ -20,7 +20,7 @@ namespace first_space
 }
 ```
 
-<br/>
+
 
 ### 2. class
 程序的执行从 Main 方法开始。
@@ -47,7 +47,7 @@ class DerivedClass : BaseClass, OtherClass
 }
 ```
 
-<br/>
+
 
 ### 3. 数据类型
 类型 | 举例

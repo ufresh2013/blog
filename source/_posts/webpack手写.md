@@ -3,10 +3,10 @@ title: 官方教你手写一个100行代码的Webpack
 date: 2021-12-22 15:08:59
 category: NodeJS
 ---
-> Webpack如何实现打包功能？<br/>最近看文章刷到这个[官方教学视频](https://www.youtube.com/watch?v=Gc9-7PBqOC8&list=LLHK1mTHpwrUeYgF5gu-Kd4g)，666啊，建议先进去看一看！
+> Webpack如何实现打包功能？最近看文章刷到这个[官方教学视频](https://www.youtube.com/watch?v=Gc9-7PBqOC8&list=LLHK1mTHpwrUeYgF5gu-Kd4g)，666啊，建议先进去看一看！
 
 
-<br/>
+
 
 ### 1. 打包文件分析
 首先webpack构建出的`bundle.js`长这样。整个代码是一个自执行函数，函数接收的是一个数组，数组的每一项是一个模块，它们也被一个函数包裹起来。
@@ -24,7 +24,7 @@ category: NodeJS
 webpack如何处理`import`和`require`?
 bundle.js能直接运行在浏览器中的原因在于输出的文件中定义了一个`_webpack_require__`函数，来模拟Node.js.中的`require`语句
 
-<br/>
+
 
 ### 2. 实现一个简单的webpack
 Webpack通过入口文件逐层遍历到模块依赖，进行代码分析，转换，最终生成可在浏览器运行的打包后的代码。

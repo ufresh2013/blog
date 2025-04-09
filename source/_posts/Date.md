@@ -57,7 +57,7 @@ secondes | 可选，表示秒的整数值。默认值为0
 millseconds | 可选，表示毫秒的整数值。默认值为0
 
 
-<br/>
+
 ### 2. 方法
 由于存在时区的概念，JS里有两个时间：本地时间和协调世界时(UTC时间)。
 - *本地时间* 是指你的计算机所在的时区
@@ -128,7 +128,7 @@ new Date('2020-11-11')
 
 
 
-<br/>
+
 ### 3. 常用方法
 - 校验日期格式
 
@@ -173,7 +173,7 @@ var elapsed = end.getTime() - start.getTime()
 - UTC，本地时间转换
 
 
-<br/>
+
 ### 参考资料
 - [需要知道的JS的日期的知识，都在这了](https://juejin.im/post/5d12b308f265da1b7c612746)
 - [【译】你可能不需要Moment.js](https://juejin.im/post/5b9f4df66fb9a05d2e1b8f02#heading-13)

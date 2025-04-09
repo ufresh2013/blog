@@ -1,7 +1,7 @@
 ---
 title: B站跟尤雨溪一起解读Vue3源码
 date: 2025-02-05 16:52:30
-category: Vue
+category: JS
 ---
 
 ### 1. mount 挂载函数
@@ -41,7 +41,7 @@ const vdom = h('div', { class: 'red' }, [
 ])
 mount(vdom, document.getElementById('app'))
 ```
-<br/>
+
 
 
 ### 2. Reactive 响应式
@@ -54,7 +54,7 @@ onStateChanged(() => {
 ```
 怎么实现这个效果呢？不同于`setState`，Vue一直用依赖收集的方法来实现响应式。
 
-<br/>
+
 
 #### 2.1 依赖收集
 假设每个响应式变量*`value`*，有一个专门处理依赖的class实例，暂定这个class是*`Dep`*。
@@ -112,7 +112,7 @@ dep.value = 'changed'
 ```
 
 
-<br/>
+
 
 
 
@@ -174,7 +174,7 @@ watchEffect(() => {
 state.count = 1
 ```
 
-<br/>
+
 
 #### 2.3 proxy
 Vue3利用`Reflect`和`Proxy`来实现响应式，我们需要改造一下上面的`reactive`方法。
@@ -215,7 +215,7 @@ function reactive(raw) {
 ```
 
 
-<br/>
+
 
 ### 参考资料
 - [跟尤雨溪一起解读Vue3源码](https://www.bilibili.com/video/BV1rC4y187Vw?spm_id_from=333.788.videopod.episodes&vd_source=2afb712305742eec14a61ccd3d5b51c9&p=5)

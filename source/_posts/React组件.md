@@ -1,7 +1,7 @@
 ---
 title: React Class 组件 & 组件传值 & 生命周期
 date: 2019-06-21 17:23:14
-category: React
+category: JS
 ---
 
 ### 1. 常用组件
@@ -100,7 +100,7 @@ onChange={(e) => this.setState({ value: e.target.value })} />
 // 表单元素状态DOM自身维护 <input type="text" ref={node => this.input = node} />
 ```
 
-<br/>
+
 
 #### 1.4 props.children
 
@@ -162,7 +162,7 @@ const App = () => (
 )
 ```
 
-<br/>
+
 #### 1.6 Fragments
 React常常是一个组件返回多个元素，Fragments允许你将子列表分组，而无需向DOM添加额外节点。
 ```js
@@ -185,7 +185,7 @@ return (
 
 ````
 
-<br/>
+
 #### 1.7 高阶组件
 - 在挂载时，想DataSource添加一个更改侦听器
 - 在侦听器内部，当数据源发生变化时，调用setState
@@ -226,9 +226,9 @@ function withSubscription(WrappedComponent, selectData) {
 }
 ````
 
-<br/>
+
 #### 1.8 在一个模块中导出多个多组件
-<br/>
+
 ### 2. 结合redux
 | 展示组件 | 容器组件
 ---|:--:|---:
@@ -278,7 +278,7 @@ const Link = ({ active, children, onClick }) => {
 };
 ```
 
-<br/>
+
 #### 2.2 有状态组件
 有状态组件，就是使用`store.subscribe()`从Redux state树中读取部分数据，并通过props来把这些数据提供给要渲染的组件。但建议使用React Redux库的`connect()`来生成，这个方法做了避免了很多不必要的重复渲染。
 ```js
@@ -292,11 +292,11 @@ class Home extends React.Component {
 }
 ```
 
-<br/>
+
 #### 2.3 全局组件
 通过`Message.error('错误')`来显示组件。
 
-<br/>
+
 ### 3. 组件传值
 #### 3.1 共同父组件
 状态提升，将多个组件中需要共享的state向上移动到他们的最近共同父组件中，便可实现共享state
@@ -335,11 +335,11 @@ function Page(props) {
 }
 ```
 
-<br/>
+
 #### 3.2 Context 公用属性
 React中数据是通过props属性自上而下(由父及子)进行传递的，但这种做法对于某些类型的属性而言是极其繁琐的（如：地区偏好，UI主题），这些属性是应用程序中许多组件都需要的。Context提供了一种在组件之间共享此值的方式，而不必显示地通过组件树的逐层传递props。
 
-<br/>
+
 
 #### 3.3 Refs
 将DOM Refs暴露给父组件。你希望在父组件汇总引用子节点的DOM节点。
@@ -390,7 +390,7 @@ return (
 ```
 
 
-<br/>
+
 
 ### 4. 生命周期
 #### 4.1 挂载
@@ -400,7 +400,7 @@ return (
 - render
 - componentDidMount
 
-<br/>
+
 #### 4.2 更新
 当组件的props或state发生变化时会触发更新。组件更新的生命周期调用顺序如下
 - getDerivedStateFromProps 
@@ -410,7 +410,7 @@ return (
 - componentDidUpdate
 
 
-<br/>
+
 #### 4.3 卸载
 当组件从DOM中移除之前，会调用
 - compoenntWillMount

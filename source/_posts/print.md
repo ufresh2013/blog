@@ -18,7 +18,7 @@ window.addEventListener('afterprint', ()=> {
 ```
 
 
-<br/>
+
 ### 2. 打印样式
 在link上加上`media="print"`来标识这是打印机才会应用的样式。
 ```html
@@ -32,7 +32,7 @@ window.addEventListener('afterprint', ()=> {
 }
 ```
 
-<br/>
+
 ### 3. 组件实现
 打印会把`document`下所有可见元素打印出来。如果希望页面上不相关的东西不要出现在打印中，可以创建一个iframe,把要打印的dom和样式表都丢进去，再调用iframe的打印事件。引用组件*`<print ref="print">打印内容</print>`*，等内容加载完后，调用*`this.$refs.print()`*打印。
 
@@ -120,7 +120,7 @@ export default {
 ```
 
 
-<br/>
+
 ### 4. 打印表格
 表格太长的时候，实现分页功能，每个分页都带表头。且可自定义页头页尾
 ```html
@@ -159,7 +159,7 @@ export default {
 ```
 
 
-<br/>
+
 ### 5. 生成条形码
 用jsBarCode生成条形码图片
 ```html
@@ -177,12 +177,12 @@ jsBarCode(this.$refs.barcode, 'YF123456', {
 });
 ```
 
-<br/>
+
 ### 6. 分页符
 ```html
 <div style="page-break-before:left"></div>
 ```
 
-<br/>
+
 ### 参考资料
 - [window.print —— 浏览器打印扫盲](https://juejin.im/post/5b371a8a6fb9a00e5326f06c)

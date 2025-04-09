@@ -1,5 +1,5 @@
 ---
-title: Electron + creact-react-app + ant-design搭建项目
+title: Electron + creact-react-app 搭建项目
 date: 2019-08-05 16:57:09
 category: NodeJS
 ---
@@ -12,7 +12,7 @@ Electron = nodejs + chrome内核
 因为内置nodejs环境，所以可以访问计算机本地的资源：读写磁盘文件、创建进程、本地通知，这一部分运行在*主进程*中。
 
 
-<br/>
+
 ### 1. 搭建应用
 目标：搭建一个Electron + create-react-app + dva + react-router + antd的应用。
 
@@ -37,7 +37,7 @@ npm install electron --save
 ```
 
 
-<br/>
+
 
 ### 2. 添加electron启动文件
 创建electron启动文件`/public/electron.js`，有两点修改：
@@ -123,7 +123,7 @@ app.on('activate', function () {
 ```
 
 
-<br/>
+
 ### 3. 调试运行
 ```shell
 # 本地运行，运行electron，
@@ -135,7 +135,7 @@ npm run build
 npm run electron
 ```
 
-<br/>
+
 ### 4. 在React App里调用electron API
 所有Electron的API都会被指派给一种进程类型。许多API只能被用于主进程或渲染进程，但有一些可以同时在上述两种进程中使用。
 - 新建 `/public/renderer.js` 文件，该文件在electron入口文件里定义为预加载文件。通过require的方式获取electron及其他API，暴露electron API
@@ -174,7 +174,7 @@ export default class App extends React.Component(){
 
 
 
-<br/>
+
 ### 参考资料
 - [使用create-react-app编写Electron app](https://www.jianshu.com/p/5e41663825c6)
 - [Electron 无边框窗口的拖动](https://www.jianshu.com/p/96327b044e85)

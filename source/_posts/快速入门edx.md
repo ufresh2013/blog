@@ -23,7 +23,7 @@ category: Work
 
 
 
-<br/>
+
 ### 2. 安装启动
 #### 2.1 安装项目
 这里假设你已经完成安装，如果没有，[前往安装](https://github.com/edx/devstack)。
@@ -40,7 +40,7 @@ category: Work
 
 
 
-<br/>
+
 #### 2.1 启动项目
 ```shell
 cd devstack
@@ -71,7 +71,7 @@ verified	  verified@example.com    edx
 创建课程，使用优惠券购买单课，会员购买，课程学习——习题，讨论，维基，教师面板等
 
 
-<br/>
+
 #### 2.2 常用命令
 使用`make`命令可以查看所有make命令，下面列举一些常用操作。[更多命令查看](https://github.com/edx/devstack)
 
@@ -148,7 +148,7 @@ make stop
 
 
 
-<br/>
+
 ### 3. 代码修改
 前端代码修改主要包括
 - 主题样式
@@ -172,8 +172,8 @@ js不生效，样式兼容
 - 协助后端解决bug
 
 
-<br/>
-<br/>
+
+
 ### 4. 配置主题
 先阅读[官方文档](https://edx.readthedocs.io/projects/edx-installing-configuring-and-running/en/latest/configuration/changing_appearance/theming/index.html)，了解主题包如何创建，修改，配置。
 
@@ -191,7 +191,7 @@ To override the files that constitute the default Open edX theme, you create rep
 /themes/normal-theme/lms/templates
 ```
 
-<br/>
+
 *添加主题包*
 在`/edx-platform/themes`新建一个文件夹`normal-theme`
 ```
@@ -212,7 +212,7 @@ normal-theme
     |             └── header.html
 ```
 
-<br/>
+
 *修改配置文件*
 ```shell
 # 进入文件目录
@@ -243,7 +243,7 @@ Theme dir name: normal-theme
 ```
 
 
-<br/>
+
 ### 5. 主题修改
 改edx主题是一件非常痛苦的事件。每改一个地方，需要执行一次编译命令，才能看到效果。快则1分钟，慢则20分钟。同时，edx的模板层层嵌套，同一个className会应用到多个页面，牵一发动全身。加上className又长又乱，css也是没啥章法，`border-box`与`content-box`混用，样式乱加`!important`，很多时候你不得不再强制加一个`!important`去覆盖它。加上本身没有使用任何基础库，因此衍生出很多兼容问题。
 
@@ -252,7 +252,7 @@ Theme dir name: normal-theme
 - 如果有新增的需求，你需要遵循一些设计规范。
 
 
-<br/>
+
 #### 5.1 sass编译
 先确保安装了[Sass](https://www.sass.hk/install/)
 ```shell
@@ -298,7 +298,7 @@ normal-theme/lsm/static/sass
 ```
 
 
-<br/>
+
 #### 5.2 一些规范
 - *适配要求*
 pc响应式布局，兼容ipad，手机，兼容IE11
@@ -315,7 +315,7 @@ pc设计稿尺寸1400px\*auto (内容1200px\*auto), 手机设计稿尺寸375px*a
 
 
 
-<br/>
+
 
 - *变量*
 更多变量查看 `/edx-platform/themes/normal-theme/lms/static/sass/modify/lms/_variables.scss`，设计稿有时不会100%按这个标准，此时应优先使用这些变量。
@@ -339,7 +339,7 @@ $border-radius: 3px;
 /* 正文字体统一为14px */
 ```
 
-<br/>
+
 - *通用样式*
 查看`/edx-platform/themes/normal-theme/lms/static/sass/modify/lms/page/_base.scss`，这个文件定义了button, input, select, `<a>`的样式。开发时应统一使用这些变量。
 ```sass
@@ -352,7 +352,7 @@ $border-radius: 3px;
 @extend %input-my-radio;
 ```
 
-<br/>
+
 
 - *避免修改外层div的class样式*
 edx所有页面均被下面两个`<div>`包裹，注意不要轻易修改、新增这两个className的样式，不然其他页面都会发生变动。
@@ -372,12 +372,12 @@ edx所有页面均被下面两个`<div>`包裹，注意不要轻易修改、新�
   }
   ```
 
-<br/>
+
 
 - *替换icon*
 icon使用雪碧图替换，具体查看`/edx-platform/themes/normal-theme/lms/static/sass/modify/lms/page/_iconfont.scss`
 
-<br/>
+
 #### 5.3 替换templates
 如果需要修改/templates，需把原来的模板文件复制一份，放到主题下，在其基础上修改。
 当模板里需要添加图片需使用
@@ -391,7 +391,7 @@ All image files and other “static assets” are pre-processed using an open so
 
 
 
-<br/>
+
 ### 6. edx前端技术选型
 Edx前端囊括了展示给用户的所有东西，主要包括用Python渲染的views，用js写的页面交互，和css样式。
 
@@ -411,7 +411,7 @@ Edx前端囊括了展示给用户的所有东西，主要包括用Python渲染�
 当构建新UI的时候，应当使用React。但是现在绝大部分没有使用。上次edx年会说，2019年底会完成向react转移。
 
 
-<br/>
+
 *一些新React App仓库*
 Account页  https://github.com/edx/frontend-app-account
 Profile页  https://github.com/edx/frontend-app-profile
@@ -427,7 +427,7 @@ slack回复需更新master分支devstack。
 @edx/frontend-component-footer
 
 
-<br/>
+
 *publisher-frontend*
 https://github.com/edx/publisher-frontend
 
@@ -444,7 +444,7 @@ https://github.com/edx/publisher-frontend
 
 
 
-<br/>
+
 ### 参考文档
 - [edx官方文档](http://docs.edx.org/)
 - [edx主题包官方文档](https://edx.readthedocs.io/projects/edx-installing-configuring-and-running/en/latest/configuration/changing_appearance/theming/index.html)

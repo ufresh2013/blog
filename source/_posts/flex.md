@@ -14,7 +14,7 @@ HTML标签中可以书写开始标签、结束标签和自封闭标签。一对�
 - content-box：`element width = border + padding + content width`
 - border-box：`element width = content width`(内容宽度包含了content width，border, padding, 建议使用)
 
-<br/>
+
 
 ### 2. 正常流，BFC，IFC
 HTML最早的排版设计，从文字出版行业的专家来做。思考一下，我们如何写字？1.从左到右书写； 2. 同一行写的文字都是对齐的；3. 一行写满了，就换到下一行。**这也对应了正常流排版过程:**
@@ -30,7 +30,7 @@ HTML最早的排版设计，从文字出版行业的专家来做。思考一下�
     只是要求周围有这么多的空白，就是一个合理的排版。而不会说跟别的边距也有这么多空白。只有正常流的BFC会发生margin折叠的现象，其他flex等布局不会发生。
 3. 计算行的排布
 
-<br/>
+
 
 ### 3. flex
 flex 容器中默认存在两条轴：
@@ -41,7 +41,7 @@ flex 容器中默认存在两条轴：
 在容器中的每个单元块被称之为 flex item，每个项目占据的主轴空间为 (main size), 占据的交叉轴的空间为 (cross size)。不能先入为主认为宽度就是 main size，高度就是 cross size，取决于`flex-direction`的取值）
 
 
-<br/>
+
 
 #### 3.1 flex 容器
 ```css
@@ -63,7 +63,7 @@ flex 容器中默认存在两条轴：
   - 当 flex-wrap 设置为 wrap 的时候，容器可能会出现多条轴线，这时候你就需要去设置多条轴线之间的对齐方式了。
 
 
-<br/>
+
 
 #### 3.2 flex item属性
 有六种属性可运用在 item 项目上：
@@ -78,7 +78,7 @@ flex 容器中默认存在两条轴：
 6. align-self：允许单个项目有与其他项目不一样的对齐方式，默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。auto | flex-start | flex-end | center | baseline | stretch
 
 
-<br/>
+
 
 #### 3.3 flex 简写
 *公式：*
@@ -152,7 +152,7 @@ flex 容器中默认存在两条轴：
 
 grow 和 shrink 是一对双胞胎，grow 表示伸张因子，shrink 表示是收缩因子。shrink 在 flex 容器下的子元素的宽度总和比容器小的时候起作用。 grow 定义了子元素的尺寸增长因子，容器中除去子元素之和剩下的尺寸会按照各个子元素的 grow 值进行平分加大各个子元素上。
 
-<br/>
+
 
 #### 3.4 flex-wrap、flex-shrink、flex-grow的关系
 容器的 flex-wrap 与子项的 flex-shrink、flex-grow 之间的关系
@@ -162,7 +162,7 @@ grow 和 shrink 是一对双胞胎，grow 表示伸张因子，shrink 表示是�
 4. 当 flex-wrap 为 nowrap，且子项宽度和超过父容器宽度时，flex-shrink 会起作用，子项会根据 flex-shrink 设定的值进行缩小（为0的项不缩小）。但这里有一个较为特殊情况，就是当这一行所有子项 flex-shrink 都为0时，也就是说所有的子项都不能缩小，就会出现讨厌的横向滚动条
 5. 总结上面四点，可以看出不管在什么情况下，在同一时间，flex-shrink 和 flex-grow 只有一个能起作用，这其中的道理细想起来也很浅显：空间足够时，flex-grow 就有发挥的余地，而空间不足时，flex-shrink 就能起作用。当然，flex-wrap 的值为 wrap | wrap-reverse 时，表明可以换行，既然可以换行，一般情况下空间就总是足够的，flex-shrink 当然就不会起作用
 
-<br/>
+
 
 #### 3.5 flex宽度计算
 ```html
@@ -207,10 +207,10 @@ grow 和 shrink 是一对双胞胎，grow 表示伸张因子，shrink 表示是�
 收缩：子项宽度 - 移除宽度 * 子项收缩**权重比例**（自身宽度 * shrink / 总权重）
 拉伸与收缩算法不一样：子项宽度 + 剩余宽度 * 子项拉伸比例
 
-<br/>
 
 
-<br/>
+
+
 
 ### 5. 移动端适配
 #### 5.1 meta-viewport适配
@@ -230,13 +230,13 @@ grow 和 shrink 是一对双胞胎，grow 表示伸张因子，shrink 表示是�
 为了能在移动设备上正常显示那些传统的为桌面浏览器设计的网站，移动设备上的浏览器都会把自己默认的viewport设为980px或1024px（也可能是其它值，这个是由设备自己决定的），这样做是因为许多页面没有做移动端优化，在小窗口渲染时会乱掉（或看起来乱）。所以，这种虚拟视口是一种让未做移动端优化的网站在窄屏设备上看起来更好的办法。
 
 
-<br/>
+
 
 #### 5.2 媒体查询
 *`@media`*查询针对不同的屏幕尺寸设置不同的样式，当要设置响应式页面时，还是很有用的。当你重置浏览器大小的过程中，页面也会根据浏览器的宽度和高度重新渲染页面。
 
 
-<br/>
+
 
 #### 5.3 em, rem, vw, vh
 em和rem都是相对单位长度
@@ -263,7 +263,7 @@ em和rem都是相对单位长度
 ```
 
 
-<br/>
+
 
 ### 参考资料
 - [Flex 排版源码分析](https://juejin.cn/post/6844903591149305864)

@@ -1,7 +1,7 @@
 ---
 title: Vue2 组件通信的多种方式
 date: 2019-08-21 13:23:26
-category: Vue
+category: JS
 ---
 > 组件通信方式都有哪些？哪种比较好？
 
@@ -31,7 +31,7 @@ props 和 $emit结合，就是v-model双向绑定
 - *`vuex`*
 关于全局缓存变量的储存，在传统时代，根据cookies,localstorage,session等，基本可以完成变量的存储。但是在数据驱动的时代，所有的数据需要双向绑定才能完成数据驱动，但是明显cookies，localstorage，session等，无法完成双向绑定。这时就要用到 vuex，redux等，提供*全局状态管理*，*持久化处理*。
 
-<br/>
+
 
 
 
@@ -40,7 +40,7 @@ props 和 $emit结合，就是v-model双向绑定
 ```js
 <child :value="value" />
 ```
-<br/>
+
 
 ### 2. $on, $emit
 子组件向父组件通信。子组件通过派发事件，给父组件发消息
@@ -69,7 +69,7 @@ v-model`会解析成名为`value`的`prop`和名为`@input`的事件。其根本
 this.$emit("update:page", newVal)
 ```
 
-<br/>
+
 
 ### 4. $attrs/$listeners
 多层嵌套组件传递数据时，如果只是传递数据，而不做中间处理的话就可以用这个，比如父组件向孙子组件传递数据时
@@ -104,7 +104,7 @@ export default{
 
 
 
-<br/>
+
 
 ### 5. $parent, $chilren, $refs
 在`this.$parent.children`中通过组件`name`查询到需要的组件实例，通过 ref 主动获取子组件的属性或者调用子组件的方法
@@ -116,7 +116,7 @@ console.log(child.name) // name是child的data
 child.someMethod("调用了子组件的方法") // someMethod是child的methods
 ```
 
-<br/>
+
 
 ### 6. provide/inject
 Provide 可以在祖先组件中指定我们想要提供给后代组件的数据和方法，在任何后代组件中，我们都可以用 Inject 来接收 Provide 提供的数据和方法。
@@ -152,7 +152,7 @@ export default{
 }
 ```
 
-<br/>
+
 
 ### 7. Event Bus
 new一个Vue实例，作为事件总线，像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件， 所以组件都可以通知其他组件。
@@ -172,7 +172,7 @@ Vue.component('child', {
 })
 ```
 
-<br/>
+
 
 ### 7. Vuex
 初始化vuex的时候，新建了一个vue 实例

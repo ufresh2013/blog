@@ -1,13 +1,13 @@
 ---
 title: 🤔 Vue响应式问题集
 date: 2025-02-17 23:51:19
-category: Vue
+category: JS
 ---
 > 一个Vue的复杂响应式对象都劫持了哪些key？哪些属性是响应式的？如果把这个key抽离出来，还有响应式吗？什么情况下会出现响应式丢失？为什么 Vue2 里会有`$set` 方法？为什么 Vue3 里会有 `toRef`, `.value`？`Ref`, `Reactive`, `shallowRef`的区别是什么？
 （刚被面试官问得我一愣一愣的，Vue的响应式怎么这么多问题 -_-||）
 
 
-<br/>
+
 
 ### 1. Object.defineProperty
 #### 1.1 实现响应式
@@ -33,7 +33,7 @@ function reactive(raw) {
 }
 ```
 
-<br/>
+
 
 #### 1.2 Vue2都劫持了哪些key?
 data的第一层key都被劫持到，如果某一个key的value是对象和数组。我们操作`this.$data.a.b = 1`会有响应式效果吗？
@@ -71,7 +71,7 @@ Vue 没有对每个数组项设置监听，但是如果数组项是对象，Vue�
 }
 ```
 
-<br/>
+
 
 #### 1.3 源码解析
 除了实现上面的效果。如果newVal是一个全新的值，索引地址变了，会重新触发Object.defineProperty
@@ -122,7 +122,7 @@ export function defineReactive (obj, key, val) {
 }
 ```
 
-<br/>
+
 
 #### 1.4 哪些变动不会有响应式？($set, Array.property)
 从上面得知，`Object.defineProperty`的性质使得，Vue不能监听这些变动：
@@ -134,7 +134,7 @@ export function defineReactive (obj, key, val) {
 - 修改数组长度`vm.items.length = newLength`
 
 
-<br/>
+
 
 但我们可以通过这些手段，处理这个问题
 1. 修改内存地址，赋一个全新的值，触发一次新的监听绑定
@@ -163,18 +163,18 @@ push(), pop(), shift(), unshift(), splice(), sort(), reverse()
 ```
 
 
-<br/>
+
 
 #### 1.5 watch deep
 深度遍历所有子属性，触发所有子属性的getter函数执行，收集依赖-watch后需要执行的事件
-<br/>
 
 
 
 
 
 
-<br/>
+
+
 
 ### 2. Proxy
 #### 2.1 实现响应式
@@ -201,7 +201,7 @@ function reactive(raw) {
 Proxy的响应式是绑定在哪一级？如果我们把object中的某个key抽离出来，还有响应式吗？
 
 
-<br/>
+
 
 #### 2.2 Ref, Reactive, shallowRef的区别
 - `Ref`
@@ -228,16 +228,16 @@ shallowRef则是只对.value的变化触发响应，内部值不会被深度响�
 
 
 
-<br/>
+
 
 #### 2.3 为什么需要`.value`
 
 
-<br/>
+
 
 #### 2.4 为什么需要`toRef`
 
-<br/>
+
 
 #### 2.5 响应式丢失
 
@@ -246,7 +246,7 @@ shallowRef则是只对.value的变化触发响应，内部值不会被深度响�
 Vue 3 的响应式系统本身最大的特点是不仅不依赖编译，而且跟组件上下文无关，甚至跟 Vue 框架其它部分也是解耦的。同一套系统你可以用在 Vue 组件里，组件外，其他框架里，甚至用在后端。
 
 
-<br/>
+
 
 ### 3. Object.defineProperty 和 Proxy的区别
 

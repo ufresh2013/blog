@@ -1,5 +1,5 @@
 ---
-title: mac系统不区分大小写，linux服务器区分大小写
+title: mac不区分大小写，linux服务器区分
 date: 2021-08-20 12:49:15
 category: Bug
 ---

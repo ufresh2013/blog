@@ -51,7 +51,7 @@ describe('登录组件', () =>{
 有非常多的工具和框架，可以辅助我们完成上述的单元测试，本文以 Jest 为例，讲一下前端单元测试如何编写和执行。
 
 
-<br/>
+
 
 
 ### 1. Jest简介
@@ -63,7 +63,7 @@ Jest 是 Facebook 开源的一套用来创建、执行测试用例的 JavaScript
 
 下面，我们实现一个简易版的 Jest !
 
-<br/>
+
 
 ### 2.实现Jest
 
@@ -94,7 +94,7 @@ async function runTest (testFile) {
 runTest('./test.spec.js')
 ```
 
-<br/>
+
 
 ### 3.实现Expect
 现在，我们在命令行里跑一下 `node index.js` , 会提示 `Test Fail: expect is not defined`。 代码片段被执行了，但是此时 node 环境里还没有 `expect` 方法，我们定义一个 `expect` 方法用于断言。
@@ -153,7 +153,7 @@ Jest 也在 Node 进程里内置了 `JSDom`，它会将` document` 对象、 `wi
 有了上面的基础后，我们可以开始测试 UI 组件了!
 
 
-<br/>
+
 
 
 ### 4.组件测试: Vue Util Test
@@ -190,7 +190,7 @@ await Vue.nextTick()
 终于我们要写测试用例了!
 
 
-<br/>
+
 
 ### 5.编写测试用例
 
@@ -240,7 +240,7 @@ describe('登录组件', () =>{
 ```
 
 
-<br/>
+
 
 ### 6.实现Mock
 除了检查页面内容是否正确，服务端请求有没有发出去，发出去的参数是怎样的，也是一个很重要的检查内容。要想拿到这写输出数据，需要用到Mock。Mock的三个特性，能帮助我们完成这项检查
@@ -248,7 +248,7 @@ describe('登录组件', () =>{
 -   设置函数返回值
 -   捕获函数调用情况
 
-<br/>
+
 
 #### 6.1 jest.fn
 
@@ -296,7 +296,7 @@ console.log(add.mock)
 // { calls: [[2, 2]], instances: [Window], results: [{ type: 'return', value: 4}] }
 ```
 
-<br/>
+
 
 #### 6.2 jest.spyOn
 
@@ -336,7 +336,7 @@ import api from '@src/api'jest.spyOn(api, 'login')
 
 单测执行时，任意一个地方调用了api.login，它的调用情况就会被记录下来。
 
-<br/>
+
 
 #### 6.3 jest.fn.mockImplementation
 
@@ -405,7 +405,7 @@ console.log(api.add.mock)
 到这里，几乎所有我们想要的输入输出都拿到了，单测也跑起来了
 
 
-<br/>
+
 
 ### 7. 配置Stub
 但还有一个问题，单测往往会跑到一些外部函数。而这个外部函数，在单元测试执行环境里未被实现，且是我们不感兴趣的代码，为了不影响自身逻辑的测试，我们可以用一个假的函数来代替真实的函数A，这就是stub。

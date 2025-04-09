@@ -6,7 +6,7 @@ category: NodeJS
 > 项目使用create-react-app搭建，本地开发时候，先跑起一个WebServer，再用electron加载`localhost:8000`页面，走的是http协议。打包后，因为访问的是本地文件，走的是file协议。因此会出现不少问题...
 
 
-<br/>
+
 ### 1. 渲染进程使用Node模块
 Node. js 的所有 内置模块 都在Electron中可用， 第三方 node 模块中也完全支持。渲染进程除了额外能够使用node模块的能力外，与普通网页没有什么区别
 ```html
@@ -20,7 +20,7 @@ Node. js 的所有 内置模块 都在Electron中可用， 第三方 node 模块
 </html>
 ```
 
-<br/>
+
 
 ### 2. 请求 url 为绝对路径
 ```js
@@ -28,7 +28,7 @@ const host =
   process.env.NODE_ENV === 'development' ? '' : 'http://v3.yingliboke.cn/api';
 ```
 
-<br/>
+
 ### 3. 路由失效
 
 一开始用的 React-router 的 `<BrowserRouter>`打开后，页面一片空白。要使用`<HashRouter>`，并设置`hashType: 'noslash'` -> `index.html#liveroom`。
@@ -64,7 +64,7 @@ if (isDev) {
 }
 ```
 
-<br/>
+
 ### 4. window.location不可用
 
 当使用 api(如 webContents.loadURL 和 webContents.back) 来修改导航的时候，这个事件将不会发出，它也不会在页内发生跳转。
@@ -95,7 +95,7 @@ mainWindow.webContents.on('did-navigate-in-page', (event, url) => {
 window.location.hash = 'liveroom';
 ```
 
-<br/>
+
 
 ### 5. 首次进入页面白屏
 
@@ -112,7 +112,7 @@ win.once('ready-to-show', () => {
 这个事件通常在 did-finish-load 事件之后发出，但是页面有许多远程资源时，它可能会在 did-finish-load 之前发出事件。
 
 
-<br/>
+
 ### 6. frameless窗口设置拖动区域
 
 注意，mac 关闭了 devTool 拖动才能生效
@@ -125,7 +125,7 @@ win.once('ready-to-show', () => {
 ```
 
 
-<br/>
+
 ### 7. 打开新窗口
 需要全局定义一个`win`变量来存储所有新窗口，不然关闭窗口会报错。
 ```js
@@ -175,7 +175,7 @@ ipcRenderer.send('newwin', {
 ```
 
 
-<br/>
+
 ### 8. 多个窗口之间通信
 这里记录一个需求：打开了一个新窗口，在新窗口点击一个按钮时，会自动关闭该窗口，并在主窗口显示一个小弹窗。
 ```js
@@ -191,7 +191,7 @@ ipcMain.on('close-newwin', (event, value) => {
 
 
 
-<br/>
+
 ### 9. 关闭窗口二次确认框
 关闭窗口时，弹出自定义弹框。
 ```js
@@ -229,7 +229,7 @@ componentDidMount() {
 
 
 
-<br/>
+
 ### 参考资料
 - [Routing doesn't work on packaged Electron app using ReactJS and reach-router](https://stackoverflow.com/questions/54011027/routing-doesnt-work-on-packaged-electron-app-using-reactjs-and-reach-router)
 - [How do I move a frameless window in Electron without using -webkit-app-region](https://stackoverflow.com/questions/44818508/how-do-i-move-a-frameless-window-in-electron-without-using-webkit-app-region)

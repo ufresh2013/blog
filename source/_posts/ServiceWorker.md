@@ -18,7 +18,7 @@ https://cn.vuejs.org/service-worker.js
 - 有一天不想用serviceWorker了，可以卸载
 
 
-<br/>
+
 
 ### 1. Service Worker
 Service Worker采用JavaScript控制关联的页面或者网站，拦截并修改访问和资源请求，细粒度地缓存资源。你可以完全控制应用在特定情形（最常见的情形是网络不可用）下的表现。
@@ -29,7 +29,7 @@ Service Worker采用JavaScript控制关联的页面或者网站，拦截并修�
 - 被install后就永远存在，除非被手动卸载
 
 
-<br/>
+
 
 ### 2. 实现资源拦截
 请求成功时，正常返回请求内容，将资源缓存起来。没网的时候返回缓存资源。
@@ -80,7 +80,7 @@ this.addEventListener("fetch", event => {
 断网了再刷新这个页面试试，可以了~
 
 
-<br/>
+
 
 ### 参考资料
 - [Service Worker离线缓存实践](https://juejin.cn/post/6844903906670018568)

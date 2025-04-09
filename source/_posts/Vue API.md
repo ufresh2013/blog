@@ -1,7 +1,7 @@
 ---
 title: Vue2 的 API 是真的好用！
 date: 2019-10-11 10:27:39
-category: Vue
+category: JS
 ---
 
 
@@ -9,7 +9,7 @@ category: Vue
 *Data 为什么是一个函数，而不是对象？*
 为了方便初始化data，直接*`this.data = vm.$options.data()`*就可以拿到一份新的data，不用深拷贝一个 data，方便安全。避免多个组件实例对象之间公用一个`data`,产生数据污染。
 
-<br/>
+
 
 
 ### 2. NextTick
@@ -27,7 +27,7 @@ for (let i = 0; i < 10000; i++) {
 }
 ```
 
-<br/>
+
 
 ### 3. Slot
 `Slot`插槽，又名“占坑”，可以理解为在组件中占好了位置，允许你自动往里面填坑。
@@ -36,7 +36,7 @@ for (let i = 0; i < 10000; i++) {
 <Mouse v-slot="{x, y}">{{ x }} {{ y }}</Mouse>
 ```
 
-<br/>
+
 
 ### 4. Virtual Dom
 - 掩盖底层的DOM操作
@@ -49,7 +49,7 @@ for (let i = 0; i < 10000; i++) {
   3. 虚拟 DOM 有效降低大面积真实 DOM 的重绘与排版，因为最终与真实 DOM 比较差异，可以只渲染局部
 
 
-<br/>
+
 
 ### 5. Mixin
 `Mixin`是一个js对象，它可以包含组件中任意功能选项，如`data`, `components`, `methods`, `created`, `computed`等。
@@ -62,7 +62,7 @@ for (let i = 0; i < 10000; i++) {
 - 叠加型有component、directives、filters，层层的叠加
 (源码位置：/src/core/global-api/mixin.js)
 
-<br/>
+
 
 
 ### 6. Keep-alive
@@ -75,7 +75,7 @@ for (let i = 0; i < 10000; i++) {
 ```
 
 
-<br/>
+
 
 ### 7. Directive
 内置指令：
@@ -136,7 +136,7 @@ app.directive('hideIfOverflow', {
 })
 
 ```
-<br/>
+
 
 ### 8. Template
 为什么我支持模板而不是JSX
@@ -145,7 +145,7 @@ app.directive('hideIfOverflow', {
 - template更有利于点对点粒度的更新触发，而jsx只能以组件为粒度触发vdom diff
 
 
-<br/>
+
 
 ### 9. Computed
 `Computed`在注册阶段，触发响应式数据的getter从而完成依赖收集
@@ -156,13 +156,13 @@ app.directive('hideIfOverflow', {
 
 
 
-<br/>
+
 
 
 ### 10. Watch
 `watch`在注册阶段，触发响应式数据的getter从而完成依赖收集
 
-<br/>
+
 
 ### 11. 生命周期
 Vue实例从创建到销毁的过程，就是生命周期，从开始创建、初始化数据、编译模板、挂载DOM -> 更新渲染 -> 卸载等一系列的过程。
@@ -215,7 +215,7 @@ el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子
 
 
 
-<br/>
+
 
 #### 参考资料
 - [JS每日一题](https://github.com/febobo/web-interview)

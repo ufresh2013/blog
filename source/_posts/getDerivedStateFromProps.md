@@ -1,7 +1,7 @@
 ---
 title: React 你可能不需要派生的state
 date: 2019-07-24 10:45:11
-category: React
+category: JS
 ---
 ### 1. 实现需求
 - 子组件是个弹框
@@ -9,7 +9,7 @@ category: React
 - 弹框内有一个关闭按钮，可以令弹窗消失
 
 
-<br/>
+
 
 ### 2. 出现Bug
 使用*`getDerivedStateFromProps`* 让组件在props变化时更新state。但实际上只要父组件重新渲染时，这个生命周期函数就会重新调用，不管 *`props`* 有没有变化。因此会出现下面的bug。
@@ -24,7 +24,7 @@ category: React
 如果父组件重新渲染，在子组件修改的所有state都会丢失。这时，`visible`不是一个单一来源的值，导致state没有正确渲染。直接将props直接复制到state是不安全的。任何数据，都应保证只有一个数据来源，而且避免直接复制它。[官方示例](https://codesandbox.io/s/mz2lnkjkrx)
 
 
-<br/>
+
 
 ### 3. 解决方法
 #### 3.1 完全可受控组件
@@ -36,7 +36,7 @@ function EmailInput(props) {
 ```
 
 
-<br/>
+
 
 #### 3.2 有key的非可控组件
 让组件自己存储临时的email state，但组件可以从`props`接收初始值，但更改之后的值就与props无关。
@@ -65,7 +65,7 @@ class EmailInput extends React.Component {
 ```
 
 
-<br/>
+
 
 #### 3.3 getDerivedStateFromProps
 但有时组件初始化的开销太大，一个麻烦但可行的方案是在`getDerivedStateFromPorps`观察`userID`的变化。这样可以确认state的值，是通过父组件修改的，再做对应的处理。
@@ -89,12 +89,12 @@ class EmailInput extends React.Component {
 ```
 
 
-<br/>
+
 
 #### 3.4 ref调用子组件方法
 注意，不能ref高阶组件(connect到redux的组件)
 
 
-<br/>
+
 ### 参考文档
 - [React文档-你可能不需要使用派生state](https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state)

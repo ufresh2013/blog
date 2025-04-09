@@ -14,7 +14,7 @@ xhr.setRequestHeader('MyHeader', 'MyValue');
 xhr.send(null);
 ```
 
-<br/>
+
 #### 1.2 监听请求状态
 XHR的*`readyState`*属性，表示请求/响应过程的当前活动阶段。只要readyState属性的值由一个值变成另一个值，都会触发一次*`readystatechange`*事件。
 - 0: 未初始化，尚未调用open()方法
@@ -25,7 +25,7 @@ XHR的*`readyState`*属性，表示请求/响应过程的当前活动阶段。�
 
 
 
-<br/>
+
 #### 1.3 读取返回内容
 请求发出后，javascript代码会等到服务器响应之后再继续执行。在收到响应后，*`xhr.readyState == 4`*, 响应的数据会自动填充XHR对象的属性。相关属性
 - xhr.responseText: 作为响应主题被返回的文本
@@ -46,12 +46,12 @@ xhr.onreadystatechange = function() {
 ```
 
 
-<br/>
+
 #### 1.4 取消请求
 在接收到响应之前，还可以调用*`xhr.abort()`*方法来取消异步请求。
 
 
-<br/>
+
 #### 1.5 设置请求头
 默认情况下，在发送XHR请求的同时，会发送下列头部信息。
 - Accept: 浏览器能够处理的内容类型
@@ -75,7 +75,7 @@ var allHeaders = xhr.getAllResponseHeaders();  // 返回多行文本内容
 ```
 
 
-<br/>
+
 #### 1.5 GET/POST
 - GET请求
 GET请求，将查询字符串参数追加到url的末尾，查询字符串的每个参数key,value都需使用*`encodeURIComponent()`*进行编码。所有键值对需由 & 分隔。
@@ -109,7 +109,7 @@ xhr.send(data);
 // json
 ```
 
-<br/>
+
 #### 1.6 进度事件
 - loadstart: 在接收到响应数据的第一字节时触发
 - error: 在请求发生错误时触发
@@ -130,7 +130,7 @@ xhr.onprogress = function(event) {
 }
 ```
 
-<br/>
+
 #### 1.7 跨域请求
 ##### 1.7.1 CORS
 CORS(Cross-Origin Resource Sharing, 跨源资源共享), 在发送请求时，附加一个Origin请求头，值为请求页面的源信息(协议，域名和端口)，以便服务器根据这个头部信息来决定是否给予响应。
@@ -151,7 +151,7 @@ CORS存在一些安全限制
 - 调用getAllResponseHeaders()方法总会返回空字符串
 
 
-<br/>
+
 ##### 1.7.2 Preflighted Request
 CORS 通过一种叫做 Preflighted Requests 的透明服务器验证机制*支持开发人员使用自定义的头部、 GET 或 POST 之外的方法，以及不同类型的主体内容*。在使用下列高级选项来发送请求时，就会向服务 器发送一个 Preflight 请求。这种请求使用 OPTIONS 方法，发送下列头部。
 ```
@@ -167,7 +167,7 @@ Access-Control-Allow-Headers:允许的头部，多个头部以逗号分隔。
 Access-Control-Max-Age:应该将这个 Preflight 请求缓存多长时间(以秒表示)。
 ```
 
-<br/>
+
 ##### 1.7.3 withCredentials
 默认情况下，跨源资源不提供凭据(cookie, HTTP认证，SSL证明)。通过将*`withCredential`*属性设为true, 可以指定某个请求应该发送凭证。如果服务端接受凭据的请求，会用下面的HTTP头部来响应。
 ```
@@ -191,11 +191,11 @@ var request = createCORSRequest("get","http://www.somewhere-else.com/page/");
 request.send();
 ```
 
-<br/>
+
 ##### 1.7.4 其他跨域技术
 
 
-<br/>
+
 ### 2. 实现Axios
 用Promise实现一个简单的axios
 ```js

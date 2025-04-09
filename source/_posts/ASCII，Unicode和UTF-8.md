@@ -1,17 +1,17 @@
 ---
-title: 字符集和字符编码 Charset & Encoding
+title: 字符集和字符编码
 date: 2019-02-16 17:57:46
-category: Basic
+category: Other
 ---
 一直听说`ASCII`, `Unicode`, `UTF-8`这些词，但是不知道具体意思。痛定思痛，决定总结一下。
-<br/>
+
 
 ### 1. 历史渊源
 #### 1.1 ASCII码
 我们知道，在计算机内部，所有的信息最终都表示为一个二进制的字符串。每一个二进制位(bit)有0和1两种状态，因此8个二进制位可以组合出`256`中状态，这被称为一个字节(byte)。
 
 上世纪60年代，美国制定了一套字符编码，对英语字符与二进制之间的关系，做了统一规定。这被称为`ASCII码(American Standard Code for Information Interchange)`，一直沿用至今。ASCII码一共规定了128个字符的编码。比如空格是32(二进制00100000)，大写的字母A是65(二进制01000001)。这128个符号，只占用了一个字节的后面7位，最前面的1位统一规定为0。
-<br/>
+
 
 #### 1.2 GBK
 后来，世界各地都开始使用计算机，但是很多国家用的不是英文，他们的字母里有很多是`ASCII`里没有的。等到中国人民用计算机之后，发现没有中文怎么办呢？
@@ -19,7 +19,7 @@ category: Basic
 中国人的解决方案是：小于127号的还是继续使用，并且用2个大于127字节表示一个中文字符。在这些编码里，我们还把数学符号、罗马希腊的字母、日本的假名们都编进去了，连在ASCII里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的 *全角* 字符，而原来在127号以下的那些就叫 *半角* 字符了。
 
 这套编码方案被称为`GBK`标准。中国的程序员看到这一系列汉字编码的标准是好的，于是把它通称为`DBCS`(Double Byte Charecter Set 双字节字符集)。
-<br/>
+
 
 #### 1.3 Unicode
 但是每个国家都搞自己的字符编码，自己只能看自己，别人的看不来，这不符合web开放的文化啊。
@@ -28,7 +28,7 @@ category: Basic
 
 `Unicode`开始制定时，计算机的存储器容量极大地发展了，空间不再成为问题。于是ISO就直接规定必须用**两个字节**， 16位来统一表示所有的字符，对于ASCII里那些“半角字符”， 也将其长度由原来的8位扩展至16位。这种大气的方案使得保存英文文本时会浪费多一倍的空间。
 
-<br/>
+
 #### 1.4 UFT-8
 **Unicode有两个严重的问题**: 1. 怎样区别Unicode和ASCII？计算机怎么知道2个字节为1个字符，还是1个字节为1个字符。2. 计算机大部分内容还是英文，Unicode的编码方式很浪费空间。
 
@@ -48,7 +48,7 @@ Unicode符号范围       | UTF-8编码方式
 0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 ```
 
-<br/>
+
 #### 1.5. Charset and Encoding
 所以, 字符集和字符编码，你可以这样理解
 - *`Charset(Character set) 字符集`*
@@ -61,11 +61,11 @@ Unicode符号范围       | UTF-8编码方式
 <meta http-equiv=Content-Type content="text/html;charset=utf-8">
 ```
 
-<br/> 
+ 
 ### 2. 乱码
 编码A和编码B采用不同方式来编码，当一个文件使用编码A在只有编码B的设备上解码，就会出现乱码。
 
-<br/>
+
 ### 3. 转义字符
 所有编程语言，都拥有转义字符。
 
@@ -78,7 +78,7 @@ Unicode符号范围       | UTF-8编码方式
 - 将有特殊意义的字符转换回它原来的意义
 - 处于网站安全，在数据写入数据库前，都会使用转义字符对一些敏感字符转义
 
-<br/>
+
 
 #### 3.1 C
 所有ASCII码都可以用`\`加8进制数字来表示。C中定义了一些字母前加`\`来表示常见的，不能显示的ASCII字符，成为转义字符。
@@ -100,7 +100,7 @@ Unicode符号范围       | UTF-8编码方式
 \ddd|1到3位八进制数所代表的任意字符|三位八进制
 \xhh|1到2位十六进制所代表的任意字符|二位十六进制
 
-<br/>
+
 #### 3.1 html
 HTML中`<`, `>`, `&`等有特殊含义(<>用于标签符，&用于转义)，常用
 
@@ -112,7 +112,7 @@ HTML中`<`, `>`, `&`等有特殊含义(<>用于标签符，&用于转义)，常�
 "	| 双引号|`&quot;`
  	|不断行的空白格|`&nbsp;`
 
-<br/>
+
 #### 3.2 js
 `\`反斜杠用来在文本字符串中插入特殊字符。
 ```
@@ -127,7 +127,7 @@ var txt = "We are the so-called \"Vikings\" from the north."
 \n |换行符
 \r |回车符
 
-<br/>
+
 
 ### 4. URL编码函数
 世界上有英文字母的网址`“http://www.baidu.com”`,但是没有希腊字母的网址`“http://www.aβγ.com”`。这是因为网络标准RFC 1738做了硬性规定：
@@ -135,7 +135,7 @@ var txt = "We are the so-called \"Vikings\" from the north."
 
 只有字母和数字[0-9a-zA-Z],一些特殊符号`$-_.+!*'(),`(不包括双引号),以及某些保留字，才可以不经过编码直接用于URL。这意味着，如果URL中有汉字，就必须编码后使用。但麻烦的是，RFC1738没有规定具体的编码方法，于是有了编码函数。
 
-<br/>
+
 #### 4.1 浏览器编码
 当网址路径中包含汉字，`GET`和`POST`查询字符串中包含汉字时
 ```
@@ -146,7 +146,7 @@ http://www.haoroom.con/search?keywords=您好
 <meta http-equiv="Content-Type" content="text/html;charset=xxxx">
 ```
 
-<br/>
+
 #### 4.2 escape
 `escape()`已被弃用，它的作用是返回字符的Unicode编码值。对应的解码函数是`unescape`。
 ```
@@ -171,7 +171,7 @@ javascript:unescape("\u6625\u8282");
 其次，`escape()`不对`+`编码。但是，网页在提交表单的时候，如果有空格，则会被转化为`+`字符。服务器处理数据的时候，会把`+`号处理成空格。所以，使用的时候要小心。
 
 
-<br/>
+
 #### 4.3 encodeURI
 对整个URI进行编码。除了常见的符号外， 对特殊符号`';/?:@&=+$,#`不进行编码。编码后，输出符号是`UTF-8`形式，并且在每个字节上前加上`%`。对应的解码函数是`decodeURI`。
 
@@ -181,7 +181,7 @@ encodeURI('https://www.baidu.com/s?wd=中文')
 ```
 
 需要注意的是，它不对单引号`'`编码。
-<br/>
+
 
 #### 4.4 encodeURIComponent
 对于`';/?:@&=+$,#`，这些在`encodeURI`中不被编码的符号，在`encodeURIComponent`中统统会被编码。对应的解码函数是`decodeURIComponent`。
@@ -190,7 +190,7 @@ encodeURIComponent("https://www.baidu.com/s?wd=中文")
 // "https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3D%E4%B8%AD%E6%96%87"
 ```
 
-<br/>
+
 
 ### 5. ES6字符串
 ES6加强了对Unicode的支持，并且扩展了字符串对象。
@@ -209,7 +209,7 @@ ES6加强了对Unicode的支持，并且扩展了字符串对象。
 // "a"
 ```
 
-<br/>
+
 #### 5.2 codePointAt
 `codePointAt`方法接受编码单元的位置而非字符位置作为参数，返回与字符串中给定位置对应的码位。
 ```
@@ -230,14 +230,14 @@ function is32Bit(c){
 	return c.codePointAt(0) > 0xFFFF;
 }
 ```
-<br/>
+
 
 #### 5.3 fromCodePoint
 根据指定的码位生成一个字符。
 ```
 String.fromCodePoint(134071) // "𠮷"
 ```
-<br/>
+
 
 #### 5.4 normalize
 如果我们要对不同字符进行排序或对比，一定先把它们标准化为同一种形式。
@@ -245,9 +245,9 @@ String.fromCodePoint(134071) // "𠮷"
 text.normalize()
 ```
 
-<br/>
 
-<br/>
+
+
 ### 参考资料
 - [ASCII，Unicode和UTF-8 (Charset and Encoding)](http://chunge2016.online/2017/05/19/ASCII%EF%BC%8CUnicode%E5%92%8CUTF-8-Charset-and-Encoding/)
 - [字符编码中ASCII、Unicode和UTF-8的区别](https://www.cnblogs.com/liupp123/articles/8023861.html)

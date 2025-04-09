@@ -1,7 +1,7 @@
 ---
 title: 设计模式
 date: 2019-09-14 13:46:38
-category: Basic
+category: Other
 ---
 ### 1. 基本概念
 
@@ -43,7 +43,7 @@ React.createElement = function(tag, attrs, children) {
 }
 ```
 
-<br/>
+
 
 #### 2.2 单例模式
 确保一个类只有一个实例。
@@ -80,7 +80,7 @@ console.log(obj1 === obj2);     // true
 ```
 
 
-<br/>
+
 
 #### 2.3 适配器模式
 Vue中的computed属性，获取当前信息，处理后来适配页面需要。
@@ -102,7 +102,7 @@ Vue中的computed属性，获取当前信息，处理后来适配页面需要。
 </script>
 ```
 
-<br/>
+
 #### 2.4 装饰器模式
 为对象添加新功能，不改变其原有的结构和功能。第三方库[core-decorators](https://github.com/jayphelps/core-decorators)
 ```js
@@ -126,7 +126,7 @@ let p = new Person();
 p.name = function() { alert(100) }   // 报错，p.name是只读
 ```
 
-<br/>
+
 #### 2.5 代理模式
 使用者无权访问目标对象，中间加代理，通过代理做授权和控制。
 ```js
@@ -146,7 +146,7 @@ let agent = new Proxy(star, {
 })
 ```
 
-<br/>
+
 #### 2.6 观察者模式
 Event Bus
 常见场景：网页事件绑定， promise， jquery callbacks, nodejs自定义事件
@@ -214,7 +214,7 @@ simon.on('bark', () => { console.log(`${this.name} another bark`)})
 simon.emit('bark');
 ```
 
-<br/>
+
 #### 2.7 迭代器模式
 顺序访问一个集合。ES6中有序集合的数据类型有很多: Array, Map, Set, String, TypedArray, arguments, NodeList，需要一个统一的遍历接口来遍历这些数据类型。
 ```js
@@ -246,7 +246,7 @@ each(nodeList)
 each(m)
 ```
 
-<br/>
+
 #### 2.8 其他模式
 - 状态机模式：一个对象有状态变化，每次状态变化都会触发一个逻辑，如Promise
 

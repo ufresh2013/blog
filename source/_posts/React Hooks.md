@@ -1,12 +1,12 @@
 ---
 title: React Hooks 用法
 date: 2025-01-29 12:41:48
-category: React
+category: JS
 ---
 > 这是一份React Hooks 新官网笔记。
 不得不感叹 React 的函数组件加上 Hooks（hooks本质上也是一个函数），寥寥几个api就满足了前端页面所有逻辑交互。Vue啊Vue，掉队了啊
 
-<br/>
+
 
 ### 1. React 哲学
 #### 1.1 组件是个纯函数
@@ -21,14 +21,14 @@ function Cup() {
 }
 ```
 
-<br/>
+
 
 #### 1.2 Hooks
 React Hooks 的意思是，组件写成纯函数，如果需要外部功能和副作用（组件状态state、具有副作用的操作,如获取数据、事件监听、改变DOM），就用钩子把外部代码"钩"进来。
 Hooks本身也是一个函数。一个应用由一个个纯函数链接而成。
 真的好像AI神经网络，应用由一个个节点（神经元）连接起来，每个神经元之间都可以看作是一个函数`a = f(b)`。纯函数有助于机器理解，所以react就是为AI生成代码作铺垫？
 
-<br/>
+
 
 
 #### 1.3 UI Tree
@@ -42,7 +42,7 @@ Hooks本身也是一个函数。一个应用由一个个纯函数链接而成。
 对 React 来说重要的是组件在 UI 树中的位置,而不是在 JSX 中的位置
 
 
-<br/>
+
 
 ### 2. Hooks
 #### 2.1 useState
@@ -110,7 +110,7 @@ function Message({ messageColor }) {
 }
 ```
 
-<br/>
+
 
 #### 2.2 useReducer
 状态更新逻辑复杂时，把`useSstate`迁移到`useReducer`，把它们整合到一个外部函数中。
@@ -138,7 +138,7 @@ function App() {
 }
 ```
 
-<br/>
+
 
 #### 2.3 useContext
 Context 允许父组件向其下层无论多深的任何组件提供信息
@@ -161,7 +161,7 @@ export default function Section({ level, children }) {
 const level = useContext(LevelContext);
 ```
 
-<br/>
+
 
 #### 2.4 Reducer + Context
 结合reducer和Context，*相当于vue里的provide和inject*
@@ -200,7 +200,7 @@ const dispatch = useTasksDispatch();
 ```
 
 
-<br/>
+
 
 #### 2.5 useRef
 和state一样，React会在每次渲染时保留ref, 但设置state会重新渲染组件，ref不会。
@@ -226,7 +226,7 @@ const myRef = useRef(null);
 myRef.current.scrollIntoView();
 ```
 
-<br/>
+
 
 #### 2.6 useCallback
 在多次渲染中缓存函数，避免不必要的渲染。
@@ -240,7 +240,7 @@ const handleSubmit = useCallback((orderDetails) => {
 }, [productId, referrer]);
 ```
 
-<br/>
+
 
 
 #### 2.7 useMemo
@@ -252,7 +252,7 @@ const cachedValue = useMemo(calculateValue, dependencies)
 
 
 
-<br/>
+
 
 ### 3. Effect
 允许你指定由渲染本身，而不是特定交互引起的副作用，如用于渲染的网络请求、对DOM节点进行操作。
@@ -326,9 +326,9 @@ useEffect(() => {
   }
   ```
 
-<br/>
 
-<br/>
+
+
 
 ### 4. API
 #### 4.1 forwardRef
@@ -364,7 +364,7 @@ function Form() {
 }
 ```
 
-<br/>
+
 
 #### 4.2 lazy
 声明一个组件
@@ -379,7 +379,7 @@ import { lazy } from 'react';
 const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 ```
 
-<br/>
+
 
 
 #### 4.3 memo
@@ -393,9 +393,9 @@ const SomeComponent = memo(function SomeComponent(props) {
 });
 ```
 
-<br/>
 
-<br/>
+
+
 
 ### 参考资料
 - [React官网](https://react.docschina.org/)

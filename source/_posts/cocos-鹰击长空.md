@@ -1,13 +1,13 @@
 ---
 title: CocosCreator 仿飞机大战
 date: 2024-12-16 15:12:13
-category: 动画/媒体
+category: Other
 ---
 
 > 实现一个简易版飞机射击游戏 —— 鹰击长空(cocos creator 3.84)
 <img src="2.jpeg" style="max-width: 130px; display: inline-block; margin: 10px"/><img src="1.png" style="max-width: 130px; display: inline-block; margin: 10px" />
 
-<br/>
+
 
 ### 1. 滚动背景
 #### *1.1 创建背景板*
@@ -15,7 +15,7 @@ category: 动画/媒体
 - 新建材质：资源管理器Assets - create Material - Effect选builtin-unlit - 勾选 USE TEXTURE - 设置 Main Texture（放入背景图）
 - 材质应用到背景板上：Plane属性 - Materials - 选中刚创建的材质
 
-<br/>
+
 
 #### *1.2 设置预览尺寸*
 - 偏好设置Perferences - Device Manager - 随机选一个设备，改变宽高为720 * 1280px(适合移动端预览), Device Name为develop，Add Device
@@ -23,7 +23,7 @@ category: 动画/媒体
 - 设置Camera参数：`Rotation: -90 0 0`, `Projection: ORTHO(正交相机，怎么弄都不会动)`, `Position: 0 10 0`
 - 设置背景板参数：`Scale: 1 1 2`, `Position: 0 10 0`, 微调让背景图覆盖预览框
 
-<br/>
+
 
 #### *1.3 实现滚动效果*
 - create empty node `movingBg` - 复制背景板为bg1, bg2放入`movingBg`中, 两个背景板轮流替换，实现滚动效果
@@ -66,7 +66,7 @@ export class movingBg extends Component {
 }
 ```
 
-<br/>
+
 
 ### 2. 物件
 #### *2.1 玩家飞机*
@@ -74,7 +74,7 @@ export class movingBg extends Component {
 - 将assets中`plane01.mesh`拖入`player`下
 - 将`plane01.material`的Effect设置为`builtin-unlit`,材质应用到飞机上
 
-<br/>
+
 
 #### *2.2 飞机子弹 Prefab*
 - aseets create bullet.material - Effect选builtin-unlit - USE TEXTURE选子弹图片 - Technique选`3-alpha-blend`来让图片透明部分变透明
@@ -99,7 +99,7 @@ export class playerBullet extends Component {
 }
 ```
 
-<br/>
+
 
 #### *2.3 敌机 Prefab + 物理碰撞*
 同2.2步骤，创建敌机Prefab， 绑定敌机脚本，增加物理碰撞，子弹和敌机碰撞时，销毁敌机。
@@ -143,7 +143,7 @@ export class enemy extends Component {
 }
 ```
 
-<br/>
+
 
 
 
@@ -198,7 +198,7 @@ export class UIManager extends Component {
 }
 ```
 
-<br/>
+
 
 #### 3.2 gameMain.ts 游戏主逻辑
 创建脚本`gameMain.ts`用来处理游戏主逻辑，挂载到scene下
@@ -281,7 +281,7 @@ export class GameManager extends Component {
     }
 }
 ```
-<br>
+
 
 
 ### 4. 其他
@@ -290,7 +290,7 @@ export class GameManager extends Component {
 - *`director.loadScene('lv2')`* 切换关卡
 - *`director.loadScene(director.getScene().name)`* 重新加载当前关卡
 
-<br/>
+
 
 #### 4.2 开始界面
 - create UI组件 button - Label"点击屏幕开始" - 场景编辑器切换2D模式 - content size: 2048 * 2048 - color 设置为半透明黑（蒙层效果） - 点击canvas下的camera可以看到文字效果
@@ -309,7 +309,7 @@ export class start extends Component {
 ```
 
 
-<br/>
+
 
 #### 4.3 摄像机跟随
 适合跑酷游戏，新建一个`followTarget.ts`, 挂载在*`Main Camera`*上
@@ -331,7 +331,7 @@ export class FollowTarget extends Component {
 ```
 
 
-<br/>
+
 
 ### 参考资料
 - [b 站 - Cocos 引擎官方 - 做一款经典射击游戏]()

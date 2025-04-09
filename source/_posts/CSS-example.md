@@ -15,7 +15,7 @@ body{
   background-color: #fff;               // 背景图加载过程中显示的背景色
 }
 ```
-<br/>
+
 
 #### 2. 单行溢出
 ```
@@ -26,7 +26,7 @@ a{
   text-overflow: ellipsis; // 超出部分显示...
 }
 ```
-<br/>
+
 
 #### 3. 多行溢出
 {% raw %}
@@ -78,7 +78,7 @@ a{
 }
 ```
 
-<br/>
+
 #### 4. 自动换行
 `word-wrap`可以控制换行，当取值`break-word`时将强制换行，中英文文本都无任何问题，但是对长串的英文不起作用。也就是说`break-word`是用来断词而不是断字符。而`word-break`取值为`break-all`时，可允许非亚洲语言文本的任意字符断开。
 
@@ -92,7 +92,7 @@ element{
 }
 ```
 
-<br/>
+
 #### 5. flex:上中下布局
 Chrome, Firefox, Safari, IE11, IE10有效
 ```
@@ -124,7 +124,7 @@ Chrome, Firefox, Safari, IE11, IE10有效
   </div>
 </html>
 ```
-<br/>
+
 
 #### 6. 设置Select下拉箭头
 ```
@@ -138,7 +138,7 @@ select {
 // IE
 select::-ms-expand { display: none; }
 ```
-<br/>
+
 
 #### 7. `<input> checkbox radio`样式自定义
 - 方法1 图片替换
@@ -284,7 +284,7 @@ body {
 </div>
 {% endraw %}
 
-<br/>
+
 #### 11. 不定宽高元素水平垂直居中
 *不适合的方案*
 - text-align和line-height
@@ -367,7 +367,7 @@ body {
 
 - transform: scale(0.5)
 
-<br/>
+
 
 #### 参考资料
 - [CSS3 Patterns Gallery 纹路背景](https://leaverou.github.io/css3patterns/)

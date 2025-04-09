@@ -29,7 +29,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
 });
 ```
 
-<br/>
+
 
 #### 1.2 上传文件
 ```js
@@ -49,7 +49,7 @@ document.getElementById('uploadBtn').addEventListener('click', () => {
 });
 ```
 
-<br/>
+
 
 #### 1.3 大文件的分段下载
 大文件分段下载，跟大文件上传时要切片的初心一样，是为了“快”。利用 HTTP 请求头 *`Range`*控制下载片段，能够同时下载一个大文件的多个片段，然后组装起来，那将能够充分利用我们的网络资源，加速下载。
@@ -75,7 +75,7 @@ const blob = new Blob(
 
 
 
-<br/>
+
 
 ### 2. toBlob
 `HTMLCanvasElement.toBlob(callback, type, quality)` 方法创造 Blob 对象，用以展示 canvas 上的图片；这个图片文件可以被缓存或保存到本地。
@@ -105,7 +105,7 @@ function copyBlob(blob: Blob | null): void {
 }
 ```
 
-<br/>
+
 
 #### 2.1 复制 canvas / svg 为图片
 ```js
@@ -157,7 +157,7 @@ const res = await getChartBlob('图表标题')
 copyBlob(res)
 ```
 
-<br/>
+
 
 #### 2.2 复制 div 为图片
 ```js
@@ -183,7 +183,7 @@ const res = await getTableBlob()
 copyBlob(res)
 ```
 
-<br/>
+
 
 #### 2.3 复制文本
 ```js
@@ -218,7 +218,7 @@ document.getElementById('textFileInput').addEventListener('change', (event) => {
 });
 ```
 
-<br/>
+
 
 #### 3.2 读取图片并预览
 ```js
@@ -246,7 +246,7 @@ document.getElementById('imageFileInput').addEventListener('change', (event) => 
 });
 ```
 
-<br/>
+
 
 ### 参考资料
 - [前端Blob、File、FileReader、ArrayBuffer傻傻分不清](https://juejin.cn/post/7444467218070323210?searchId=20241229213222203B42E54AFE0FF45949)

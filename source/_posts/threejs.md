@@ -1,7 +1,7 @@
 ---
 title: Three.js 从入门到入门
 date: 2024-12-02 23:01:11
-category: 动画/媒体
+category: Other
 ---
 
 ### 1. 基本组成
@@ -10,14 +10,14 @@ category: 动画/媒体
 - *`add(objects)`* 添加物体(包括点point、线line、面triangle、体-由多个面组成)
 - *`add(light)`* 添加灯光
 
-<br/>
+
 
 #### 1.2 照相机 Camera
 - *`new Three.PerspectiveCamera(视野角度, 长宽比, 近截面, 远截面)`* 新建透视摄像机
 - *`lookAt(mesh.position)`* 设置相机指向
 - *`updateProjectionMatrix()`* 修改相机的视野角度, 长宽比, 近截面, 远截面后，需要调用这个方法重新计算投影矩阵
 
-<br/>
+
 
 #### 1.3 渲染器 Renderer
 照相机将场景中的物体投影在渲染器上，画面显示在`canvas`画布上，`canvas`挂载在`renderer.domElement`这一div上。
@@ -41,7 +41,7 @@ document.body.appendChild(renderer.domElement);
 ```
 
 
-<br/>
+
 
 
 ### 2. 物体
@@ -55,11 +55,11 @@ const mesh = new THREE.Mesh( geometry, material );
 scene.add(mesh);
 ```
 
-<br/>
 
 
 
-<br/>
+
+
 
 #### 2.2 材料 Material
 - new MeshBasicMaterial({ color, wireframe, map })
@@ -111,7 +111,7 @@ fontLoader.load('/fonts/helvetiker_regular.typeface.json', font => {
 })
 ```
 
-<br/>
+
 
 #### 2.3 几何体 Geometry
 - BoxGeometry
@@ -165,7 +165,7 @@ mesh.position.copy(mesh2.position)
 将多个物体放入一个组合中做旋转，会以组合中心整体旋转。一个物体可以放进多个`Group`中（可以做太阳系效果）
 
 
-<br/>
+
 
 ### 3. 光
 灯光和材质紧密相关。
@@ -203,7 +203,7 @@ mesh.shadow.mapSize.height = 256 // 阴影贴图的高度
 mesh.shadow.camera.far = 7
 ```
 
-<br/> 
+ 
 
 ### 4. 运动
 #### 4.1 计时器 Clock

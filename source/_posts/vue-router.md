@@ -1,7 +1,7 @@
 ---
 title: 实现一个 Vue-Router
 date: 2019-10-25 16:52:30
-category: Vue
+category: JS
 ---
 ### 1. 实现原理
 hash 和 history都是实现前端路由的浏览器历史记录API。相对而言 history 比 hash 更为强大。
@@ -14,7 +14,7 @@ hash 和 history都是实现前端路由的浏览器历史记录API。相对而�
 `window.hashchange事件` | 在浏览器URL中hash发生变化后触发。URL中*`#`*后的内容就是hash，hash变化不会向服务器发起请求。
 
 
-<br/>
+
 
 #### 2.2 History
 History API允许操作曾经在浏览器标签页访问的会话历史记录。
@@ -41,7 +41,7 @@ History API允许操作曾经在浏览器标签页访问的会话历史记录。
 
 
 
-<br/>
+
 
 ### 2. 实现功能
 Vue Router功能：
@@ -60,7 +60,7 @@ Vue Router功能：
 - 过渡动效
 - 路由懒加载
 
-<br/>
+
 
 ### 3. 开始实现
 ```js
@@ -335,7 +335,7 @@ const router = new VueRouter({
 #### 4.3 组件级守卫
 参数或查询的改变并不会触发进入/离开的导航守卫。你
 
-<br/>
+
 
 ### 参考资料
 - [vue-router 源码：实现一个简单的 vue-router](https://juejin.im/post/5b35dcb5f265da59a117344d)

@@ -19,7 +19,7 @@ category: HTML
 ```
 
 
-<br/>
+
 #### 2. 表单新类型
 `<input>`表单标签的新类型
 ```html
@@ -46,7 +46,7 @@ category: HTML
 
 
 
-<br/>
+
 #### 3. 视频和音频
 `<audio>`支持的音频格式有 mp3, Wav, Ogg。
 `<video>`支持 mp4, WebM, Ogg。
@@ -75,17 +75,17 @@ category: HTML
 - `played` 表示音频/视频已播放部分的 TimeRanges 对象
 
 
-<br/>
+
 #### 4. canvas
 `canvas` 元素用于在网页上绘制图形,canvas标签本身只是个图型容器，需要使用javaScript脚本来绘制图形。
 
 
-<br/>
+
 #### 5. SVG
 SVG是指可伸缩的矢量图形，SVG 也是一种使用 XML 描述 2D 图形的语言。我们可以为某个元素附加 JavaScript 事件处理器。在 SVG 中，每个被绘制的图形均被视为对象。如果 SVG 对象的属性发生变化，那么浏览器能够自动重现图形。
 
 
-<br/>
+
 #### 6. 拖放(Drag和Drop)
 在h5之前实现拖拽功能，用的是`onmousedown`，获取当前的一些信息，然后在`onmousemove`时不断更新拖拽对象的`left`和`top`值，最后在`onmouseup`时对拖拽对象彻底复制，并释放后一系列的程序操作。
 
@@ -116,7 +116,7 @@ dragEl.ondragend = function (e) {   // 拖拽结束时
 }
 ```
 
-<br/>
+
 #### 7. 地理位置
 ```js
 navigator.geolocation.getCurrentPosition(successPos)
@@ -129,12 +129,12 @@ function successPos (pos){
 }
 ```
 
-<br/>
+
 #### 8. 离线存储
 HTML5，通过创建 cache manifest 文件，可以创建 web 应用的离线版本
 
 
-<br/>
+
 #### 9. Web存储
 `localStorage` 没有时间限制的数据存储.
 `sessionStorage` 网页还没有关闭的情况下的存储，网页窗口关闭，则数据销毁。
@@ -150,7 +150,7 @@ sessionStorage.getItem('key')       // 取数据
 sessionStorage.removeItem('key')    // 删除数据
 ```
 
-<br/>
+
 #### 10. WebSocket
 websocket事件
 - Socket.onopen 连接建立时触发
@@ -158,11 +158,11 @@ websocket事件
 - Socket.onerror 通信发生错误时触发
 - Socket.onclose 连接关闭时触发
 
-<br/>
+
 #### 11. Web Workers
 web worker 是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能。您可以继续做任何愿意做的事情。
 
-<br/>
+
 #### 参考资料
 - [HTML5的新特性概述（上）](https://juejin.im/post/5be8d817e51d457f7a4aba13)
 - [HTML5新特性概述(下)](https://juejin.im/post/5bea349a518825170d1a9db1)

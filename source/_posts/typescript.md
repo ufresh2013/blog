@@ -12,7 +12,7 @@ categories: JS
 Typescript有助于代码重构，因为不确定修改后是否会影响到其他部分的代码。类型信息检查大大减轻了重构的成本。一般来说，只要函数或对象的参数和返回值保持类型不变，就能基本确定，重构后的代码也能正常运行。
 
 
-<br/>
+
 
 ### 2. 类型声明
 #### 2.1 基本类型
@@ -53,7 +53,7 @@ let bye: string | number;
 let x: number & string;
 ```
 
-<br/>
+
 
 #### 2.2 数组
 如果变量的初始值是空数组，那么 TypeScript 会推断数组类型是`any[]`
@@ -67,7 +67,7 @@ const multi:number[][] = [[1,2,3], [23,24,25]];
 ```
 
 
-<br/>
+
 
 #### 2.3 元祖
 元组必须明确声明每个成员的类型
@@ -77,7 +77,7 @@ const s:[string, string, boolean] = ['a', 'b', true];
 type t1 = [string, number, ...boolean[]]; // 表示数组第三个元素开始到后面都是boolean
 ```
 
-<br/>
+
 
 #### 2.4 函数
 ```js
@@ -92,7 +92,7 @@ function createPoint(x:number = 0, y:number = 0):[number, number] {
 }
 ```
 
-<br/>
+
 
 #### 2.5 对象
 ```js
@@ -128,8 +128,8 @@ class Me {
 }
 ```
 
-<br/>
-<br/>
+
+
 
 ### 3. 基本语法
 #### 3.1 别名 Type
@@ -145,7 +145,7 @@ type MyObj = { // 为对象类型声明一个别买那个
 const obj:MyObj = { x: 1, y: 1 };
 ```
 
-<br/>
+
 
 #### 3.2 接口 Interface, extends
 interface 是对象的模板，可以看作是一种类型约定，中文译为“接口”。使用了某个模板的对象，就拥有了指定的类型结构。
@@ -181,7 +181,7 @@ interface Circle extends Style, Shape {
   - type能够表示非对象类型，而interface只能表示对象类型（包括数组、函数等）。
   - interface可以继承其他类型，type不支持继承。
 
-<br/>
+
 
 #### 3.3 泛型 Generics
 有些时候，函数返回值的类型与参数类型是相关的。
@@ -196,7 +196,7 @@ type Container<T> = { value: T };
 const a: Container<number> = { value: 0 };
 ```
 
-<br/>
+
 
 
 #### 3.4 枚举 enum
@@ -211,7 +211,7 @@ enum Direction {
 let direction: Direction = Direction.Up; // 1
 ```
 
-<br/>
+
 
 
 #### 3.5 断言 as 
@@ -226,7 +226,7 @@ let bar:T = foo as T; // 正确
 类型断言并不意味着，可以把某个值断言为任意类型。`T`最起码是`foo(string)`的子类型
 
 
-<br/>
+
 
 #### 3.6 import/export
 TypeScript 允许输出和输入类型
@@ -238,7 +238,7 @@ import { Bool } from './a';
 let foo:Bool = true;
 ```
 
-<br/>
+
 
 #### 3.7 命名空间 namespace
 自从能 `import/export`后，官方已经不推荐使用 `namespace` 了。
@@ -255,7 +255,7 @@ import { Shapes } from './shapes';
 let t = new Shapes.Triangle();
 ```
 
-<br/>
+
 
 
 ### 4. d.ts 声明文件
@@ -268,7 +268,7 @@ export interface Character {
 }
 ```
 
-<br/>
+
 
 ### 5. 注释指令
 ```js
@@ -282,7 +282,7 @@ export interface Character {
 // 不对下一行代码进行类型检查
 ```
 
-<br/>
+
 
 
 ### 6. tsconfig.json
@@ -296,7 +296,7 @@ tsconfig.json是 TypeScript 项目的配置文件，放在项目的根目录。
 }
 ```
 
-<br/>
+
 
 ### 7. tsc 命令行编译器
 tsc 是 TypeScript 官方的命令行编译器，用来检查代码，并将其编译成 JavaScript 代码。

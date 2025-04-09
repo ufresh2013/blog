@@ -1,7 +1,7 @@
 ---
 title: Git命令
 date: 2018-09-13 15:00:00
-category: Basic
+category: Other
 ---
 ### 1. Git简介
 - 【直接记录快照，而非比较差异】git与其他版本控制系统的主要差别在于Git对待数据的方法。大部分系统以文件变更列表的方式存储信息。反之,Git对待数据更像是一个 **快照流**。每次你提交更新，它会对当时的全部文件制作一个快照并保存这个快照的索引。为了高效，如果文件没有修改，git不再重新存储改文件，而是只保留了一个链接指向之前存储的文件。
@@ -9,7 +9,7 @@ category: Basic
 - 【git保证完整性】所有数据再存储前都计算校验和，这意味着不可能在git不知情时更改任何文件内容或目录内容。
 - 【git一般只添加数据】你的git操作，几乎只往git数据库中增加数据。很难让git直行不可逆操作，或者让它以任何方式清除数据。
 
-<br>
+
 ### 2. Git命令
 #### 2.1 获取仓库
 ```
@@ -57,7 +57,7 @@ category: Basic
   $ git remote rm [remote-name]
 ```
 
-<br>
+
 ### 3. Git分支
 #### 3.1 分支命令
 Git的分支，其实本质上仅仅是指向提交对象的可变指针。
@@ -97,12 +97,12 @@ Git Flow模型中定义了主分支和辅助分支两类分支。其中主分支
 - 合并(Merge): 它会把两个分支的最新快照(C3 和 C4)以及两者的共同祖先(C2)进行三方合并，合并的结果是生成一个新的快照(并提交)。
 <img src="2.png" style="padding-top:20px">
 
-<br>
+
 - 变基(Rebase): 提取在C4中引入的补丁和修改，然后再C3的基础上应用一次。
 **变基的风险**: 变基操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交。如果你已经将提交推送至某个仓库，而其他人也已经从该仓库拉取提交并进行了后续工作，此时，你用 git rebase 命令重新整理了提交并再次推送，你的同伴因此将不得不再次将他们手头的工作与你的提交进行整合，如果接下来你还要拉取并整合他们修改过的提交，事情就会变得一团糟。总的原则是，不要对在你的仓库外有副本的分支执行变基。
 <img src="3.png" style="padding-top:20px">
 
-<br>
+
 ### 4. 其他
 #### 4.1 生成SSH公钥
 默认情况下，用户的SSH密钥存储在其 ~/.ssh 目录下。我们需要寻找一对以id_dsa或id_ras命名的文件，其中一个带有.pub扩展名，.pub文件是你的公钥，另一个则是私钥。
@@ -115,7 +115,7 @@ Git Flow模型中定义了主分支和辅助分支两类分支。其中主分支
   config            id_dsa.pub
   $ ssh-keygen
 ```
-<br>
+
 
 #### 4.2 暂存文件
 将当前工作区的修改暂存起来，stash后，可以将其重新应用到当前工作区。
@@ -123,7 +123,7 @@ Git Flow模型中定义了主分支和辅助分支两类分支。其中主分支
   $ git stash
   $ git stash apply
 ```
-<br>
+
 
 #### 4.3 撤销错误commit
 - 错误commit后，仅撤销commit, 暂存区、工作内容不变
@@ -166,7 +166,7 @@ git add
 git commit
 git push
 ```
-<br>
+
 
 #### 4.4 合并commit
 通过变基，可以将一连串提交压缩成一个单独的提交。
@@ -196,7 +196,7 @@ squash commitId3 add line 3
 ```
 
 
-<br/>
+
 #### 4.5 拆分commit
 拆分一个提交会撤销这个提交，然后多次地部分第暂存与提交知道完成你所需次数的提交。
 ```
@@ -208,11 +208,11 @@ squash commitId3 add line 3
 ```
   $ git filter-branch --tree-filter 'rm -f passwords.txt' HEAD
 ```
-<br>
+
 
 #### 4.6 Git钩子
 Git 能在特定的重要动作发生时触发自定义脚本。客户端钩子由诸如提交和合并这样的操作所调用，而服务器端钩子作用于诸如接收被推送的提交这样的联网操作。
-<br>
+
 
 #### 4.7 Github Pages
 - Create a repository.
@@ -223,8 +223,8 @@ Git 能在特定的重要动作发生时触发自定义脚本。客户端钩子�
 - Add, commit, and push your changes
 - Fire up a broswer and go to http://username.github.io
 
-<br>
-<br/>
+
+
 
 ### 5. Commitizen规范提交信息
 commitizen是AngularJS项目中用到的Git Commit Guidelines。用来规范commit信息，遵循一定的范式，便于日后追踪问题。
@@ -242,7 +242,7 @@ commitizen init cz-conventional-changelog --save --save-exact
 <img src="4.png" style="max-width: 500px">
 
 
-<br/>
+
 ### 参考资料
 - [Git官方文档](https://git-scm.com/book/zh/v2)
 - [Git工作流程最佳实践--git flow](https://blog.csdn.net/Eacter/article/details/78552607)

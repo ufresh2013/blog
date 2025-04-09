@@ -9,13 +9,13 @@ category:
 
 > 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。（同源: 如果两个页面的协议，端口和域名都相同，则两个页面具有相同的源。）
 
-<br/>
+
 #### 1.1 受同源策略约束的交互
 - *dom同源策略*
   禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。
 - *XmlHttpRequest同源策略*
   禁止使用XHR对象向不同源的服务器地址发起HTTP请求。
-<br/>
+
 
 #### 1.2 可执行的跨源访问
 - `<script src="..."></script> ` 标签嵌入跨域脚本 
@@ -27,14 +27,14 @@ category:
 - `<frame> 和 <iframe>` 载入的任何资源。站点可以使用X-Frame-Options消息头来阻止这种形式的跨域交互。
 - `CORS`跨域资源共享机制，允许跨域访问
 
-<br/>
+
 ### 2. 跨域解决方案
 #### 2.1 CORS
 CORS 跨域资源共享，它允许浏览器向跨域服务器，发出XMLHttpRequest请求，从而克服ajax只能同源使用的限制。
 
 整个CORS通信过程，由浏览器自动完成，对开发者来说，CORS通信与ajax没有差别。浏览器一旦发现ajax请求跨源，会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。浏览器将CORS请求分成两类：简单请求和非简单请求。
 
-<br/>
+
 
 ##### 2.1.1 触发预请求
 当请求满足下述任一条件时，即会触发预检请求：
@@ -65,12 +65,12 @@ CORS 跨域资源共享，它允许浏览器向跨域服务器，发出XMLHttpRe
 - 请求中的`XMLHttpRequestUpload`对象注册了任一多个事件监听器
 - 请求中使用`ReadableStream`对象
 
-<br/>
+
 *Q: 有一个需求复杂的老项目，每个请求都会触发预请求。怎样消除预请求，减少请求数？*
 
 
 
-<br/>
+
 
 ##### 2.2.2 简单请求
 对于简单请求，浏览器直接发出CORS请求，并在头信息中，增加`Origin`字段
@@ -89,7 +89,7 @@ Access-Control-Expose-Headers: FooBar            // 可选
 ```
 
 
-<br/>
+
 
 ##### 2.2.3 非简单请求
 非简单请求，会在正式通信之前，增加一次HTTP查询请求，称为“预检”（preflight）。
@@ -119,7 +119,7 @@ Access-Control-Max-Age: 1728000
 如果服务器否定了“预检”请求，会返回一个正常的HTTP回应，但没有任何CORS相关的头信息字段。浏览器会认定服务器不同意预检请求，因此触发一个错误，被`XMLHttpRequest`的`onerror`回调函数捕获。
 
 
-<br/>
+
 ##### 2.2.4 withCredentials
 CORS请求默认不发送Cookie和HTTP认证信息。如果要把cookie发到服务器，服务器需要指定`Access-Control-Allow-Credentials`字段。
 ```
@@ -134,7 +134,7 @@ xhr.withCredentials = true;
 
 注意，如果要发送Cookie，`Access-Control-Allow-Origin`不能设为星号，必须指定明确的，与请求网页一致的域名。同时，Cookie仍遵循同源政策，跨源(原网页代码中)的`document.cookie`无法读取服务器域名下的Cookie。
 
-<br/>
+
 
 
 #### 2.2 jsonp
@@ -157,7 +157,7 @@ callback(data)
 ```
 
 
-<br/>
+
 
 #### 2.3 服务器代理
 在服务器端配置好代理，浏览器端就不会出现跨域的问题
@@ -165,7 +165,7 @@ callback(data)
 devsever的proxy就是用来该原理
 在devsever中配置代理，原指向devserver的请求被代理到目标地址，在服务器中http请求没有跨域限制，所以解决了浏览器js跨域的问题
 
-<br/>
+
 #### 2.4 document.domain
 修改`document.domain`实现子域不同的页面进行跨域交互。`document.domain`存放的是载入文档的服务器的主机名，可以手动设置这个属性，但只能设置成当前域名或上级域名，如id.qq.com, qq.com。
 ```
@@ -174,7 +174,7 @@ document.domain = 顶级域名
 
 
 
-<br/>
+
 
 #### 2.5 window.name
 `window.name`利用同一窗体下加载不同的页面，window.name的值不会清除，达到传递数据的效果。（数据大小支持到2MB）。具体操作需要3个页面

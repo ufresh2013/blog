@@ -15,7 +15,7 @@ KHTML引擎内核的浏览器 | Konqueror        | -khtml-
 Trident引擎内核的浏览器 | Internet Explorer | -ms- 
 Webkit             | Chrome, Safari   | -webkit-
 
-<br/>
+
 
 #### 1.2 选择器
 样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则。
@@ -43,7 +43,7 @@ Webkit             | Chrome, Safari   | -webkit-
 
 伪类选择器||
 ---|:--:
-:active         | 被激活的元素，通常匹配tab交互。这个样式可能会被其它伪类覆盖。<br/>链接伪类css顺序`:link - :visited - :hover - :active`
+:active         | 被激活的元素，通常匹配tab交互。这个样式可能会被其它伪类覆盖。链接伪类css顺序`:link - :visited - :hover - :active`
 :visited        | 被访问过的链接
 :hover          | 光标悬停
 :focus          | 获得焦点的元素。用户点击、触摸元素，或通过键盘tab键选择它时会触发。
@@ -63,9 +63,9 @@ Webkit             | Chrome, Safari   | -webkit-
 :first-child    | 一组兄弟元素中的第一个元素 (:first-of-type)
 :last-child     | 一组兄弟元素中的最后一个元素
 :not(selector)  | `p :not(div) :not(.fancy)` 非`<div>`或类名不是`.fancy`的`<p>`
-:nth-child(an+b)| 选择结果为第(an+b)个元素的集合(n=0,1,2...)<br/> `tr:nth-child(2n+1/2n) 奇数/偶数行；span:nth-child(-n+3) 前三个元素`
+:nth-child(an+b)| 选择结果为第(an+b)个元素的集合(n=0,1,2...) `tr:nth-child(2n+1/2n) 奇数/偶数行；span:nth-child(-n+3) 前三个元素`
 :root           | 匹配文档树的根元素，表示`<html>`元素
-:target         | ID与当前URL片段匹配，如 `http://www.example.com#section2`; <br/>`<section id="section2"></section>; :target{color:red}`
+:target         | ID与当前URL片段匹配，如 `http://www.example.com#section2`; `<section id="section2"></section>; :target{color:red}`
 :lang()         | 基于元素语言来匹配页面元素
 @page:first     | 打印文档时，第一页的样式 `@page:first{ margin-left: 50% }`
 
@@ -91,7 +91,7 @@ A > B      | 匹配B元素，B是A的直接子节点
 A + B      | 匹配B元素，AB有相同的父节点，并且B紧跟在A的后面
 A ~ B      | 匹配B元素，AB有相同的父节点，B在A之后，但不一定紧挨着A
 
-<br/>
+
 #### 1.3 值和单位
 单位||
 ---|:--:
@@ -103,13 +103,13 @@ ex,ch   | 小写x的高度和数字0的宽度(不被广泛支持)
 
 *无单位的值*: 0, line-height: 1.8, 动画的数值, 百分比, 颜色
 
-<br/>
+
 #### 1.4 层叠和继承
 - !important > 行内样式-1000 > id选择器-100 > 类选择器/属性选择器/伪类-10 > 元素选择器/伪元素-1
 - 后面的规则 > 前面的规则
 - 继承: inherit - 与父元素一样; initial - 与浏览器默认样式一样; unset - 重置为自然值; 
 
-<br/>
+
 
 #### 1.5 盒模型
 每个元素被表示为一个矩形的方框，框的内容、内边距、边界、外边距一层层构建起来。浏览器渲染网页布局时，会算出每个框每一层要用什么样式，以及框放在哪里。
@@ -139,7 +139,7 @@ block:  内容独占一行，可以设置宽高
 inline: 与周围的行内元素出现在同一行，设置宽高无效，设置padding,margin,border会更新周围文字的位置
 inline-block: 不会独占一行，能设置宽高
 
-<br/>
+
 
 ### 2. 文字
 *`文字`*
@@ -180,7 +180,7 @@ text-indent
 **list-style-image**: url('1.png')
 
 
-<br/>
+
 ### 3. 区块
 *`背景`*
 默认情况下，背景会延伸到边框所在的区域下层。
@@ -206,10 +206,10 @@ background-blend-mode: 将单个元素的多重背景图片和背景颜色设置
 mix-blend-mode: 将一个元素与它覆盖的那些元素各自设置的背景和内容混合在一起。normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity
 
 
-<br/>
+
 ### 4. 排版
 正常布局流: position:static，是指在不对页面进行任何布局控制时，浏览器默认的HTML布局方式。
-<br/>
+
 
 #### 4.1 浮动
 float:left/right/none/inherit。浮动元素会脱离正常的文档布局流，并吸附到其父容器的左边(float:left)。在正常布局中位于该浮动元素之下的内容，此时会围绕着浮动元素，填满其右侧的空间。
@@ -222,13 +222,13 @@ p::first-letter{
 ```
 
 *清除浮动*: 所有在浮动下面的自身不浮动的内容都将围绕浮动元素进行包装。如果没有处理这些元素，就会变得很糟糕。`{ clear: both }`当把这个应用到一个元素时，意味着“此处停止浮动”。
-<br/>
+
 #### 4.2 定位
 绝对定位(Static positioning)：元素在文档布局流的默认位置
 相对定位(Relative positioning): 在正常文档流中的位置进行相对移动
 绝对定位(Absolute positioning): 将元素完全从页面的正常布局流中移出。元素相对最近被定位的祖先元素固定。
 固定定位(Fixed positioning): 将元素完全从页面的正常布局流中移出。将一个元素相对浏览器视口固定。
-<br/>
+
 
 #### 4.3 flex布局
 支持浏览器 Chrome 21+, Opera 12.1+, Firefox 22+, Safari 6.1+, IE 10+。
@@ -245,7 +245,7 @@ p::first-letter{
 <img src="4.png" style="max-width:500px">
 
 
-<br/>
+
 ##### 4.3.1 容器的属性
 - flex-direction: 决定主轴的方向
 ```
@@ -259,7 +259,7 @@ p::first-letter{
 ```
 <img src="5.png" style="max-width:500px">
 
-<br/>
+
 - flex-wrap: 如果一条轴线排不下，如何换行
 ```
 .box{
@@ -272,7 +272,7 @@ p::first-letter{
 <img src="6.png" style="max-width:500px">
 <img src="7.png" style="max-width:500px">
 <img src="8.jpg" style="max-width:500px">
-<br/>
+
 
 - flex-flow: 是flex-direction属性和flex-wrap属性的简写模式，默认值为row nowrap。
 
@@ -289,7 +289,7 @@ p::first-letter{
 ```
 <img src="9.png" style="max-width:500px">
 
-<br/>
+
 - align-items: 项目在交叉轴上如何对齐
 ```
 .box{
@@ -305,7 +305,7 @@ p::first-letter{
 
 - align-content: 定义了多根轴线的对齐方式。
 
-<br/>
+
 ##### 4.3.2 项目的属性
 - order: 定义项目的排列顺序。数值越小，排列越靠前，默认为0.
 ```
@@ -314,7 +314,7 @@ p::first-letter{
 }
 ```
 <img src="11.png" style="max-width:500px">
-<br/>
+
 
 - flex-grow: 定义项目的放大比例，默认为0。如果项目的`flex-grow`属性都为1，则它们将等分剩余空间。如果一个项目的`flex-grow`属性为2，其余为1，则前者占据的剩余空间将比其他项多一倍。
 ```
@@ -326,7 +326,7 @@ p::first-letter{
 
 - flex-shrink: 定义了项目的缩小比例，默认为1。如果空间不足，项目将缩小。如果项目的`flex-shrink`属性都为1，当空间不足时，都将等比例缩小。如果一个项目的`flex-shrink`属性为0，其他项目为都为1，空间不足时，前者不缩小。
 <img src="13.jpg" style="padding-top:20px;max-width:500px">
-<br>
+
 - flex-basis: 定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
 
 - flex: 是`flex-grow, flex-shrink 和 flex-basis`的简写，默认值为`0 1 auto`。 
@@ -374,7 +374,7 @@ p::first-letter{
   <div class="item"></div>
 </div>
 ```
-<br/>
+
 
 - 百分比布局
 {% raw %}
@@ -414,7 +414,7 @@ p::first-letter{
   flex:1;
 }
 ```
-<br/>
+
 
 - 圣杯布局： 页面从上到下，分成header, body, footer。其body从左到右又分为导航，主栏，副栏。
 固定的底栏：页面内容太少，无法占满一屏的高度，底栏就会抬高到页面的中间，这时可以采用该布局。
@@ -513,7 +513,7 @@ p::first-letter{
 </div>
 ```
 
-<br/>
+
 - 流式布局: 每行的项目数固定，会自动分行
 {% raw %}
 <style>
@@ -559,7 +559,7 @@ p::first-letter{
   }
   ```
 
-<br/>
+
 
 ### 5. 渐变
 - 线性渐变
@@ -644,7 +644,7 @@ background-image: radial-gradient(circle, yellow 10%, green 50%, orange 80%)
 // 重复镜像渐变
 background-image: repeating-radial-gradient(yellow, green 10px, orange 20px)
 ```
-<br/>
+
 ### 6. 变形 transform
 CSS变形允许动态的控制元素，可以在屏幕周围移动它们，缩小或扩大，旋转，或结合产生复杂的动画效果。一系列的`<transform-function>`，表示一个或多个变形函数，以空格分开，代表同时对一个元素进行变形的多种属性操作。
 {% raw %}
@@ -684,7 +684,7 @@ transform-origin: 100% 100%
 
 ```
 
-<br/>
+
 
 2D transform函数 | 功能描述 |
 ---|:--:
@@ -693,13 +693,13 @@ scale(1.5)             | 缩小或放大元素。扩展函数scaleX(), scaleY()
 rotate(10deg)          | 旋转元素
 skew(10deg)            | 让元素倾斜。扩展函数skewX(), skewY()
 matrix()               | 定义矩阵变形，重新定位元素位置
-**3D transform函数**    | translate3d(), translate(), scale3d(), scaleZ(), rotate3d(), <br/>rotateX(), rotateY(), rotateZ(), perspective(), matrix3d()
+**3D transform函数**    | translate3d(), translate(), scale3d(), scaleZ(), rotate3d(), rotateX(), rotateY(), rotateZ(), perspective(), matrix3d()
 **其他属性**            |
 transform-origin       | 指定元素的中心点的位置
 transform-style        | `flat`2D平面呈现， `preserve-3d`3D空间中呈现
 
 
-<br/>
+
 ### 7. 过渡 transition
 CSS的transition允许CSS的属性值在一定的时间区间内平滑地过渡。
 {% raw %}
@@ -752,7 +752,7 @@ ease-in-out: 先加速后减速
 *`transition-delay`*
 指定过渡开始出现的延迟时间，单位为s或ms(毫秒)。
 
-<br/>
+
 ### 8. 动画 @keyframes
 {% raw %}
 <style>
@@ -819,7 +819,7 @@ animation: <animation-name> <animation-duration>
 *`animation-fill-mode`*
 定义动画开始前和结束后发生的操作。none按预期进行和结束，动画完成其最后一帧时，动画会翻转到初始帧处。 forwards 动画结束后继续应用最后帧的位置。 backwards 在向元素应用动画样式时迅速应用动画的初始帧。 both元素动画同时具有forwards和backwards的效果。
 
-<br/>
+
 
 ### 9. 媒体查询
 ```
@@ -827,14 +827,14 @@ animation: <animation-name> <animation-duration>
 @media screen and (min-width:600px) and (max-width:900px){}
 ```
 
-<br/>
+
 ### 10. meta标签
 当responsive页面在手机测试的时候，会发现媒体查询都不会生效——页面仍展示位普通样式，只是全局缩小了。 这时需要添加`meta`标签
 ```
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 ```
 
-<br/>
+
 ### 参考资料
 
 - [MDN - CSS层叠样式表](https://developer.mozilla.org/zh-CN/docs/Web/CSS)

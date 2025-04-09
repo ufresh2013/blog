@@ -10,7 +10,7 @@ category: Browser
 - 从 JavaScript 脚本视角来看，DOM 提供给 JavaScript 脚本操作的接口，通过这套接口，JavaScript 可以对 DOM 结构进行访问，从而改变文档的结构、样式和内容
 - 从安全视角来看，DOM 是一道安全防护线，一些不安全的内容在 DOM 解析阶段就被拒之门外了。
 
-<br/>
+
 
 #### *DOM树如何生成？*
 在渲染引擎内部，有一个叫 **HTML 解析器（HTMLParser**）的模块，它的职责就是负责将 HTML 字节流转换为 DOM 结构。
@@ -23,7 +23,7 @@ category: Browser
 <img src="7.jpg" style="width: 600px">
 
 
-<br/>
+
 
 
 #### *JS会阻塞DOM生成吗？* —— 会
@@ -52,7 +52,7 @@ category: Browser
 - 预解析操作：当渲染引擎收到字节流之后，会开启一个预解析线程，用来分析 HTML 文件中包含的 JavaScript、CSS 等相关文件，解析到相关文件之后，预解析线程会提前下载这些文件。
 
 
-<br/>
+
 
 #### *CSS会阻塞DOM生成吗？* —— 有时会，有时不会
 在浏览器解析网页的过程中，DOM 树的构建是由 HTML 解析器完成的，解析器会逐行解析 HTML 并构建 DOM 树。即使 CSS 文件正在下载或解析，HTML 解析器仍然会继续工作，构建 DOM 树。因为 DOM 解析和 CSS 解析是两个并行的进程，所以 CSS 加载不会阻塞 DOM 的解析。
@@ -78,13 +78,13 @@ category: Browser
 
 #### *DOM什么时候渲染？*
 
-<br/>
+
 
 ### 1. Node
 DOM是针对HTML和XML文档的一个API。DOM描述了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。每一段标记都可以通过树中的一个节点来表示。
 <img src="1.png" style="max-width:250px">
 
-<br/>
+
 
 #### 1.1 节点类型
 JS中的所有节点类型都继承自Node类型，除了IE，其他浏览器都可以访问这个类型。每个节点都有一个`nodeType`属性，由12个数值常量来表示。
@@ -105,7 +105,7 @@ Node.NOTATION_NODE          | 12
 要了解节点的信息，可以使用`nodeName`和`nodeValue`属性。
 
 
-<br/>
+
 
 #### 1.2 节点关系
 每一个节点都有一个`childNodes`属性，其中保存着一个`NodeList`对象。`NodeList`是一种类数组对象，用于保存一组有序的节点，它实际上基于DOM结构动态执行查询的结果。DOM结构的变化能自动反映在`NodeList`对象中。
@@ -131,7 +131,7 @@ someNode.lastChild          // 最后一个子节点
 <ul id="myList"><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>
 ```
 
-<br/>
+
 
 #### 1.3 操作节点
 - *appendChild*
@@ -170,12 +170,12 @@ myList.cloneNode(false) // 只复制节点本身
 
 
 
-<br/>
-<br/>
+
+
 ### 2. Document
 `document`对象是`HTMLDocument`的一个实例，表示整个HTML页面。而且，document对象是window对象的属性，可以作为全局对象来访问。
 
-<br/>
+
 #### 2.1 文档信息
 ```
 document.documentElement // 指向<html>元素
@@ -196,7 +196,7 @@ document.links    // 文档中所有带href的<a>元素
 `document.domain`是可以设置的，但由于安全限制，如果url中包含一个子域名，`p2p.wrox.com`可以把`domain`设置为`wrox.com`。当页面中包含来自其它子域的iframe时， 通过将每个页面的`document.domain`设置为相同的值，这些页面就可以互相访问对方包含的Javascript对象。
 
 
-<br/>
+
 #### 2.2 查找元素
 - *document.getElement*
 会返回一个`HTMLCollection`对象，该对象与`NodeList`非常相似。
@@ -243,7 +243,7 @@ nextElementSibling     // 指向后一个同辈元素
 ```
 
 
-<br/>
+
 #### 2.5 文档写入
 将输出流写入到网页的能力: `write(), writeIn(), open(), close()`。如果在文档结束后再调用`document.write()`，那么输出的内容将会重写整个页面。
 ```
@@ -254,8 +254,8 @@ document.write("<script type=\"text/javascript\" src=\"file.js\">" + "<\/script>
 
 
 
-<br/>
-<br/>
+
+
 ### 3. Element
 Element类型用于表现XML或HTML元素，提供了对元素标签名、子节点及特性的访问。
 
@@ -280,7 +280,7 @@ HTMLOptionElement, HTMLParagraphElement, HTMLScriptElement, HTMLStyleElement,
 HTMLTableElement
 ```
 
-<br/>
+
 #### 3.2 元素特性
 - 获取元素特性
 开发人员经常直接使用元素的属性，只有在取自定义特性值的情况下，才会使用`getAttribute()`方法。
@@ -316,7 +316,7 @@ for ( var i = 0; i < element.attributes.length; i++ ){
 }
 ```
 
-<br/>
+
 #### 3.3 创建元素
 ```js
 var div = document.createElement("div");
@@ -336,7 +336,7 @@ div.normalize();  // div.firstChild.nodeValue == "hello!!!"
 document.body.appendChild(div);
 ```
 
-<br/>
+
 #### 3.4 文本节点
 Text节点具有以下特征
 - nodeType = 3
@@ -359,7 +359,7 @@ div.firstChild.nodeValue = "Some other message"
 div.firstChild.nodeValue = "<strong></strong>"  // 会被转义
 ```
 
-<br/>
+
 ### 4. DOM操作技术
 #### 4.1 动态添加js/css
 - 添加js
@@ -414,7 +414,7 @@ tbody.rows[0].insertCell(1);
 tbody.rows[0].cells[1].appendChild(document.createTextNode("456"))
 ```
 
-<br/>
+
 #### 4.3 减少DOM操作
 `NodeList, NamedNodeMap 和 HTMLCollection`这三个集合都是动态的。当文档结构发生变化时，它们都会得到更新。从本质上，所有NodeList对象都是在访问DOM文档时实时运行的查询。
 
@@ -446,7 +446,7 @@ div.classList.contains("bd")
 div.classList.toggle("user")   
 ```
 
-<br/>
+
 #### 5.2 focus()
 `document.activeElement`始终会引用DOM中当前获得焦点的元素。默认情况下，文档刚刚加载完时，document.activeElement保存的是document.body元素
 ```js
@@ -456,13 +456,13 @@ console.log(document.activeElement === button)  // true
 console.log(docuemnt.hasFocus())                // true
 ```
 
-<br/>
+
 #### 5.3 其他
 - document.readyState
 document.readyState === "loading" 正在加载文档
 document.readyState === "complete" 已经加载完文档
 
-<br/>
+
 - data-
 为元素提供与渲染无无关的信息，要添加前缀data-
 `<div class="myDiv" data-appID="12345" data-myname="Nicholas"><div>`
@@ -477,7 +477,7 @@ div.dataset.appId = "23456";
 if (div.dataset.myname){}
 ```
 
-<br/>
+
 - contains()
 检查某个节点是不是另一个节点的后代。 `compareDocumentPosition()`也能确定节点间的关系，支持IE9+。返回1-无关， 2-位于参考节点前， 4- 位于参考节点后， 8-包含， 16-被包含。
 ```js
@@ -485,7 +485,7 @@ document.documentElement.contains(document.body)  // true
 document.documentElement.compareDocumentPosition(document.body)
 ```
 
-<br/>
+
 - 插入标记
 1. innerHTML
 直接插入HTML字符串。通过innerHTML插入script元素并不会执行其中的脚本，但是支持通过innerHTML插入style元素。
@@ -525,11 +525,11 @@ for( var i = 0; i < 10; i++){
 ul.innerHTML = itesHTML;
 ```
 
-<br/>
+
 - 插入文本
 innerText和outeText不是HTML5的属性。但IE4, safari, opera, chrome支持innerText, firefox虽然不支持，但支持作用类似的textContent。
 
-<br/>
+
 - 滚动 
 scrollIntoView()
 通过滚动浏览器窗口或某个容器元素，调用元素可以出现在视口中。
@@ -537,8 +537,8 @@ scrollIntoView()
 document.form[0].scrollIntoView()
 ```
 
-<br/>
-<br/>
+
+
 ### 6.2 DOM2和DOM3
 #### 6.1 style
 行内style对象，包含着通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表层叠而来的样式。
@@ -556,7 +556,7 @@ div.style.item(index)  // 返回给定位置的CSS属性的名称
 ```
 
 
-<br/>
+
 #### 6.2 getComputedStyle
 getComputedStyle()方法接受两个参数：要计算样式的元素和一个伪元素字符串(:after, 可以是null)。返回一个CSSStyleDeclaration对象，其中包含当前元素的所有计算的样式。
 ```js
@@ -571,7 +571,7 @@ computedStyle.backgroundColor;
 ```
 
 
-<br/>
+
 #### 6.3 CSSStylesSheet
 向现有样式表中添加新规则
 ```js
@@ -597,7 +597,7 @@ function deleteRule(sheet, index){
 deleteRule(document.styleSheets[0], 0);
 ```
 
-<br/>
+
 #### 6.4 offsetHeight, clientHeight, scrollHeight
 *offsetHeight*
 通过下列4个属性获取元素的偏移量: offsetHeight, offsetWidth, offsetLeft, offsetTop。要想知道某个元素在页面上的偏移量，将这个元素的offsetLeft和offsetTop与其offsetParent的相同属性相加，如此循环直至根元素，就可以得到一个基本准确的值。
@@ -617,7 +617,7 @@ function getElementTop(element){
 }
 ```
 
-<br/>
+
 *clientHeight*
 元素内容及其内边距所占据的空间大小: clientWidth 和 clientHeight。最常用到的是，确定浏览器视口大小，可以使用document.documentElement 或 document.body 的 clientWidth 和 clientHeight。
 <img src="4.png" style="max-width:350px; margin-top:20px">
@@ -625,7 +625,7 @@ function getElementTop(element){
 document.body.clientWidth || document.documentElement.clientWidth
 ```
 
-<br/>
+
 *scrollHeight*
 scrollHeight: 元素内容的总高度
 scrollWidth: 元素内容的总宽度
@@ -640,7 +640,7 @@ var docHeight = Math.max(document.documentElement.scrollHeight, document.documen
 ```
 
 
-<br/>
+
 #### 6.5 getBoundingClientRect
 给出了元素在页面中相对视口的位置，包含4个属性: left, top, right, bottom。`-scrollTop`是为了防止调用这个函数时窗口被滚动了。
 
@@ -665,4 +665,4 @@ function getBoundingClientRect(element){
   }; 
 }
 ```
-<br/>
+

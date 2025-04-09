@@ -1,7 +1,7 @@
 ---
 title: Unity 仿星露谷
 date: 2024-12-30 15:39:26
-categories: 动画/媒体
+categories: Other
 ---
 
 ### 资源
@@ -23,7 +23,7 @@ Scene
 - Player
 - Grid - Tilemap
 
-<br/>
+
 
 ### 1. 角色移动
 1. 导入资源
@@ -93,7 +93,7 @@ Scene
       Player_Idol_Up: 0 1 1
   - 删除emptyState, 替换为Idol为默认状态，重新设置连线的condition
 
-<br/>
+
 
 ### 2. 瓦片地图
 1. 导入资源
@@ -124,7 +124,7 @@ Scene
   - Interactable: 可以交互的瓦片地图，种植
   - Game: 主角，npc
 
-<br/>
+
 
 
 

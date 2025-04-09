@@ -1,10 +1,9 @@
 ---
 title: 🤔 Lottie 动画
 date: 2024-11-13 10:26:58
-category: 动画/媒体
+category: CSS
 ---
 Lottie是 airbnb 开源的可应用于Web, Android, iOS,Windows动画库。它提供了一套从 AE 到各个终端的工具流，设计师通过 AE 将做好的动画导出成json，再通过 Lottie 各端的库就可以实现动画效果，动画还原度 100%。
-
 - [各种动画Demo](https://codepen.io/collection/nVYWZR/)
 - [lottie动画资源库：https://lottiefiles.com](https://lottiefiles.com/)
 
@@ -2694,7 +2693,7 @@ lottie.play();
 </script>
 {% endraw %}
 （有这东西还手写啥动画~）
-<br/>
+
 
 
 ### 1. 使用方法
@@ -2741,11 +2740,11 @@ segmentStart | 每进入一帧就会触发，播放时每一帧都会触发一�
 DOM Loaded | 动画相关的 dom 已经被添加到 html 后触发
 destroy | 将在动画删除时触发
 
-<br/>
 
 
 
-<br/>
+
+
 
 ### 参考资料
 - [飞书中 Lottie 动画的应用](https://juejin.cn/post/6966866737396449316?searchId=2025031820301931F0449995A29C1E9718)

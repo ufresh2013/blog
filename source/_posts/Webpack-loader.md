@@ -17,7 +17,7 @@ Loader的一些特点：
 - `Loader` 分为多种类型：同步、异步和 `pitching`，他们的执行流程不一样；
 - `webpack` 为 `Loader` 提供了一个上下文，有一些 `api` 可以使用；
 
-<br/>
+
 
 ### 1. 最简单的loader
 最简单的loader是一个什么都不做，原样返回JS代码的 loader
@@ -27,7 +27,7 @@ module.exports = function (source) {
 }
 ```
 
-<br/>
+
 
 ### 2. babel-loader
 接收`source`源码，用`babel`编译一下，返回编译后的代码。presets 代表转码规则
@@ -52,7 +52,7 @@ h('p', null, 'KaSong')
 ```
 
 
-<br/>
+
 
 ### 3. css-loader
 一般css的loader都是这样配置
@@ -76,7 +76,7 @@ css-loader 的主要代码包含这两部分：
 - processCss.js 中会调用 postcss 对 css 源码进行解析，然后遍历其中的 declaration 并抽离出 url 和 import 这两种依赖
 - loader.js 会调用 processCss，根据它已经分析出的 url 和 import 依赖关系，在对应的代码中替换成 require，并拼接成段最终的JS返回
 
-<br/>
+
 
 #### 3.1 css modules: 局部样式
 CSS的规则都是全局的，任何一个组件的样式规则，都对整个页面有效。产生局部作用域的唯一方法，就是使用一个独一无二的class的名字，不会与其他选择器重名。这就是 CSS Modules 的做法。
@@ -125,7 +125,7 @@ Webpack将*`style.title`*编译成一个哈希字符串，App.css也会同时被
 }
 ```
 
-<br/>
+
 
 #### 3.2 sass-resources-loader: 全局样式变量
 ```js
@@ -142,7 +142,7 @@ Webpack将*`style.title`*编译成一个哈希字符串，App.css也会同时被
 }
 ```
 
-<br/>
+
 
 ### 4. style-loader
 把样式插入到DOM中，在head中插入一个style标签，并把样式写入到这个标签的innerHTML
@@ -165,7 +165,7 @@ module.exports = function (content) {
 
 
 
-<br/>
+
 
 ### 5. file-loader
 `file-loader`根据配置和文件内容生成一个唯一的文件名，复制文件内容到dist指定目录。
@@ -195,7 +195,7 @@ module.exports = function (content) {
 module.exports.raw = true
 ```
 
-<br/>
+
 
 ### 6. url-loader
 `url-loader`把文件(Buffer)转成base64编码，直接嵌入到CSS/JS/HTML中。
@@ -228,12 +228,12 @@ module.exports = function (content) {
 module.exports.raw = true
 ```
 
-<br/>
+
 
 ### 7. raw-loader
 
 
-<br/>
+
 
 ### 8. vue-loader
 编译以单文件组件的格式撰写 Vue 组件。解析 .vue 中的 `template`、`script`、`style` 后，分别构造一个 import 字符串，然后拼接。

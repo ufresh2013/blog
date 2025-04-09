@@ -19,7 +19,7 @@ var ctx    = canvas.getContext('2d');
 - 坐标
 画布的起点为左上角(坐标(0, 0))，所有元素的位置都相对于原点定位。
 <img src="1.png" style="padding-top:20px; max-width: 380px">
-<br>
+
 
 ### 2. 绘制
 #### 2.1 矩形
@@ -63,7 +63,7 @@ quadraticCurveTo(cplx, cply, x, y)
 bezierCurveTo(cplx, cply, cp2x, cp2y, x, y)
 ```
 <img src="2.png" style="padding-top:20px; max-width: 380px">
-<br>
+
 
 ### 3. 使用样式和颜色
 #### 3.1 描边，填充
@@ -120,7 +120,7 @@ ctx.fillStyle = '#000';
 ctx.fillText('Sample String', 5, 30);
 ```
 
-<br>
+
 
 ### 4. 文本和图片
 ```js
@@ -143,7 +143,7 @@ drawImage(image, x, y, width, height)                               绘制图片
 drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight3) 切片
 ```
 <img src="3.jpg" style="padding-top:20px; max-width: 380px">
-<br>
+
 
 ### 5. 变形 
 #### 5.1 状态的保存和恢复
@@ -166,7 +166,7 @@ ctx.transform(水平方向的缩放，水平方向的倾斜偏移，竖直方向
 ```
 <img src="4.png" style="padding-top:20px; max-width: 380px">
 
-<br>
+
 
 ### 6. 其它
 #### 6.1 动画

@@ -1,7 +1,7 @@
 ---
 title: Markdown 语法
 date: 2017-10-06 11:12:55
-category: Basic
+category: Other
 ---
 #### 1. 标题
 ```
@@ -64,10 +64,10 @@ category: Basic
 
 #### 9. 代码
 {% raw %}
-`单行代码`<br/>
-```<br/>
-  多行代码…<br/>
-  多行代码…<br/>
+`单行代码`
+```
+  多行代码…
+  多行代码…
   `` `
 {% endraw %}
 

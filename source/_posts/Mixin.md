@@ -1,13 +1,13 @@
 ---
 title: Mixin Considered Harmful(译文)
 date: 2019-12-19 09:46:04
-category: React
+category: JS
 ---
 > 最近刚接触Vue，一个Vue实例总是调用一个未定义的方法，仔细一看是引用了Mixin，不看不知道，一看吓一跳。代码里好多Mixin啊。一个Mixin里可能又引用了其他Mixin，最后你没办法知道Mixin里的方法都被哪些组件引用了。难搞哦...
-<br/>之前写React的时候都会封装成组件，来实现代码复用，React倒是没有Mixins这个概念。React官网倒是看到一篇文章 - [Mixins Considered Harmful](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。网上找到了它的[中文版](https://lizhiyao.github.io/2018/01/05/f2e/mixins-considered-harmful/)，在这里留个记录。
+之前写React的时候都会封装成组件，来实现代码复用，React倒是没有Mixins这个概念。React官网倒是看到一篇文章 - [Mixins Considered Harmful](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。网上找到了它的[中文版](https://lizhiyao.github.io/2018/01/05/f2e/mixins-considered-harmful/)，在这里留个记录。
 （后记：后来觉得Mixin真香！一些简单页面，简单固定逻辑，用Mixin会很方便）
 
-<br/>
+
 
 ### **Mixins或许不太好**
 “如何在不同的组件之间进行代码复用？”是人们在学习 React 时首先要问的问题之一，我们的答案始终是使用组件组合来重用代码。你可以定义一个组件并在其他几个组件中使用它。
@@ -20,7 +20,7 @@ React 已经发布三年了，前端领域的技术在这三年中也发生了�
 
 在这篇文章中，我们将思考通常是由 mixin 引起的问题。然后，我们将为相同的用例提出几种替代模式。我们发现随着项目代码复杂度的增加，这些替代的模式的可扩展性比使用 mixin 更好。
 
-<br/>
+
 ### **React为什么不用Mixin**
 在 Facebook，React 的使用量已经从几个组件增长到了成千上万个。这给了我们一个去思考人们该如何更好的使用 React 的窗口。由于声明性渲染和自上而下的数据流，许多团队在采用 React 去实现一些新功能时，能够解决了很多之前难以去解决的 bug。
 
@@ -28,7 +28,7 @@ React 已经发布三年了，前端领域的技术在这三年中也发生了�
 
 这并不意味着 mixin 本身就是坏的。开发者们成功地在不同的语言和范例中使用 mixin，包括在一些函数式编程语言中。在 Facebook，我们广泛使用 Hack 中与 mixin 非常相似的特性。但是，我们依旧认为 mixin 在 React 代码库中是不必要的和有问题的。下面的内容是我们这样认为的原因。
 
-<br/>
+
 ### **Mixin 引入了隐式依赖关系**
 有时一个组件依赖于mixin中定义的某个方法，比如getClassName（）。有时候是相反的，mixin在组件上调用renderHeader（）方法。 JavaScript是一种动态语言，所以很难执行或记录这些依赖关系。
 
@@ -38,7 +38,7 @@ Mixin打破了常见且通常安全的假设，即可以通过在组件文件中
 
 mixin经常依赖于其他的mixin，而删除其中的一个会打破另一个。在这些情况下，告诉数据如何进出mixin是非常棘手的，以及它们的依赖关系图是什么样的。与组件不同，mixin不构成层次结构：它们被夷为平地并在相同的名称空间中运行。
 
-<br/>
+
 ### **Mixins导致名称冲突**
 不能保证两个特定的mixin可以一起使用。例如，如果FluxListenerMixin定义了handleChange（）和WindowSizeMixin定义了handleChange（），则不能一起使用它们。你也不能在你自己的组件上定义一个带有这个名字的方法。
 
@@ -48,7 +48,7 @@ mixin经常依赖于其他的mixin，而删除其中的一个会打破另一个�
 
 mixin作者的情况并不好。即使向mixin添加一个新的方法总是一个潜在的重大改变，因为一个名称相同的方法可能已经存在于一些使用它的组件，直接或通过另一个mixin。一旦写入，mixin很难删除或更改。不好的想法不会被重构，因为重构风险太大。
 
-<br/>
+
 ### **Mixin导致复杂的滚雪球**
 即使mixin开始简单，随着时间的推移，它们往往会变得复杂。下面的例子是基于我在代码库中看到的真实场景。
 
@@ -63,7 +63,7 @@ mixin作者的情况并不好。即使向mixin添加一个新的方法总是一�
 这些与我们在React之前构建应用程序的问题是一样的。我们发现它们是通过声明性渲染，自顶向下的数据流和封装组件来解决的。在Facebook上，我们一直在迁移我们的代码以使用替代模式来混合，我们对结果普遍感到满意。你可以阅读下面的模式。
 
 
-<br/>
+
 ### 参考资料
 - [Mixins Considered Harmful](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)
 - [Mixins 或许不太好](https://lizhiyao.github.io/2018/01/05/f2e/mixins-considered-harmful/)

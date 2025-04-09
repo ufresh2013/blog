@@ -6,13 +6,13 @@ category: NodeJS
 
 > JS原来只运行在浏览器中。Node.js和npm的诞生，让js可以操作文件，网络传输，使得前端拥有了工程化的可能，大大减少了重复性工作（包资源管理、热更新机制、webpack打包）。
 
-<br/>
+
 
 ### 1. 在没有包管理器前
 正确来说 Node.js 是不存在没有包管理器的时期的。2009 年 Node.js 问世的时候 NPM 的雏形也发布了。
 而在2009年之前，那时候做得最多的事情是：在网上找包，如 jQuery。找到下载地址，下载 放到项目中一个叫 libs 的目录，或者直接将 CDN 链接粘贴到 HTML 中。
 
-<br/>
+
 
 ### 2. npm v1-v2
 2009 年，Node.js 诞生，npm（Node.js Package Manager）的雏形也正在酝酿。
@@ -23,7 +23,7 @@ category: NodeJS
 
 （node_modules文件夹无法删除，因为超过了windows能处理的最大路径）
 
-<br/>
+
 
 ### 3. yarn & npm v3
 2016年，yarn诞生了。yarn解决了npm几个最为迫在眉睫的问题：
@@ -33,7 +33,7 @@ category: NodeJS
 
 yarn最大的贡献是发明了*yarn.lock依赖锁*。这一扁平化结构，使得实际需要安装的包数量大大减少，再加上首发的缓存机制，使得依赖安装的速度大幅提升。而npm在一年后的v5才跟上了步伐，发布了package-lock.json。在没有依赖锁的年代，即使没有改变一行代码，一次`npm install`带来的实际代码量变更很可能是巨大的。
 
-<br/>
+
 
 
 ### 4. 输入*`npm install`*会发生什么？
@@ -53,7 +53,7 @@ yarn最大的贡献是发明了*yarn.lock依赖锁*。这一扁平化结构，�
 4. 模块扁平化
 一个项目里面可能会包含大量重复模块。A模块依赖于lodash，B模块也依赖于lodash。从 npm3 开始默认加入了一个 dedupe 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是 node-modules 的第一层。当发现有重复模块时，则将其丢弃。
 
-<br/>
+
 
 
 
@@ -95,7 +95,7 @@ node_modules
 ```
 
 
-<br/>
+
 
 ### 参考资料
 - [介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/22)

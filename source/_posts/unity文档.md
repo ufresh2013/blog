@@ -54,7 +54,7 @@ public class MainPlayer : MonoBehaviour
 
 
 
-<br/>
+
 
 #### 1.2 GameObject
 用于表示任何可以存在于场景中的事物
@@ -182,10 +182,10 @@ transform.Translate(direction * speed * Time.deltaTime); // 位移
 #### 1.7 Canvas
 EventSystem 是专门为UI服务的
 - `EventSystem.current.IsPointerOverGameObject()` 判断鼠标是否在物体上
-<br/>
 
 
-<br/>
+
+
 
 ### 2. 动画
 `Animator`动画
@@ -242,7 +242,7 @@ private void Update()
 
 ```
 
-<br/>
+
 
 ### 6. Attributes
 - `[Serializable]`

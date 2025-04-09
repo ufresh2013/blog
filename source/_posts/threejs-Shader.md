@@ -1,7 +1,7 @@
 ---
 title: 理解 Shader
 date: 2024-12-02 23:12:23
-category: 动画/媒体
+category: Other
 ---
 ### 1. 点线面体
 我们绘制一个宽高`1*1`的平面，开启线框模式 *`wireframe: true`*。
@@ -30,7 +30,7 @@ scene.add(mesh);
 #### 1.1 `position` 
 顶点坐标
 <img src="3.jpg" style="max-width:500px">
-<br/>
+
 
 
 

@@ -26,7 +26,7 @@ console.log(obj); // { a: 2 }
 obj = { a: 2 }; // TypeError: Assignment to constant variable.
 ```
 
-<br>
+
 
 ### 2. 模板字面量(\`\`)
 
@@ -48,7 +48,7 @@ var b = `hello, ${count}`;
 var c = `hello, ${(count * 2).toFixed(2)}`;
 ```
 
-<br>
+
 
 ### 3. 函数
 #### 3.1 默认参数
@@ -91,7 +91,7 @@ lect c = (num1, num2) => {
 let d = id => ({ id: id, name: 'Temp'}) // 让箭头向外返回一个对象，应包裹在小括号里
 ```
 
-<br>
+
 
 ### 4. 对象
 #### 4.1 简写、可计算的属性名
@@ -114,7 +114,7 @@ Object.assign({}, { type: 'js', name: 'file.js' }, { type: 'css' });
 console.log(receiver.type); // 'css'
 ```
 
-<br>
+
 
 ### 5. 解构赋值
 “模式匹配”的写法，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
@@ -141,7 +141,7 @@ console.log(firstColor); // "red"
 const [a, b, c, d, e] = 'hello';
 ```
 
-<br>
+
 
 ### 6. Class
 ES6 使用`class`，取代需要`prototype`的操作。用`constructor`方法名来定义构造函数。
@@ -158,7 +158,7 @@ class Rectangle {
 }
 ```
 
-<br>
+
 
 ### 7. 模块
 模块是一种打包和封装功能的方式，模块的行为与脚本不同，模块不会将它的顶级变量、函数和类修改为全局作用域，而且`this`的值为`undefined`。
@@ -197,7 +197,7 @@ export class Rectangle {
 </script>
 ```
 
-<br>
+
 
 ### 8. Set, WeakSet, Map, WeakMap，{}
 #### 8.1 Set 过滤重复值
@@ -252,11 +252,11 @@ index:C  value:bar-C
 在 V8 内部，为了有效地提升存储和访问这两种属性的性能，分别使用了两个线性数据结构来分别保存**数字属性 element**和**字符串属性 properties**。
 
 
-<br/>
+
 
 ### 9. Promise
 
-<br/>
+
 
 ### 10. Symbol
 ES5 的对象属性名都是字符串，这容易造成属性名的冲突。ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。
@@ -282,14 +282,14 @@ var obj = new Proxy({}, {
 ### 12. Reflect
 每一个Proxy对象的拦截操作（get、delete、has），内部都调用对应的Reflect方法，保证原生行为能够正常执行。
 
-<br/>
+
 
 ### 10. ES8
 #### 10.1 async/await
 #### 10.2 Object.values() / Object.entries()
 
 
-<br/>
+
 
 ### 11. ES2020
 #### 11.1  *`?.`* 可选链操作符
@@ -301,7 +301,7 @@ var obj = new Proxy({}, {
 `const name = user.name ?? 'Guest';`，如果user.name不存在或为null/undefined
 
 
-<br>
+
 
 ### 参考资料
 - 《深入理解ES6》NICHOLAS C.ZAKAS

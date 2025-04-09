@@ -1,7 +1,7 @@
 ---
 title: Shader GLSL语法
 date: 2024-12-02 23:12:24
-category: 动画/媒体
+category: Other
 ---
 > 着色器是一种使用*`GLSL`*语言编写的运行在*`GPU`*上的程序。是屏幕上呈现画面前的最后一步，用它可以实现对先前渲染结果进行修改（如颜色、位置），从而实现高级的渲染效果。在 `Three.js` 中，需要使用 `GLSL` 语言来编写着色器，全称是 `OpenGL Shading Language`，意为 `OpenGL` 中的着色语言。
 
@@ -58,7 +58,7 @@ vec4 e = vec4(vec3(1.0), 1.0);
 vec4 e = vec4(vec2(0.3), vec2(0.1));
 ```
 
-<br/>
+
 
 ### 2. 修饰符
 GLSL约定俗成地将 `attribute`变量用`a`开头如`aRadom`，`uniform`的用`u`开头如`uTime`，`varying`的用`v`开头如`vUv`.
@@ -100,7 +100,7 @@ void main() {
 ```
 
 
-<br/>
+
 
 ### 3. 内置函数
 #### 3.1 运算函数
@@ -128,7 +128,7 @@ void main() {
 - *`step(x, a)`*：x < a返回 0.0，否则返回 1.0。常用于生成阶梯效果
 - *`smoothstep(t1, t2, x)`*: 在t1到t2之间平滑过度，小于t1时返回0，大于t2时返回1。常用于实现颜色渐变、物体平滑移动
 - *`mix(colorA, colorB, a)`*：返回`colorA * (1−a) + colorB * a`。 颜色函数，常用于混合colorA和colorB, a是混合系数，范围为0到1。当a为0时，混合后的值等于x；当a为1时，混合后的值等于y；当a在0到1之间时，混合后的值是x和y的线性插值。实现颜色渐变、透明度混合
-<br/>
+
 
 #### 3.2 几何函数
 - *`length(vec2 p)`*: 计算向量的长度
@@ -138,7 +138,7 @@ void main() {
 - *`normalize(x)`*：返回与 x 向量方向相同，长度为 1 的向量
 
 
-<br/>
+
 
 #### 3.3 noise噪声
 noise 函数能使相邻的点（一维、二维、三维的点都行）产生相近的数值，而不是 random 随机函数那种每个位置的数值都和附近无关的效果。
@@ -195,7 +195,7 @@ gl_FragColor = vec4(color, 1.0);
 
 
 
-<br/>
+
 
 #### 4.2. 绘制图形
 ##### 4.2.1 圆形
@@ -284,7 +284,7 @@ float mixer = abs(mask1 - mask2);
 vec3 color = mix(color1, color2, mixer);
 gl_FragColor = vec4(color, 1.0);
 ```
-<br/>
+
 
 ### 参考资料
 - [The Books of Shaders](https://thebookofshaders.com/)

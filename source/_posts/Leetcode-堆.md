@@ -8,7 +8,7 @@ category: LeetCode
 借助于堆(Heap)这种数据结构，快速获取数据流中最大值，最小值。
 
 
-<br/>
+
 
 ### 1. 堆(Heap)
 堆是一种特殊的树。只要满足这两点，它就是一个堆
@@ -30,7 +30,7 @@ class Heap {
 
 堆的初始化，插入元素，获取堆顶元素的方法都有了。Leetcode题就是简单地对数组进行堆排序，然后取值了。
 
-<br/>
+
 
 ### 2. 相关LeetCode题目
 包括查找数组中的最大K个数，最小K个数。
@@ -40,7 +40,7 @@ class Heap {
 - [Offer40.最小的K个数](https://github.com/ufresh2013/-algorithm015/blob/master/Heap/Offer40.%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0.md) 
 
 
-<br/>
+
 
 #### **Offer40.最小的K个数**
 ```js
@@ -62,7 +62,7 @@ var getLeastNumbers = function(arr, k) {
 ```
 但是，`MinHeap`最小堆怎么实现呢？由于JS没有堆这种基础数据，我们要自己手动实现堆。
 
-<br/>
+
 
 ### 3. JS如何实现堆
 #### 3.1 如何表示一个堆
@@ -79,7 +79,7 @@ var getLeastNumbers = function(arr, k) {
 [undefined, 7, 5, 6, 4, 2, 1]
 ```
 
-<br/>
+
 
 #### 3.2 实现大顶堆
 保证堆顶元素最大
@@ -138,7 +138,7 @@ class MaxHeap {
 }
 ```
 
-<br/>
+
 
 #### 3.3 实现小顶堆
 保证堆顶元素最小
@@ -188,4 +188,3 @@ class MinHeap {
   }
 }
 ```
-<br/>

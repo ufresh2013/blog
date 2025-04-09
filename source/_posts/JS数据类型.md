@@ -32,7 +32,7 @@ typeof null           // 'object' js的bug导致返回object
 
 
 
-<br/>
+
 
 ### 2. Object.prototype.toString.call
 Object.prototype.toString.call() 判断对象属于哪个内置类型。
@@ -57,7 +57,7 @@ Object.prototype.toString.call(Math)            // "[Object Math]"
 
 
 
-<br/>
+
 
 ### 3. constructor
 constructor用于判断对象的构造函数是谁
@@ -86,7 +86,7 @@ m.constructor === Math            // false,事实上没有Math这个构造函数
 ```
 
 
-<br/>
+
 
 ### 4. instanceof
 检测构造函数的`prototype`属性是否出现在对象原型链中的任何位置。使用对象必须是一个object，判断对象继承于哪个对象。
@@ -124,7 +124,7 @@ function new_instance_of(leftValue, rightValue) {
 
 
 
-<br/>
+
 
 ### 5. 常用判断
 ```js
@@ -143,7 +143,7 @@ Object.prototype.toString.call([1,2]) === '[object Array]'
 ```
 
 
-<br/>
+
 ### 参考文章
 - [JS灵巧判断7种类型的方式](https://juejin.im/post/5aba32d9f265da239e4e1b6c)
 - [谈谈 Object.prototype.toString](https://juejin.im/post/591647550ce4630069df1c4a)

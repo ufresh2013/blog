@@ -1,7 +1,7 @@
 ---
 title: 🤔 逻辑复用范式 - 从 mixin、高阶组件到 Hooks
 date: 2025-02-05 16:52:30
-category: React
+category: JS
 ---
 > 本文记录《B站·跟尤雨溪一起解读Vue3源码》中，尤雨溪对于逻辑复用演化过程的讲解
 
@@ -30,7 +30,7 @@ const App = {
 ```
 
 
-<br/>
+
 
 ### 1. mixin
 第一种方法`mixin`。提取mixin很容易，把数据和逻辑提取出来，放入`mixins`。
@@ -68,7 +68,7 @@ const App = {
   template: `{{ x }} {{ y }}`,
 }
 ```
-<br/>
+
 
 
 ### 2. 高阶组件
@@ -121,7 +121,7 @@ const App = withFoo(withAnother(withMouse({
 ```
 
 
-<br/>
+
 
 ### 3. slot
 在vue中，跟高阶组件相似的是slot。把数据逻辑封装在`<Mouse />`中，`x, y`作为参数传递给slot
@@ -174,7 +174,7 @@ const App = {
 slot看似同时解决了注入源不明、命名冲突的问题。
 但slot额外产生了组件，增加了性能开销
 
-<br/>
+
 
 ### 4. Hooks
 `React Class Component` 和`vue2 option`，把`data, method`都绑定在一起，把它们挪到组件外是一个代价很大的行为。
@@ -214,7 +214,7 @@ export default {
 }
 ```
 
-<br/>
+
 
 
 ### 参考资料

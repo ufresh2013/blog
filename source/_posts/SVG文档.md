@@ -4,7 +4,7 @@ date: 2018-11-06 09:34:11
 category: HTML
 ---
 SVG文档由`<svg>`根元素和基本形状元素(用于定义圆形、矩形、简单或复杂的曲线)构成。还有一个`<g>`元素，用来把若干基本形状编成一个组。SVG支持渐变、旋转、滤镜效果、JS接口等功能。
-<br>
+
 
 ### 1. 基本属性
 - `version 和 baseProfile` : 用于确定SVG版本,是必不可少的。
@@ -20,7 +20,7 @@ SVG文档由`<svg>`根元素和基本形状元素(用于定义圆形、矩形、
 </svg>
 <object data="image.svg" type="image/svg+xml" />
 ```
-<br>
+
 
 ### 2. 基本形状
 - 矩形
@@ -58,7 +58,7 @@ points="x1 y1, x2 y2, x3 y3" 点集数列，路径最后一个点自动回到第
 ```
 <polygon points="50 160, 55 180, 70 180, 60 190, 65 205, 50 195, 35 205, 40 190, 30 180, 45 180" />
 ```
-<br>
+
 
 ### 3. 路径
 *d*: 命令+参数的序列，关于如何绘制路径的信息。**命令方式** : 一种用大写字母，表示采用绝对定位。另一种用小写字母，表示采用相对定位。
@@ -83,8 +83,8 @@ points="x1 y1, x2 y2, x3 y3" 点集数列，路径最后一个点自动回到第
 ```
 <img src="1.png" style="max-width: 380px">
 
-<br>
-<br>
+
+
 ##### 3.2.2 二次贝塞尔曲线
 T命令前面必须是一个Q命令，或者是另一个T命令，控制点为前一个控制点的对称点。
 ```
@@ -93,8 +93,8 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
 ```
 <img src="2.png" style="max-width: 380px">
 
-<br>
-<br>
+
+
 ##### 3.2.3 弧形
 
 ```
@@ -117,7 +117,7 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
 </svg>
 ```
 <img src="3.png" style="max-width: 380px">
-<br>
+
 
 ### 4. 填充与边框
 - 上色 : stroke, fill, stroke-opacity, fill-opacity
@@ -140,7 +140,7 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
 <path d="M 10 75 Q 50 10 100 75 T 190 75" stroke="black"
     stroke-linecap="round" stroke-dasharray="5,10,5" fill="none"/>
 ```
-<br>
+
 
 ### 5. 渐变与图案
 - 线性渐变
@@ -169,7 +169,7 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
    </radialGradient>
 </defs>
 ```
-<br>
+
 
 - 图案
 *`<pattern>`* 需要放在SVG文档的defs内部。pattern定义了一个单元系统，在pattern元素内你可以包含任何基本形状。
@@ -182,7 +182,7 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
 </defs>
 <rect fill="url(#Pattern)" stroke="black" x="0" y="0" width="100" height="100">
 ```
-<br>
+
 
 ### 6. 文本
 *`<text>属性`* 
@@ -206,7 +206,7 @@ T命令前面必须是一个Q命令，或者是另一个T命令，控制点为�
    <textPath xlink:href="#my_path">Hello</textPath>
 </text>
 ```
-<br>
+
 
 ### 7. 变形,剪切,遮罩
 - 变形 
@@ -245,7 +245,7 @@ scale(0.5)           // 缩放
 <image x="0" y="0" width="10" height="10" transform="rotate(45)" xlink:href="1.png"/>
 ```
 - 可嵌入任意XML
-<br>
+
 
 ### 8. 动画
 {% raw %}
@@ -264,7 +264,7 @@ scale(0.5)           // 缩放
 </svg>
 {% endraw %}
 
-<br>
+
 
 
 ### 9. SVG Animation
@@ -299,7 +299,7 @@ This example animate the `cx` attribute of the `<circle>` element from a value o
 - *`<animateTransform>`*
 The `<animateTransform>` element can animate the `transform` attribute of a shape.
 The example animates the `transform` attribute of the `<rect>` element it is nested inside. The `type` attribute is set to `rotate` meaning the animated transformation will be a rotation. The `from` and `to` attributes set the parameters to be animated and passed to `rotate` function. This example rotates from a degree of 0 to a degree of 360 around point 5,5.
-<br>
+
 
 {% raw %}
 <svg width="50" height="50">
@@ -334,7 +334,7 @@ The example animates the `transform` attribute of the `<rect>` element it is nes
     />
 </rect>
 ```
-<br>
+
 
 - *`<animateMotion>`*
 The `<animateMotion>` element can animate the movement of a shape along a path.
@@ -347,12 +347,12 @@ In order to rotate the square to align with the slope of the path, you can set t
 </svg>
 ```
 <img src="1.jpeg" style="max-width: 380px">
-<br>
+
 
 
 -  *Time Units*
 h, min, s, ms, hh:mm:ss
-<br>
+
 
 
 - *Coordinating Animations*
@@ -369,7 +369,7 @@ The `begin` attribute value is set to `one.end` which means that this animation 
     />
 </rect>
 ```
-<br>
+
 
 -  *Repeating Animations*
 There are two attributes you can use inside an animation element which are used to repeat the animation. 
@@ -384,7 +384,7 @@ The second attribute is the `repeatDur` which specifies a duration for which the
   // repeatDur="30s"
   />
 ```
-<br>
+
 
 - *Combining Animations*
 You can combine animations by listing more than one `<animation>` inside the element to animate. 
@@ -409,7 +409,7 @@ Here is an example which both scales and rotates a rectangle.
   />
 </rect>
 ```
-<br>
+
 
 
 ### 10. SVG Scripting
@@ -444,7 +444,7 @@ Here is a simple SVG scripting example which changes the dimensions of an SVG re
   }
 </script>
 ```
-<br>
+
 
 
 #### 10.2 Event Listeners
@@ -464,7 +464,7 @@ You can add event listeners to an SVG shape directly in the SVG if you want. You
   /> 
 </svg>
 {% endraw %}
-<br>
+
 
 #### 10.3 Animating SVG Shapes
 In order to animate an SVG shape you need to call a Javascript function repeatedly. The function changes the position or dimensions of a shape.
@@ -500,7 +500,7 @@ In order to animate an SVG shape you need to call a Javascript function repeated
         circle.setAttribute("cx", newX);
     }
 </script>
-<br/>
+
 <input type="button" value="Start Animation" onclick="startAnimation();">
 <input type="button" value="Stop Animation" onclick="stopAnimation();">
 {% endraw %}

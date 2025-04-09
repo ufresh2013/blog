@@ -51,7 +51,7 @@ category:
 - *数据类型*: Boolean, null, undefined, Number, String, Symbol, Object
 
 - *false等效值*: false, undefined, null, 0, NaN, ''(空字符串)
-<br>
+
 
 #### 1.2 循环和迭代
 - break
@@ -59,7 +59,7 @@ category:
 
 - continue
 `continue`语句可以用来继续执行（跳过代码块的剩余部分并进入下一个循环）一个while, do-while, for语句
-<br>
+
 
 #### 1.3 函数
 在函数内定义的变量不能在函数之外的任何地方访问，相应的，一个函数可以访问定义在其范围内的任何变量和函数。
@@ -81,7 +81,7 @@ parseFloat()  | 返回一个浮点数
 parseInt()    | 返回一个整数
 encodeURI()、encodeURIComponent()  | 把字符串作为URI进行编码
 decodeURI()、decoreURIComponent()  | 对encodeURI()编码过的URI进行解码
-<br>
+
 
 #### 1.4 表达式和运算符
 | 一元操作符/关系操作符 |
@@ -90,7 +90,7 @@ delete	    | `delete objectName` / `delete objectName.property` / `delete arrayN
 typeof      | 返回一个变量的类型的字符串值 `return "function/string/number/object/undefined/boolean"`
 in          | `index in Array`, `propertName in object`，如果所指定的属性存在于对象中，则返回`true`
 instanceof  | 判断对象是不是所指定的类型`objectName instanceof objectType`
-<br>
+
 
 #### 1.5 Number对象
 - *Number的方法*
@@ -99,7 +99,7 @@ instanceof  | 判断对象是不是所指定的类型`objectName instanceof obje
   **toExponential()**: 返回一个数字的指数形式的字符串，形如: 1.23e+2; 
   **toFixed()**: 返回指定小数位数的表示形式，`var a = 123; a.toFixed(2) // 123.00`
   **toPrecision()**: 返回一个指定精度的数字， `var a = 123; a.toPrecision(2) // 1.2e+2`
-<br>
+
 
 #### 1.6 Math对象
 - *Math常用方法*
@@ -110,7 +110,7 @@ instanceof  | 判断对象是不是所指定的类型`objectName instanceof obje
   **round(3.1415926,2)=3.14**
 - *Math计算方法*
   PI, abs(), sin(),sqrt(), log10()等
-<br>
+
 
 #### 1.7 Date对象
 Date是以1970年1月1日00:00:00以来的毫秒数来存储。
@@ -128,7 +128,7 @@ Date是以1970年1月1日00:00:00以来的毫秒数来存储。
   today.getTime()       // 返回1970年1月1日至今的毫秒数  
 
 ```
-<br>
+
 
 #### 1.8 String
 String用于表示文本型的数据，它是由无符号整数值(16bit)作为元素而组成的集合。Unicode转义序列在\u之后需要至少4个字符。
@@ -162,7 +162,7 @@ trim                             | 去掉字符串开头和结尾的空白字符
    "fifteen is" + (a + b) + "years old"
    `fifteen ${ a + b } years old`
 ```
-<br>
+
 
 #### 1.9 正则表达式
 ` let regex = new RegExp(/^[a-zA-Z]+[0-9]*W?_$/, "gi")`
@@ -175,7 +175,7 @@ match   | 在字符串中查找匹配的string方法，返回一个数组或null
 search  | 在字符串中测试匹配的string方法，返回匹配到的位置索引，或-1
 replace | 在字符串中查找匹配的string方法，并且替换字符串
 split   | 使用正则分隔一个字符串，存储到数组中
-<br>
+
 
 #### 1.10 Array对象
 数组是一个有序的数据集合，我们可以通过数组名称和索引进行访问。
@@ -221,7 +221,7 @@ slice 不会修改原数组，只会返回一个浅复制了原数组中的元�
 如果该元素是个对象引用 （不是实际的对象），slice 会拷贝这个对象引用到新的数组里。两个对象引用都引用了同一个对象。如果被引用的对象发生改变，则新的和原来的数组中的这个元素也会发生改变。
 对于字符串、数字及布尔值来说（不是 String、Number 或者 Boolean 对象），slice 会拷贝这些值到新的数组里。在别的数组里修改这些字符串或数字或是布尔值，将不会影响另一个数组
 
-<br>
+
 
 #### 1.11 Map对象
 一个Map对象是一个简单的键值对映射集合，可以按照数据插入时的顺序遍历所有的元素。
@@ -243,7 +243,7 @@ Object被用于将字符串类型映射到数值。object允许设置键值对�
 - Object的尺寸必须手动计算，Map的尺寸则很容易获得
 - Map的遍历遵循元素的插入顺序
 - Object有原型，所有映射中有一些缺省的值
-<br>
+
 
 #### 1.12 Set对象
 Set对象是一组值得集合，这些值都是不重复的， 可以按照添加顺序来遍历。
@@ -265,7 +265,7 @@ Set对象是一组值得集合，这些值都是不重复的， 可以按照添�
 - Set允许根据值删除元素，而数组中必须用splice方法
 - Array的indexOf无法找到NaN值
 - Set对象存储不重复的值
-<br>
+
 
 #### 1.13 Object
 - 枚举一个对象的所有属性
@@ -319,7 +319,7 @@ Set对象是一组值得集合，这些值都是不重复的， 可以按照添�
 
 - 删除属性: `delete myobj.a`
 - 比较对象: 两个独立声明的对象永远不会相等，即使他们有相同的属性，只有在比较一个对象和这个对象的引用时，才会返回true.
-<br>
+
 
 #### 1.14 Promise
 一个Promise就是一个代表了异步操作最终完成或者失败的对象。
@@ -329,7 +329,7 @@ Set对象是一组值得集合，这些值都是不重复的， 可以按照添�
   .then(result => doSomethingElse(result))
   .catch(failureCallback)
 ```
-<br>
+
 
 #### 1.15 迭代器和生成器
 - *迭代器*
@@ -348,7 +348,7 @@ Set对象是一组值得集合，这些值都是不重复的， 可以按照添�
   console.log(it.next().value) // 2
   console.log(it.next().done)  // true
 ```
-<br>
+
 
 - *生成器*
 使用`function*`语法，函数将变成GeneratorFunction。它允许你定义一个包含自有迭代算法的函数，同时它可以自动维护自己的状态
@@ -362,7 +362,7 @@ Set对象是一组值得集合，这些值都是不重复的， 可以按照添�
   console.log(gen.next().value) // 0
   console.log(gen.next().value) // 1
 ```
-<br>
+
 
 
 ### 2. 中级
@@ -401,7 +401,7 @@ JS常被描述为一种**基于原型的语言**——每个对象拥有一个�
 ```
   person1.constructor 都将返回Person()构造器
 ```
-<br>
+
 
 #### 2.2 重新介绍JS
 - 与大多数编程语言不通，JS没有输入或输出的概念。它是一个在主机环境下运行的脚本语言，任何与外界沟通的机制都是由主机环境提供的。浏览器是最常见的主机环境，但很多程序中也包含JS解释器，如Adobe Acrobat、Photoshop、SVG图像、Nodejs服务器。
@@ -447,7 +447,7 @@ JS具有一种垃圾回收机制——对象在被创建的时候分配内存，
 
 ```
 - 在JS里，对象可以被看作是一组属性的集合。用对象字面量语法来定义一个对象时，会自动初始化一组属性。例如，你定义了一个 var a = "hello"， 那么a本身就会有a.substring这个方法，以及a.length这个属性。
-<br>
+
 
 #### 2.3 闭包
 在这个例子中，`myFunc`是执行`makeFunc`时创建的`displayName`函数实例的引用，而`displayName`实例仍可访问其词法作用域中的变量，即可访问到`name`。由此，当`myFunc`被调用时，`name`仍可被访问，其值`Mozilla`被传递到`alert`中。
@@ -487,7 +487,7 @@ function setupHelp() {
 
 setupHelp();
 ```
-<br>
+
 
 ### 3. 高级
 #### 3.1 继承与原型链
@@ -502,7 +502,7 @@ var o = new Object();
 o.__proto__ = Foo.prototype;
 Foo.call(o);
 ```
-<br>
+
 
 #### 3.2 严格模式
 开启严格模式  `"use strict";`
@@ -522,7 +522,7 @@ Foo.call(o);
 11. eval和arguments不能通过程序语法被绑定或赋值
 12. 参数的值不会随arguments对象的值得改变而改变   | `var a = 17; function f(a){ a = 42 ; console.log(arguments[0] // 17)}`
 13. 不再支持arguments.callee        | 正常模式下,arguments.callee指向当前正在执行的函数
-<br>
+
 
 #### 3.3 内存管理
 内存生命周期： 分配你所需要的内存、使用分配到的内存、不需要时将其释放

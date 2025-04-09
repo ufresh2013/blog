@@ -1,7 +1,7 @@
 ---
 title: Web安全
 date: 2019-02-16 17:57:46
-category: Basic
+category: Other
 ---
 > 浏览器安全可以分为三大块——Web 页面安全、浏览器网络安全和浏览器系统安全。
 ### 1. sql注入
@@ -18,7 +18,7 @@ FROM users
 WHERE id='1' OR '1' = '1'
 ```
 从users表中的所有数据都查询出来，仅仅通过一个简单的恒真表达式。
-<br/>
+
 
 
 
@@ -62,7 +62,7 @@ code:&lt;script&gt;alert(&#39;你被xss攻击了&#39;)&lt;/script&gt;
 - 禁止执行内联脚本
 - 限制加载其他域下的资源
 
-<br/>
+
 
 
 ### 3. CSRF跨站脚本伪造
@@ -110,7 +110,7 @@ http://www.bank.com/transfer.php?toBankId=<账号>&money=<金额>
 
 
 
-<br/>
+
 
 ### 4. 同源策略
 如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源。
@@ -126,10 +126,10 @@ http://www.bank.com/transfer.php?toBankId=<账号>&money=<金额>
 - CSP & CORS: 让服务器决定浏览器能够加载哪些资源，让服务器决定浏览器是否能够执行内联 JavaScript 代码。
 
 
-<br/>
+
 
 ### 5. https
-<br/>
+
 ### 参考资料
 - [简单的 web 安全 checklist](https://cloud.tencent.com/developer/article/1004895)
 - 码农翻身-web安全

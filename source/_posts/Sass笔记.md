@@ -5,7 +5,7 @@ category:
 - CSS
 ---
 Sass是一款强化CSS的辅助功能，它在CSS语法上增加了变量，嵌套，混合，导入等功能。 你还可以通过函数进行颜色值与属性值得运算，使用控制指令(control directives)等高级功能。
-<br/>
+
 
 ### 1. 编译sass
 --watch 监听
@@ -15,7 +15,7 @@ sass input.scss output.scss
 sass --watch input.scss:output.scss
 sass --watch app/sass:public/stylesheets
 ```
-<br/>
+
 
 
 ### 2. 导入sass
@@ -39,7 +39,7 @@ aside{ background: blue }
   aside{ background: blue }
 }
 ```
-<br/>
+
 
 ### 3. 变量
 - *$*
@@ -102,7 +102,7 @@ notice{ @include rounded-corners }
   }
   ```
 
-<br/>
+
 
 ### 4. 其它语法
 - *!default*
@@ -128,7 +128,7 @@ a{
   }
 }
 ```
-<br/>
+
 
 ### 5. SassScript
 #### 5.1 Interactive Shell
@@ -138,7 +138,7 @@ $ sass -i
 >> 1px + 1px
 2px
 ```
-<br/>
+
 
 #### 5.2 变量与运算
 - **支持的数据类型**
@@ -169,7 +169,7 @@ $ sass -i
   opacity($red, 0.3)           = rgba(255,0,0,0.5)
   transparentize($red, 0.25)   = rgba(255,0,0,0.25)
 ```
-<br/>
+
 
 #### 5.3 @media
 @media可以使用SassScript代替条件的名称或值
@@ -181,7 +181,7 @@ $value: 576px;
   .sidebar{ width: 500px }
 }
 ```
-<br/>
+
 
 #### 5.4 @if
 当@if的表达式返回值不是false或null时，条件成立，输出{}内的代码。
@@ -197,7 +197,7 @@ p{
   }
 }
 ```
-<br/>
+
 
 #### 5.5 @for, @each
 ```
@@ -223,7 +223,7 @@ p{
   }
 }
 ```
-<br/>
+
 
 #### 5.6 @while
 ```
@@ -233,7 +233,7 @@ $i: 6;
   $i: $i -2
 }
 ```
-<br/>
+
 
 #### 5.7 @function
 ```

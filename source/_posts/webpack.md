@@ -8,7 +8,7 @@ category: NodeJS
 - npm 是 JS 的包管理系统，但 npm 包不能在 js 中直接引用
 - React, Vue, less, CssModules 等语法在浏览器中无法直接解析
 
-<br/>
+
 
 ### 1. 基本概念
 webpack 是一个静态模块打包工具。当 webpack 处理程序时，它会在内部从一个或多个入口点构建一个 依赖图(dependency graph)，然后将你项目中所需的每一个模块组合成一个或多个 bundles，它们均为静态资源，用于展示你的网页。
@@ -25,7 +25,7 @@ npm install webpack webpack-cli --save-dev
 scripts: { "build": "webpack --config prod.config.js" }
 ```
 
-<br/>
+
 
 #### 1.2 基本组成
 - 配置文件
@@ -77,7 +77,7 @@ scripts: { "build": "webpack --config prod.config.js" }
 - server
   配置webserver
 
-<br/>
+
 
 #### 1.3 简写路径，新增模块目录
 ```js
@@ -93,7 +93,7 @@ resolve: {
 
 
 
-<br/>
+
 
 #### 1.4 optimization
 webpack4开始，不同的mode会执行不同的优化，production与development的区别如下：
@@ -116,7 +116,7 @@ optimization: {
 - 开发环境需要打印 debug 信息
 - 开发环境需要 live reload 或者 hot reload 的功能
 
-<br/>
+
 ### 2. loader + plugin
 #### 2.1 解析ES6、JSX
 `babel-loader`用于解析ES6, JSX语法, babel的配置文件是`.bablerc`
@@ -133,7 +133,7 @@ optimization: {
 }
 
 ```
-<br/>
+
 #### 2.2 解析CSS
 `css-loader`用于加载.css文件，并且转换成commonjs对象
 `style-loader`将样式通过`<style>`标签插入到head中
@@ -192,7 +192,7 @@ plugins: [
 ]
 ```
 
-<br/>
+
 #### 2.3 解析图片字体
 `file-loader`用于处理文件。`url-loader`可以将较小资源转换为base64
 ```js
@@ -216,7 +216,7 @@ plugins: [
 }
 ```
 
-<br/>
+
 #### 2.4 热更新
 文件监听是在发现源码变化时，自动重新构造出新的输出文件。webpack中开启监听模式，有两种方式
 - `webpack --watch`
@@ -242,9 +242,9 @@ devServer: {
 }
 ```
 
-<br/>
 
-<br/>
+
+
 #### 2.6 文件压缩
 `optimize-css-assets-webpack-plugin` CSS压缩
 `uglifyjs-webpack-plugin` JS压缩
@@ -271,7 +271,7 @@ plugins: [
 
 
 
-<br/>
+
 #### 2.7 资源内联
 `raw-loader`内联HTML, JS。内联CSS，用style-loader / html-inline-css-webpack-plugin
 ```html
@@ -279,12 +279,12 @@ plugins: [
 <script>${require('raw-loader!../node-modules/lib-flexible.js')}</script>
 ```
 
-<br/>
+
 
 
 #### 2.8 暴露全局变量
 
-<br/>
+
 ### 3. 优化生产配置
 #### 3.1 Tree-Shaking
 一个模块可能有多个方法，只要其中的某个方法使用到了，则整个文件都会被打到bundle里，tree-shaking只把用到的方法打入bundle，没用到的方法会在uglify阶段被擦除。要求必须是ES6的语法
@@ -292,7 +292,7 @@ plugins: [
 Webpack默认支持开启tree-shaking，设置*`mode: 'production'`*即可。或在.babelrc里设置*`modules: false`*即可。
 
 
-<br/>
+
 
 #### 3.2 Scope Hoisting
 构造后的代码存在大量函数闭包包裹代码，导致体积增大（模块越多越明显）。运行代码时创建的函数作用于变多，内存开销变大。*`Scope Hositing`*译为作用域提升。它将所有模块的代码按照引用顺序放在一个函数作用域里，然后适当的重命名一些变量以防止变量名冲突。从而减少函数声明代码和内存开销。
@@ -300,14 +300,14 @@ Webpack默认支持开启tree-shaking，设置*`mode: 'production'`*即可。或
 Webpack4设置*`mode: production`*，会默认开启scope hoisting。
 Webpack3中需要增加*`new webpack.optimize.MouduleConcatenationPlugin()`*。
 
-<br/>
+
 
 #### 3.1 提取公用资源
 
 提取公共资源
 CommonSplitChunk
 
-<br/>
+
 
 #### 3.4 代码分离
 把代码分离到不同的bundle中，可以按需加载或并行加载这些文件。常用的代码分离有三种：
@@ -390,7 +390,7 @@ export default (loadComponent, placeholder = null) => {
 ```
 
 
-<br/>
+
 ### 4. 加快打包速度
 #### 4.1 缓存加快二次构建
 
@@ -416,7 +416,7 @@ rules: [
 
 #### 4.5 优化显示日志
 
-<br/>
+
 
 ### 5. 实现分包
 默认的分包规则：
@@ -424,7 +424,7 @@ rules: [
 - 异步模块单独组织为一个 chunk
 - entry.runtime 单独组织成一个 chunk
 
-<br/>
+
 
 ### 6. 热更新原理
 Webpack 的热更新又称热替换（Hot Module Replacement），缩写为 HMR。 这个机制可以做到不用刷新浏览器而将新变更的模块替换掉旧的模块。
